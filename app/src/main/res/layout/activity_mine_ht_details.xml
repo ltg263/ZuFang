@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bj_theme"
+    android:orientation="vertical">
+
+    <include layout="@layout/my_toolbar" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="8dp">
+
+                <TextView
+                    android:id="@+id/tv_htbh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="合同编号："
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:id="@+id/tv_qyzt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:text="已到期"
+                    android:textColor="@color/color_999999"
+                    android:textSize="@dimen/sp_12" />
+
+                <ImageView
+                    android:id="@+id/head_icon"
+                    android:layout_width="140dp"
+                    android:layout_height="90dp"
+                    android:layout_below="@id/tv_htbh"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:src="@android:mipmap/sym_def_app_icon" />
+
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/head_icon"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@id/head_icon"
+                    android:text="租房子类型和地址"
+                    android:textColor="@color/color_333333"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_title"
+                    android:layout_alignStart="@id/tv_title"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="工龄1年"
+                    android:textColor="@color/color_999999"
+                    android:textSize="12sp" />
+
+
+                <TextView
+                    android:id="@+id/tv_llcs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/head_icon"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toEndOf="@id/head_icon"
+                    android:gravity="center"
+                    android:text="2020-20-20 11:20:00"
+                    android:textColor="@color/color_999999"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="30dp"
+                android:text="房屋地址"
+                android:textColor="@color/color_666666"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="10dp"
+                android:text="孵化园"
+                android:textColor="@color/color_333333"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.8dp"
+                android:layout_margin="15dp"
+                android:background="@color/color_eeeeee" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="20dp"
+                android:text="合同日期"
+                android:textColor="@color/color_666666"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="10dp"
+                android:text="2020.20.20 11.11.00"
+                android:textColor="@color/color_333333"
+                android:textSize="14sp" />
+
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.8dp"
+                android:layout_margin="15dp"
+                android:background="@color/color_eeeeee" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="20dp"
+                android:text="付款方式"
+                android:textColor="@color/color_666666"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="10dp"
+                android:text="季付"
+                android:textColor="@color/color_333333"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.8dp"
+                android:layout_margin="15dp"
+                android:background="@color/color_eeeeee" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="20dp"
+                android:text="首月租金"
+                android:textColor="@color/color_666666"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:text="2000"
+                android:textColor="@color/color_333333"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/bnt_jy"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/bnt_details_height"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/circle_line_666_20"
+                    android:gravity="center"
+                    android:text="解约"
+                    android:textColor="@color/color_666666"
+                    android:textSize="@dimen/bnt_details_text_size" />
+
+                <TextView
+                    android:id="@+id/bnt_xy"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/bnt_details_height"
+                    android:layout_marginHorizontal="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/circle_line_666_20"
+                    android:gravity="center"
+                    android:text="续约"
+                    android:textColor="@color/color_666666"
+                    android:textSize="@dimen/bnt_details_text_size" />
+
+                <TextView
+                    android:id="@+id/bnt_zd"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/bnt_details_height"
+                    android:layout_weight="1"
+                    android:background="@drawable/circle_solid_theme_25"
+                    android:gravity="center"
+                    android:text="账单"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/bnt_details_text_size" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

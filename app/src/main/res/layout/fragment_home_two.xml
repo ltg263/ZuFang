@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.jxxx.zf.utils.view.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:drawer="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
+    android:id="@+id/dial_drawer"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/color_bj_theme"
+    drawer:DrawerLayoutContent_ID="@+id/drawerContent"
+    drawer:DrawerLayoutHandler_ID="@+id/drawerHandle"
+    drawer:DrawerLayout_ID="@+id/drawer2"
+    app:ignore="NamespaceTypo">
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingHorizontal="10dp">
+
+        <TextView
+            android:id="@+id/tv_search"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/circle_solid_f4f4f4_25"
+            android:drawableStart="@mipmap/ic_search"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="10dp"
+            android:text="输入小区名/商圈/地铁"
+            android:textColor="@color/color_999999"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="10dp"
+            android:layout_marginStart="@dimen/dp_10"
+            android:background="@drawable/circle_solid_2186f7_20"
+            android:gravity="center"
+            android:paddingHorizontal="15dp"
+            android:text="路线"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll"
+        android:background="@color/white">
+
+        <RadioGroup
+            android:id="@+id/mRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_home_select1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableEnd="@mipmap/ic_jiantou_xia1"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:singleLine="true"
+                android:text="区域"
+                android:textColor="@color/selector_color"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/rb_home_select2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableEnd="@mipmap/ic_jiantou_xia1"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="方式"
+                android:textColor="@color/selector_color"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/rb_home_select3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableEnd="@mipmap/ic_jiantou_xia1"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="租金"
+                android:textColor="@color/selector_color"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/rb_home_select4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableEnd="@mipmap/ic_jiantou_xia1"
+                android:gravity="center"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="筛选"
+                android:textColor="@color/selector_color"
+                android:textSize="12sp" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <com.amap.api.maps.MapView
+        android:id="@+id/mMapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/ll1" />
+
+    <RelativeLayout
+        android:id="@+id/drawer2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/circle_solid_fff_20_zy">
+
+
+        <TextView
+            android:id="@+id/drawerHandle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="@dimen/dp_10"
+            android:text="小区名称(0套)" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"
+            android:layout_below="@+id/drawerHandle"
+            android:background="@color/line_color" />
+
+        <LinearLayout
+            android:id="@+id/drawerContent"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_below="@+id/drawerHandle"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.jxxx.zf.utils.view.MyRecyclerView
+                android:id="@+id/rv_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:overScrollMode="never"
+                android:scrollbars="none"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</com.jxxx.zf.utils.view.DrawerLayout>

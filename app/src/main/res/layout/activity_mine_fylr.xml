@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/my_toolbar" />
+
+
+    <TextView
+        android:id="@+id/tv_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/circle_solid_f4f4f4_25"
+        android:drawableStart="@mipmap/ic_search"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="10dp"
+        android:text="输入小区名/商圈/地铁"
+        android:textColor="@color/color_999999"
+        android:textSize="12sp" />
+
+    <net.lucode.hackware.magicindicator.MagicIndicator
+        android:id="@+id/magic_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="35dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/ll_b" />
+
+        <LinearLayout
+            android:id="@+id/ll_b"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/dp_10"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp_10"
+                    android:src="@drawable/common_selected_circle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="10dp"
+                    android:text="全选" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/bnt_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/circle_line_theme_25"
+                android:drawableStart="@mipmap/ic_fylr_bianji"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="10dp"
+                android:text="编辑"
+                android:textColor="@color/color_blue_theme"
+                android:textSize="@dimen/bnt_list_text_size"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/bnt_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/circle_line_theme_25"
+                android:drawableStart="@mipmap/ic_fylr_bianji"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="10dp"
+                android:text="下架"
+                android:textColor="@color/color_blue_theme"
+                android:textSize="@dimen/bnt_list_text_size" />
+
+            <TextView
+                android:id="@+id/bnt_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/circle_solid_theme_25"
+                android:drawableStart="@mipmap/ic_fylr_shanchu"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="10dp"
+                android:text="删除"
+                android:textColor="@color/white"
+                android:textSize="@dimen/bnt_list_text_size" />
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_add_fy"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="80dp"
+            android:src="@mipmap/ic_add_fy" />
+    </RelativeLayout>
+
+</LinearLayout>

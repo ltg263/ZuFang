@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.jxxx.zf">
+
+    <!--允许程序打开网络套接字-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--允许程序设置内置sd卡的写权限-->
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <!--允许程序获取网络状态-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--允许程序访问WiFi网络信息-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--允许程序读写手机状态和身份-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission
+        android:name="android.permission.READ_LOGS"
+        tools:ignore="ProtectedPermissions" /> <!-- 用于访问GPS定位 -->
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!-- 用于获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" /> <!-- 用于进行网络定位 -->
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+
+    <application
+        android:name="com.jxxx.zf.app.MainApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name="com.jxxx.zf.view.SplashScreenActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".view.activity.LoginActivity" />
+        <activity android:name=".view.activity.RegisterActivity" />
+        <activity android:name=".view.activity.ForgetPasswordActivity" />
+        <activity android:name=".view.activity.WebViewActivity" />
+        <activity android:name=".view.activity.MineZfSelectActivity" />
+        <activity android:name=".view.activity.ZuFangListActivity" />
+        <activity android:name=".view.activity.ZuFangXqActivity" />
+        <activity android:name=".view.activity.ZuFangYyActivity" />
+        <activity android:name=".view.activity.UserInfoListActivity" />
+        <activity android:name=".view.activity.ZuFangYyOkActivity" />
+        <activity android:name=".view.activity.ZuFangYyxqActivity" />
+        <activity android:name=".view.activity.ChatActivity" />
+        <activity android:name=".view.activity.MineListScActivity" />
+        <activity android:name=".view.activity.ZuFangListBdActivity" />
+        <activity android:name=".view.activity.ZuFangFybdActivity" />
+        <activity android:name=".view.activity.MineHtListActivity" />
+        <activity android:name=".view.activity.MineHtDetailsActivity" />
+        <activity android:name=".view.activity.MineHtJyActivity" />
+        <activity android:name=".view.activity.MineHtJcOkActivity" />
+        <activity android:name=".view.activity.MineYyzxListActivity" />
+        <activity android:name=".view.activity.MineYypjActivity" />
+        <activity android:name=".view.activity.MineJfzdActivity" />
+        <activity android:name=".view.activity.MineSettingActivity" />
+        <activity android:name=".view.activity.MineSetGyActivity" />
+        <activity android:name=".view.activity.MineSetSmrzActivity" />
+        <activity android:name=".view.activity.MineSetSmrz2Activity" />
+        <activity android:name=".view.activity.MineKhListActivity" />
+        <activity android:name=".view.activity.MineJieDanActivity" />
+        <activity android:name=".view.activity.MineJdxqActivity" />
+        <activity android:name=".view.activity.MineQianYueActivity" />
+        <activity android:name=".view.activity.MineFylrActivity" />
+        <activity android:name=".view.activity.MineFytjActivity" />
+        <activity android:name=".view.activity.MineHtNew1Activity" />
+        <activity android:name=".view.activity.MineHtNew2Activity" />
+        <activity android:name=".view.activity.MineHtNew3Activity" />
+        <activity android:name=".view.activity.MineHtNew4Activity" />
+        <activity android:name=".view.activity.MineHtNew5Activity" />
+        <activity android:name=".view.activity.MineHtNew6Activity" />
+        <activity android:name=".view.activity.MineHtNew7Activity" />
+        <activity android:name=".view.activity.MineInfoActivity" />
+        <activity android:name=".view.activity.payActivity.ActivityPayHomeQb" />
+        <activity android:name=".view.activity.payActivity.ActivityPayBankCardAdd" />
+        <activity android:name=".view.activity.payActivity.ActivityPayBankCardList" />
+        <activity android:name=".view.activity.payActivity.ActivityPayTiXian" />
+        <activity android:name=".view.activity.payActivity.ActivityPayTiXianList" />
+        <activity android:name=".view.activity.payActivity.ActivityPayTiXianDetails" />
+        <activity android:name=".view.activity.ZuFangFaBuActivity" />
+        <activity android:name=".view.activity.mapAddress.ActivityLocationAddress" />
+        <activity android:name=".view.activity.mapAddress.ActivitySearchLocation" />
+
+        <!--com.deepexp.zsnavidemo对应的key-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="01ca0c8859a7870813cbff9b57c76519" />
+
+        <service android:name="com.amap.api.location.APSService" />
+    </application>
+
+</manifest>

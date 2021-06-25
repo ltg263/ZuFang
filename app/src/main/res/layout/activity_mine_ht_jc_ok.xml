@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bj_theme"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <include layout="@layout/my_toolbar" />
+
+    <ImageView
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_marginTop="25dp"
+        android:gravity="center_horizontal"
+        android:src="@mipmap/ic_yyok" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="解除成功"
+        android:textColor="@color/color_333333"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="恭喜您预约成功，请留意查收预约通知"
+        android:textColor="@color/color_999999"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/bnt_zdl"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bnt_details_height"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/circle_solid_theme_25"
+        android:gravity="center"
+        android:text="知道了"
+        android:textColor="@color/white"
+        android:textSize="@dimen/bnt_details_text_size" />
+
+</LinearLayout>

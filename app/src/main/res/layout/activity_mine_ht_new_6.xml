@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/my_toolbar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:text="这是有第三方签署平台发送的短信验证，确保签署为您本人意愿下的操作。"
+        android:textColor="@color/color_999999" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_account"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="start|center"
+            android:hint="请输入手机号"
+            android:inputType="number"
+            android:text=""
+            android:textColor="@color/color_000000"
+            android:textColorHint="@color/color_999999"
+            android:textCursorDrawable="@drawable/common_edit_input_line"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/color_eeeeee" />
+
+    <LinearLayout
+        android:id="@+id/ll_yzm"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal">
+
+
+        <EditText
+            android:id="@+id/et_verify"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="start|center"
+            android:hint="请输入验证码"
+            android:inputType="number"
+            android:text=""
+            android:textColor="@color/color_000000"
+            android:textColorHint="@color/color_999999"
+            android:textCursorDrawable="@drawable/common_edit_input_line"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/auth_code"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="获取验证码"
+            android:textColor="@color/color_blue_theme"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/color_eeeeee" />
+
+    <TextView
+        android:id="@+id/bnt"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bnt_details_height"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/circle_solid_theme_25"
+        android:gravity="center"
+        android:text="在线签约"
+        android:textColor="@color/white"
+        android:textSize="@dimen/bnt_details_text_size" />
+</LinearLayout>

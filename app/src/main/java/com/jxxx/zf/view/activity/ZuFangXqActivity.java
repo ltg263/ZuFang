@@ -90,7 +90,7 @@ public class ZuFangXqActivity extends BaseActivity {
         list.add("阳台");
         mMRecyclerView1.setAdapter(new ZfxqFwssAdapter(list));
 
-        mHomeFyAdapter = new HomeFyAdapter(list);
+        mHomeFyAdapter = new HomeFyAdapter(null);
         mMRecyclerView2.setAdapter(mHomeFyAdapter);
 
 

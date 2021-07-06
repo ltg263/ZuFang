@@ -1,15 +1,14 @@
 package com.jxxx.zf.api;
 
 
-import com.jxxx.zf.app.ConstValues;
-
-import javax.xml.transform.Result;
+import com.jxxx.zf.bean.HomeZuFangListBase;
+import com.jxxx.zf.bean.Result;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 
 public interface ApiService {
 
-    @GET(ConstValues.PORT_21 + "api/v1/circle/task/query")
-    Observable<Result> getTaskCircleQuery();
+    @GET("renting/api/v1/home/getHome")
+    Observable<Result<HomeZuFangListBase>> homeGetHome();
 }

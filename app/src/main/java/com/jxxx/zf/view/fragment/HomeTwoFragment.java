@@ -192,7 +192,7 @@ public class HomeTwoFragment extends BaseFragment {
                             list.add("");
                             list.add("");
                             list.add("");
-                            mHomeFyAdapter.setNewData(list);
+//                            mHomeFyAdapter.setNewData(list);
                             mDrawer2.setVisibility(View.VISIBLE);
                             return false;
                         }});

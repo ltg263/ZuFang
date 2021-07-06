@@ -69,7 +69,7 @@ public class ZuFangListActivity extends BaseActivity {
         list.add("");
         list.add("");
         list.add("");
-        mHomeFyAdapter = new HomeFyAdapter(list);
+        mHomeFyAdapter = new HomeFyAdapter(null);
         mRvHomeList.setAdapter(mHomeFyAdapter);
 
         mHomeFyAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

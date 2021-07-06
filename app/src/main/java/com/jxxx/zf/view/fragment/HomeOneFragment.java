@@ -10,7 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jxxx.zf.R;
+import com.jxxx.zf.api.RetrofitUtil;
 import com.jxxx.zf.base.BaseFragment;
+import com.jxxx.zf.bean.HomeZuFangListBase;
+import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.utils.GlideImageLoader;
 import com.jxxx.zf.utils.RadioGroupSelectUtils;
 import com.jxxx.zf.view.activity.MineZfSelectActivity;
@@ -26,6 +29,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class HomeOneFragment extends BaseFragment {
 
@@ -64,12 +71,9 @@ public class HomeOneFragment extends BaseFragment {
         bannerImg.add("http://img.netbian.com/file/2021/0527/1f20f9804cb7390efc842f02f4765901.jpg");
         bannerConfig();
         new RadioGroupSelectUtils().setOnChangeListener(getActivity(),mMRadioGroup,mRbHomeSelect1,mRbHomeSelect2,mRbHomeSelect3,mRbHomeSelect4);
-    }
 
-    @Override
-    protected void initData() {
 
-        mHomeFyAdapter = new HomeFyAdapter(bannerImg);
+        mHomeFyAdapter = new HomeFyAdapter(null);
         mRvHomeList.setAdapter(mHomeFyAdapter);
 
         mHomeFyAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -78,6 +82,38 @@ public class HomeOneFragment extends BaseFragment {
 
             }
         });
+    }
+
+    @Override
+    protected void initData() {
+        RetrofitUtil.getInstance().apiService()
+                .homeGetHome()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result<HomeZuFangListBase>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result<HomeZuFangListBase> result) {
+                        hideLoading();
+                        if(isResultOk(result)){
+                            mHomeFyAdapter.setNewData(result.getData().getHouses());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideLoading();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        hideLoading();
+                    }
+                });
     }
 
     @OnClick({R.id.address, R.id.tv_search, R.id.ll_home_top1, R.id.ll_home_top2, R.id.ll_home_top3, R.id.ll_home_top4})

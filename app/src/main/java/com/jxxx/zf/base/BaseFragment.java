@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.jxxx.zf.R;
+import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.utils.StringUtil;
 import com.jxxx.zf.utils.view.LoadingDialog;
 import com.jxxx.zf.view.activity.MineZfSelectActivity;
@@ -92,6 +93,13 @@ public abstract class BaseFragment extends Fragment {
         }
         startActivity(mIntent);
 
+    }
+
+    public boolean isResultOk(Result mResult) {
+        if(mResult.getStatus()==0){
+            return true;
+        }
+        return false;
     }
 
 }

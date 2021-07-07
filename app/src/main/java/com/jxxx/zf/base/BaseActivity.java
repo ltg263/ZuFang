@@ -179,6 +179,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         return false;
     }
 
+    protected void baseStartActivity(Class<?> cls){
+        baseStartActivity(cls,null);
+
+    }
+
     protected void baseStartActivity(Class<?> cls,String str){
         Intent mIntent = new Intent(this,cls);
         if(StringUtil.isNotBlank(str)){

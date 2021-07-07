@@ -12,8 +12,8 @@ public class ConstValues {
     /**sharedpreference 判断是否已登录字段*/
     public static final String ISLOGIN = "islogin";
     public static final String USERID = "user_id";
-    public static final String TOKEN = "token";
-    public static final String BASE_URL = "http://192.168.2.142:8088";
+    public static final String TOKENID = "token";
+    public static final String BASE_URL = "http://192.168.2.142:8088/renting/";
 
     //默认连接超时时间
     public static final int DEFAULT_TIMEOUT =60;

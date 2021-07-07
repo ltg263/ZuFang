@@ -14,7 +14,7 @@ public class Result<T>  {
 
     public int getStatus() {
         if(status!=0){
-            ToastUtils.showLong(message);
+            ToastUtils.showLong(error);
         }
         return status;
     }

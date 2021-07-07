@@ -156,108 +156,108 @@ public class ZuFangXqActivity extends BaseActivity {
                         if (isResultOk(result)) {
                             ZuFangDetailsBase data = result.getData();
                             if (data.getImgUrls() != null) {
-                                mTvName.setText(data.getRentingType().equals("1") ? "合租·" : "合租·" + data.getName());
-                                String rentType = "";
-                                switch (data.getRentingType()) {
-                                    case "1":
-                                        rentType = "押一付一";
-                                        break;
-                                    case "2":
-                                        rentType = "押一付二";
-                                        break;
-                                    case "3":
-                                        rentType = "押一付三";
-                                        break;
-                                    case "4":
-                                        rentType = "半年";
-                                        break;
-                                    case "5":
-                                        rentType = "一年";
-                                        break;
-                                }
-                                String str = "<font color=\"#FF4040\"><big><big>" + data.getRent() + "</big></big></font>" + "元/月(" + rentType + ")";
-                                mTvJinE.setText(Html.fromHtml(str));
-                                mTvLiulan.setText("约看" + data.getViewNum() + "人");
-                                mTvCommission.setText("房东出佣金" + data.getCommission() + "元为奖励");
                                 bannerConfig(data.getImgUrls());
-                                switch (data.getHouseType()) {
-                                    case "1":
-                                        mTvHouseType.setText("一室");
-                                        break;
-                                    case "2":
-                                        mTvHouseType.setText("两室");
-                                        break;
-                                    case "3":
-                                        mTvHouseType.setText("三室");
-                                        break;
-                                    case "4":
-                                        mTvHouseType.setText("三室以上");
-                                        break;
-                                }
-                                mTvArea.setText(data.getArea() + "m²");
-                                switch (data.getOrientation()) {
-                                    case "1":
-                                        mTvArea.setText("朝东");
-                                        break;
-                                    case "2":
-                                        mTvArea.setText("朝南");
-                                        break;
-                                    case "3":
-                                        mTvArea.setText("朝西");
-                                        break;
-                                    case "4":
-                                        mTvArea.setText("朝北");
-                                        break;
-                                    case "5":
-                                        mTvArea.setText("朝东南");
-                                        break;
-                                    case "6":
-                                        mTvArea.setText("朝西南");
-                                        break;
-                                    case "7":
-                                        mTvArea.setText("朝东北");
-                                        break;
-                                    case "8":
-                                        mTvArea.setText("朝西北");
-                                        break;
-                                }
-                                if (data.getLables() != null) {
-                                    for (int i = 0; i < data.getLables().size(); i++) {
-                                        if (i == 0) {
-                                            mTvLables1.setVisibility(View.VISIBLE);
-                                            mTvLables1.setText(data.getLables().get(0).getName());
-                                        }
-                                        if (i == 1) {
-                                            mTvLables2.setVisibility(View.VISIBLE);
-                                            mTvLables2.setText(data.getLables().get(1).getName());
-                                        }
-                                        if (i == 2) {
-                                            mTvLables3.setVisibility(View.VISIBLE);
-                                            mTvLables3.setText(data.getLables().get(2).getName());
-                                        }
+                            }
+                            mTvName.setText(data.getRentingType().equals("1") ? "合租·" : "合租·" + data.getName());
+                            String rentType = "";
+                            switch (data.getRentingType()) {
+                                case "1":
+                                    rentType = "押一付一";
+                                    break;
+                                case "2":
+                                    rentType = "押一付二";
+                                    break;
+                                case "3":
+                                    rentType = "押一付三";
+                                    break;
+                                case "4":
+                                    rentType = "半年";
+                                    break;
+                                case "5":
+                                    rentType = "一年";
+                                    break;
+                            }
+                            String str = "<font color=\"#FF4040\"><big><big>" + data.getRent() + "</big></big></font>" + "元/月(" + rentType + ")";
+                            mTvJinE.setText(Html.fromHtml(str));
+                            mTvLiulan.setText("约看" + data.getViewNum() + "人");
+                            mTvCommission.setText("房东出佣金" + data.getCommission() + "元为奖励");
+                            switch (data.getHouseType()) {
+                                case "1":
+                                    mTvHouseType.setText("一室");
+                                    break;
+                                case "2":
+                                    mTvHouseType.setText("两室");
+                                    break;
+                                case "3":
+                                    mTvHouseType.setText("三室");
+                                    break;
+                                case "4":
+                                    mTvHouseType.setText("三室以上");
+                                    break;
+                            }
+                            mTvArea.setText(data.getArea() + "m²");
+                            switch (data.getOrientation()) {
+                                case "1":
+                                    mTvArea.setText("朝东");
+                                    break;
+                                case "2":
+                                    mTvArea.setText("朝南");
+                                    break;
+                                case "3":
+                                    mTvArea.setText("朝西");
+                                    break;
+                                case "4":
+                                    mTvArea.setText("朝北");
+                                    break;
+                                case "5":
+                                    mTvArea.setText("朝东南");
+                                    break;
+                                case "6":
+                                    mTvArea.setText("朝西南");
+                                    break;
+                                case "7":
+                                    mTvArea.setText("朝东北");
+                                    break;
+                                case "8":
+                                    mTvArea.setText("朝西北");
+                                    break;
+                            }
+                            if (data.getLables() != null) {
+                                for (int i = 0; i < data.getLables().size(); i++) {
+                                    if (i == 0) {
+                                        mTvLables1.setVisibility(View.VISIBLE);
+                                        mTvLables1.setText(data.getLables().get(0).getName());
+                                    }
+                                    if (i == 1) {
+                                        mTvLables2.setVisibility(View.VISIBLE);
+                                        mTvLables2.setText(data.getLables().get(1).getName());
+                                    }
+                                    if (i == 2) {
+                                        mTvLables3.setVisibility(View.VISIBLE);
+                                        mTvLables3.setText(data.getLables().get(2).getName());
                                     }
                                 }
-                                mTvFyxx1.setText(data.getArea()+"m²");
-                                mTvFyxx2.setText(data.getHousingEstateName());
-                                mTvFyxx3.setText(data.getFloor());
-                                switch (data.getRenovationType()){
-                                    case "1":
-                                        mTvFyxx4.setText("精装");
-                                        break;
-                                    case "2":
-                                        mTvFyxx4.setText("简装");
-                                        break;
-                                    case "3":
-                                        mTvFyxx4.setText("毛坯");
-                                        break;
-                                }
-                                mTvFyxx5.setText(data.getHasElevator().equals("1")?"是":"否");
-                                mTvFyxx6.setText(data.getHasParking().equals("1")?"是":"否");
-                                mTvFyxx7.setText("无");
-                                mMRecyclerView1.setAdapter(new ZfxqFwssAdapter(data.getParams()));
-                                mTvDetails.setText(data.getDetails());
-                                mMRecyclerView2.setAdapter(new HomeFyAdapter(data.getNearHouses()));
                             }
+                            mTvFyxx1.setText(data.getArea() + "m²");
+                            mTvFyxx2.setText(data.getHousingEstateName());
+                            mTvFyxx3.setText(data.getFloor());
+                            switch (data.getRenovationType()) {
+                                case "1":
+                                    mTvFyxx4.setText("精装");
+                                    break;
+                                case "2":
+                                    mTvFyxx4.setText("简装");
+                                    break;
+                                case "3":
+                                    mTvFyxx4.setText("毛坯");
+                                    break;
+                            }
+                            mTvFyxx5.setText(data.getHasElevator().equals("1") ? "是" : "否");
+                            mTvFyxx6.setText(data.getHasParking().equals("1") ? "是" : "否");
+                            mTvFyxx7.setText("无");
+                            mMRecyclerView1.setAdapter(new ZfxqFwssAdapter(data.getParams()));
+                            mTvDetails.setText(data.getDetails());
+                            mMRecyclerView2.setAdapter(new HomeFyAdapter(data.getNearHouses()));
                         }
                     }
 

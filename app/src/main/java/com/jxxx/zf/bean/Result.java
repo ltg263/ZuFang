@@ -13,7 +13,7 @@ public class Result<T>  {
     private T data;
 
     public int getStatus() {
-        if(status==0 || !isSuccess()){
+        if(status!=0){
             ToastUtils.showLong(message);
         }
         return status;

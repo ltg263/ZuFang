@@ -2,14 +2,13 @@ package com.jxxx.zf.view.activity;
 
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Html;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.amap.api.location.AMapLocationClient;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
@@ -17,10 +16,12 @@ import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
 import com.jxxx.zf.R;
+import com.jxxx.zf.api.RetrofitUtil;
 import com.jxxx.zf.base.BaseActivity;
+import com.jxxx.zf.bean.Result;
+import com.jxxx.zf.bean.ZuFangDetailsBase;
 import com.jxxx.zf.utils.GlideImageLoader;
 import com.jxxx.zf.utils.StatusBarUtil;
-import com.jxxx.zf.view.activity.mapAddress.ActivitySearchLocation;
 import com.jxxx.zf.view.activity.mapAddress.GeoCoderUtil;
 import com.jxxx.zf.view.activity.mapAddress.LatLngEntity;
 import com.jxxx.zf.view.adapter.HomeFyAdapter;
@@ -34,7 +35,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class ZuFangXqActivity extends BaseActivity {
     @BindView(R.id.mMapView)
@@ -47,6 +53,8 @@ public class ZuFangXqActivity extends BaseActivity {
     TextView mNameType;
     @BindView(R.id.tv_liulan)
     TextView mTvLiulan;
+    @BindView(R.id.tv_commission)
+    TextView mTvCommission;
     @BindView(R.id.mRecyclerView1)
     RecyclerView mMRecyclerView1;
     @BindView(R.id.mRecyclerView2)
@@ -55,12 +63,42 @@ public class ZuFangXqActivity extends BaseActivity {
     TextView mBtnBd;
     @BindView(R.id.btn_zx)
     TextView mBtnZx;
+    @BindView(R.id.tv_num)
+    TextView mTvNum;
     @BindView(R.id.btn_yykf)
     TextView mBtnYykf;
     @BindView(R.id.ll_b)
     LinearLayout mLlB;
     @BindView(R.id.home_banner)
     Banner mHomeBanner;
+    @BindView(R.id.tv_houseType)
+    TextView mTvHouseType;
+    @BindView(R.id.tv_area)
+    TextView mTvArea;
+    @BindView(R.id.tv_orientation)
+    TextView mTvOrientation;
+    @BindView(R.id.tv_lables1)
+    TextView mTvLables1;
+    @BindView(R.id.tv_lables2)
+    TextView mTvLables2;
+    @BindView(R.id.tv_lables3)
+    TextView mTvLables3;
+    @BindView(R.id.tv_fyxx_1)
+    TextView mTvFyxx1;
+    @BindView(R.id.tv_fyxx_2)
+    TextView mTvFyxx2;
+    @BindView(R.id.tv_fyxx_3)
+    TextView mTvFyxx3;
+    @BindView(R.id.tv_fyxx_4)
+    TextView mTvFyxx4;
+    @BindView(R.id.tv_fyxx_5)
+    TextView mTvFyxx5;
+    @BindView(R.id.tv_fyxx_6)
+    TextView mTvFyxx6;
+    @BindView(R.id.tv_fyxx_7)
+    TextView mTvFyxx7;
+    @BindView(R.id.tv_details)
+    TextView mTvDetails;
     private HomeFyAdapter mHomeFyAdapter;
 
     @Override
@@ -73,27 +111,6 @@ public class ZuFangXqActivity extends BaseActivity {
     public void initView() {
 
         initMap();
-
-        List<String> list = new ArrayList<>();
-        list.add("WIFI");
-        list.add("床");
-        list.add("衣柜");
-        list.add("沙发");
-        list.add("桌椅");
-        list.add("洗衣机");
-        list.add("冰箱");
-        list.add("暖气");
-        list.add("热水器");
-        list.add("做饭");
-        list.add("电视");
-        list.add("空调");
-        list.add("阳台");
-        mMRecyclerView1.setAdapter(new ZfxqFwssAdapter(list));
-
-        mHomeFyAdapter = new HomeFyAdapter(null);
-        mMRecyclerView2.setAdapter(mHomeFyAdapter);
-
-
     }
 
     private void initMap() {
@@ -117,17 +134,152 @@ public class ZuFangXqActivity extends BaseActivity {
     }
 
 
-    List<String> bannerImg = new ArrayList<>();
     @Override
     public void initData() {
-        bannerImg.add("http://img.netbian.com/file/2021/0527/1f20f9804cb7390efc842f02f4765901.jpg");
-        bannerImg.add("http://img.netbian.com/file/2021/0527/1f20f9804cb7390efc842f02f4765901.jpg");
-        bannerImg.add("http://img.netbian.com/file/2021/0527/1f20f9804cb7390efc842f02f4765901.jpg");
-        bannerImg.add("http://img.netbian.com/file/2021/0527/1f20f9804cb7390efc842f02f4765901.jpg");
-        bannerConfig();
+        houseDetails();
     }
-    private void bannerConfig() {
 
+    private void houseDetails() {
+        RetrofitUtil.getInstance().apiService()
+                .houseDetails(getIntent().getStringExtra("id"))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result<ZuFangDetailsBase>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result<ZuFangDetailsBase> result) {
+                        hideLoading();
+                        if (isResultOk(result)) {
+                            ZuFangDetailsBase data = result.getData();
+                            if (data.getImgUrls() != null) {
+                                mTvName.setText(data.getRentingType().equals("1") ? "合租·" : "合租·" + data.getName());
+                                String rentType = "";
+                                switch (data.getRentingType()) {
+                                    case "1":
+                                        rentType = "押一付一";
+                                        break;
+                                    case "2":
+                                        rentType = "押一付二";
+                                        break;
+                                    case "3":
+                                        rentType = "押一付三";
+                                        break;
+                                    case "4":
+                                        rentType = "半年";
+                                        break;
+                                    case "5":
+                                        rentType = "一年";
+                                        break;
+                                }
+                                String str = "<font color=\"#FF4040\"><big><big>" + data.getRent() + "</big></big></font>" + "元/月(" + rentType + ")";
+                                mTvJinE.setText(Html.fromHtml(str));
+                                mTvLiulan.setText("约看" + data.getViewNum() + "人");
+                                mTvCommission.setText("房东出佣金" + data.getCommission() + "元为奖励");
+                                bannerConfig(data.getImgUrls());
+                                switch (data.getHouseType()) {
+                                    case "1":
+                                        mTvHouseType.setText("一室");
+                                        break;
+                                    case "2":
+                                        mTvHouseType.setText("两室");
+                                        break;
+                                    case "3":
+                                        mTvHouseType.setText("三室");
+                                        break;
+                                    case "4":
+                                        mTvHouseType.setText("三室以上");
+                                        break;
+                                }
+                                mTvArea.setText(data.getArea() + "m²");
+                                switch (data.getOrientation()) {
+                                    case "1":
+                                        mTvArea.setText("朝东");
+                                        break;
+                                    case "2":
+                                        mTvArea.setText("朝南");
+                                        break;
+                                    case "3":
+                                        mTvArea.setText("朝西");
+                                        break;
+                                    case "4":
+                                        mTvArea.setText("朝北");
+                                        break;
+                                    case "5":
+                                        mTvArea.setText("朝东南");
+                                        break;
+                                    case "6":
+                                        mTvArea.setText("朝西南");
+                                        break;
+                                    case "7":
+                                        mTvArea.setText("朝东北");
+                                        break;
+                                    case "8":
+                                        mTvArea.setText("朝西北");
+                                        break;
+                                }
+                                if (data.getLables() != null) {
+                                    for (int i = 0; i < data.getLables().size(); i++) {
+                                        if (i == 0) {
+                                            mTvLables1.setVisibility(View.VISIBLE);
+                                            mTvLables1.setText(data.getLables().get(0).getName());
+                                        }
+                                        if (i == 1) {
+                                            mTvLables2.setVisibility(View.VISIBLE);
+                                            mTvLables2.setText(data.getLables().get(1).getName());
+                                        }
+                                        if (i == 2) {
+                                            mTvLables3.setVisibility(View.VISIBLE);
+                                            mTvLables3.setText(data.getLables().get(2).getName());
+                                        }
+                                    }
+                                }
+                                mTvFyxx1.setText(data.getArea()+"m²");
+                                mTvFyxx2.setText(data.getHousingEstateName());
+                                mTvFyxx3.setText(data.getFloor());
+                                switch (data.getRenovationType()){
+                                    case "1":
+                                        mTvFyxx4.setText("精装");
+                                        break;
+                                    case "2":
+                                        mTvFyxx4.setText("简装");
+                                        break;
+                                    case "3":
+                                        mTvFyxx4.setText("毛坯");
+                                        break;
+                                }
+                                mTvFyxx5.setText(data.getHasElevator().equals("1")?"是":"否");
+                                mTvFyxx6.setText(data.getHasParking().equals("1")?"是":"否");
+                                mTvFyxx7.setText("无");
+                                mMRecyclerView1.setAdapter(new ZfxqFwssAdapter(data.getParams()));
+                                mTvDetails.setText(data.getDetails());
+                                mMRecyclerView2.setAdapter(new HomeFyAdapter(data.getNearHouses()));
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideLoading();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        hideLoading();
+                    }
+                });
+    }
+
+    private void bannerConfig(String imgUrls) {
+        List<String> bannerImg = new ArrayList<>();
+        String[] imgArr = imgUrls.split(",");
+        mTvNum.setText("1/" + imgArr.length);
+        for (int i = 0; i < imgArr.length; i++) {
+            bannerImg.add(imgArr[i]);
+        }
         //设置内置样式，共有六种可以点入方法内逐一体验使用。
         mHomeBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         //设置图片加载器，图片加载器在下方
@@ -148,11 +300,13 @@ public class ZuFangXqActivity extends BaseActivity {
                 .setOnBannerListener(new OnBannerListener() {
                     @Override
                     public void OnBannerClick(int position) {
+                        mTvNum.setText(position + "/" + imgArr.length);
                     }
                 })
                 //必须最后调用的方法，启动轮播图。
                 .start();
     }
+
     @OnClick({R.id.bnt_fh, R.id.bnt_fx, R.id.tv_liulan, R.id.btn_bd, R.id.btn_zx, R.id.btn_yykf})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -164,12 +318,12 @@ public class ZuFangXqActivity extends BaseActivity {
             case R.id.tv_liulan:
                 break;
             case R.id.btn_bd:
-                baseStartActivity(ZuFangListBdActivity.class,null);
+                baseStartActivity(ZuFangListBdActivity.class, null);
                 break;
             case R.id.btn_zx:
                 break;
             case R.id.btn_yykf:
-                baseStartActivity(ZuFangYyActivity.class,null);
+                baseStartActivity(ZuFangYyActivity.class, null);
                 break;
         }
     }
@@ -202,4 +356,10 @@ public class ZuFangXqActivity extends BaseActivity {
         mMapView.onSaveInstanceState(outState);
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

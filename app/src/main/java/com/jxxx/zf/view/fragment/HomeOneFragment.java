@@ -60,16 +60,9 @@ public class HomeOneFragment extends BaseFragment {
         return R.layout.fragment_home_one;
     }
 
-    List<String> bannerImg = new ArrayList<>();
     @Override
     protected void initView() {
         GlideImageLoader.loadImageViewRadiusNoCenter(getActivity(),"http://img.netbian.com/file/2021/0527/1f20f9804cb7390efc842f02f4765901.jpg",iv_icon);
-
-        bannerImg.add("http://img.netbian.com/file/2021/0527/1f20f9804cb7390efc842f02f4765901.jpg");
-        bannerImg.add("http://img.netbian.com/file/2021/0527/1f20f9804cb7390efc842f02f4765901.jpg");
-        bannerImg.add("http://img.netbian.com/file/2021/0527/1f20f9804cb7390efc842f02f4765901.jpg");
-        bannerImg.add("http://img.netbian.com/file/2021/0527/1f20f9804cb7390efc842f02f4765901.jpg");
-        bannerConfig();
         new RadioGroupSelectUtils().setOnChangeListener(getActivity(),mMRadioGroup,mRbHomeSelect1,mRbHomeSelect2,mRbHomeSelect3,mRbHomeSelect4);
 
 
@@ -99,8 +92,13 @@ public class HomeOneFragment extends BaseFragment {
                     @Override
                     public void onNext(Result<HomeZuFangListBase> result) {
                         hideLoading();
-                        if(isResultOk(result)){
-                            mHomeFyAdapter.setNewData(result.getData().getHouses());
+                        if(isResultOk(result) && result.getData()!=null){
+                            if(result.getData().getBanners()!=null){
+                                bannerConfig(result.getData().getBanners());
+                            }
+                            if(result.getData().getHouses()!=null){
+                                mHomeFyAdapter.setNewData(result.getData().getHouses());
+                            }
                         }
                     }
 
@@ -140,8 +138,12 @@ public class HomeOneFragment extends BaseFragment {
         }
     }
 
-    private void bannerConfig() {
+    private void bannerConfig(List<HomeZuFangListBase.BannersBean> banners) {
 
+        List<String> bannerImg = new ArrayList<>();
+        for(int i=0;i<banners.size();i++){
+            bannerImg.add(banners.get(i).getImgUrl());
+        }
         //设置内置样式，共有六种可以点入方法内逐一体验使用。
         mHomeBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         //设置图片加载器，图片加载器在下方

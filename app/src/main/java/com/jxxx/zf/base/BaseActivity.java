@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.jxxx.zf.R;
+import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.utils.StatusBarUtil;
 import com.jxxx.zf.utils.StringUtil;
 import com.jxxx.zf.utils.view.LoadingDialog;
@@ -193,4 +194,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         hideLoading();
     }
 
+    public boolean isResultOk(Result mResult) {
+        if(mResult.getStatus()==0){
+            return true;
+        }
+        return false;
+    }
 }

@@ -53,7 +53,7 @@
         android:gravity="center"
         android:text="整套|90m²|首南社区"
         android:textColor="@color/color_999999"
-        android:textSize="10sp" />
+        android:textSize="12sp" />
 
     <LinearLayout
         android:id="@+id/ll_type"
@@ -75,6 +75,7 @@
             android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/tv_lables_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -86,6 +87,7 @@
             android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/tv_lables_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"

@@ -277,8 +277,8 @@ public class StringUtil {
         });
     }
 
-    public static String getTimeToYMD(long seconds, String layout) {
-        Date d = new Date(seconds);
+    public static String getTimeToYMD(String seconds, String layout) {
+        Date d = new Date(Long.parseLong(seconds));
         SimpleDateFormat sdf = new SimpleDateFormat(layout);
         return sdf.format(d).toString();
     }

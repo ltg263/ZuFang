@@ -1,11 +1,13 @@
 package com.jxxx.zf.view.activity;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
 
 import com.jxxx.zf.MainActivity;
 import com.jxxx.zf.R;
+import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseActivity;
 
 import butterknife.BindView;
@@ -28,6 +30,7 @@ public class ZuFangYyOkActivity extends BaseActivity {
 
     @Override
     public void initData() {
+
     }
 
 
@@ -38,7 +41,8 @@ public class ZuFangYyOkActivity extends BaseActivity {
                 baseStartActivity(MainActivity.class,null);
                 break;
             case R.id.bnt_ckyyxx:
-                baseStartActivity(ZuFangYyxqActivity.class,null);
+                Log.w("APPNAME_ENGLISH","APPNAME_ENGLISH:"+getIntent().getStringExtra(ConstValues.APPNAME_ENGLISH));
+                baseStartActivity(ZuFangYyxqActivity.class,getIntent().getStringExtra(ConstValues.APPNAME_ENGLISH));
                 break;
         }
     }

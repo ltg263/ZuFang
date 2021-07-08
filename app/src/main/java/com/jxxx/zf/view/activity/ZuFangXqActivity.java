@@ -327,6 +327,7 @@ public class ZuFangXqActivity extends BaseActivity {
                 break;
             case R.id.btn_yykf:
                 Intent mIntent = new Intent(this,ZuFangYyActivity.class);
+                mIntent.putExtra("id",data.getId());
                 mIntent.putExtra("imgUrl",data.getImgUrl());
                 mIntent.putExtra("rentingName",data.getRentingType().equals("1") ? "合租·" : "合租·" + data.getName());
                 mIntent.putExtra("rentingName_2",data.getRentingType().equals("1") ? "合租·" : "合租·" +data.getArea()+"m²·"+mTvArea.getText()+"|"+data.getHousingEstateName());

@@ -2,6 +2,10 @@ package com.jxxx.zf.api;
 
 
 import com.jxxx.zf.app.ConstValues;
+import com.jxxx.zf.bean.AdviserListBean;
+import com.jxxx.zf.bean.AppointmentDetailsBase;
+import com.jxxx.zf.bean.AppointmentList;
+import com.jxxx.zf.bean.ApponintmentApply;
 import com.jxxx.zf.bean.HomeZuFangListBase;
 import com.jxxx.zf.bean.HouseCompareBean;
 import com.jxxx.zf.bean.HouseListBase;
@@ -61,6 +65,21 @@ public interface ApiService {
 
     @GET("api/v1/user/getDetails")
     Observable<Result<UserInfoBean>> getDetails();
+
+
+    @GET("api/v1/user/appointment/appointmentList")
+    Observable<Result<AppointmentList>> getAppointmentList();
+
+
+    @POST("api/v1/user/appointment/apply")
+    Observable<Result<AppointmentDetailsBase>> getAppointmentApply(@Body ApponintmentApply app);
+
+
+    @GET("api/v1/user/appointment/details")
+    Observable<Result<AppointmentDetailsBase>> getAppointmentDetails(@Query("id") String  id);
+
+    @GET("api/v1/adviser/list")
+    Observable<Result<AdviserListBean>> getAdviserList();
 
 
     @GET("api/v1/home/getHome")

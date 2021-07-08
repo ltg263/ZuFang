@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import com.jxxx.zf.R;
 import com.jxxx.zf.bean.LoginRequest;
 import com.jxxx.zf.bean.Result;
+import com.jxxx.zf.bean.UserInfoBean;
 import com.jxxx.zf.utils.StringUtil;
 import com.jxxx.zf.utils.ToastUtil;
 
@@ -142,5 +143,39 @@ public class HttpsUtils {
             mTextView.setTextColor(ContextCompat.getColor(mContext, R.color.color_blue_theme));
             mTextView.setClickable(true);//重新获得点击
         }
+    }
+
+    public static void getUserDetails(UserDetailsInterface mUserDetailsInterface){
+        RetrofitUtil.getInstance().apiService()
+                .getDetails()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result<UserInfoBean>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result<UserInfoBean> result) {
+                        if(result.getStatus()==0 && result.getData()!=null) {
+                            mUserDetailsInterface.succeed(result.getData());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mUserDetailsInterface.failure();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
+
+    public interface UserDetailsInterface{
+        void succeed(UserInfoBean result);
+        void failure();
     }
 }

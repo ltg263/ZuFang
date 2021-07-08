@@ -97,8 +97,8 @@ public class SharedUtils {
 		Log.w("token","--->>:"+singleton().get(ConstValues.TOKENID,""));
 		return singleton().get(ConstValues.TOKENID,"");
 	}
-	public static int getUserId(){
-		return singleton().get(ConstValues.USERID,0);
+	public static String getUserId(){
+		return singleton().get(ConstValues.USERID,"");
 	}
 
 }

@@ -2,6 +2,7 @@ package com.jxxx.zf.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -10,14 +11,19 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.jxxx.zf.R;
+import com.jxxx.zf.api.HttpsUtils;
 import com.jxxx.zf.api.RetrofitUtil;
 import com.jxxx.zf.base.BaseActivity;
+import com.jxxx.zf.bean.AdviserListBean;
+import com.jxxx.zf.bean.AppointmentDetailsBase;
+import com.jxxx.zf.bean.ApponintmentApply;
 import com.jxxx.zf.bean.HomeZuFangListBase;
 import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.bean.UserInfoBean;
 import com.jxxx.zf.bean.ZuFangDetailsBase;
 import com.jxxx.zf.utils.GlideImageLoader;
 import com.jxxx.zf.utils.PickerViewUtils;
+import com.jxxx.zf.utils.SharedUtils;
 import com.jxxx.zf.utils.StringUtil;
 
 import java.text.SimpleDateFormat;
@@ -72,7 +78,8 @@ public class ZuFangYyActivity extends BaseActivity {
     TextView tv_time;
     @BindView(R.id.tv_kfr)
     TextView tv_kfr;
-
+    Intent intent;
+    public static AdviserListBean.ListBean mAdviserListBean;
     @Override
     public int intiLayout() {
         return R.layout.activity_zu_fang_yy;
@@ -80,69 +87,50 @@ public class ZuFangYyActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        mAdviserListBean = null;
         setToolbar(mMyToolbar, "房源预约");
-        Intent intent = getIntent();
-        GlideImageLoader.loadImageAndDefault(this,getIntent().getStringExtra("imgUrl"),mHeadIcon);
+        intent = getIntent();
+        GlideImageLoader.loadImageAndDefault(this, getIntent().getStringExtra("imgUrl"), mHeadIcon);
         mNameType.setText(intent.getStringExtra("rentingName"));
         mYear.setText(intent.getStringExtra("rentingName_2"));
-        if(StringUtil.isNotBlank(intent.getStringExtra("lables1"))){
+        if (StringUtil.isNotBlank(intent.getStringExtra("lables1"))) {
             mTvLables1.setText(intent.getStringExtra("lables1"));
         }
-        if(StringUtil.isNotBlank(intent.getStringExtra("lables2"))){
+        if (StringUtil.isNotBlank(intent.getStringExtra("lables2"))) {
             mTvLables2.setText(intent.getStringExtra("lables2"));
         }
         mTvJe.setText(intent.getStringExtra("rent"));
         mTvLlcs.setText(intent.getStringExtra("viewNum"));
-        tv_time.setOnClickListener(new View.OnClickListener() {
+    }
+
+    @Override
+    public void initData() {
+        showLoading();
+        HttpsUtils.getUserDetails(new HttpsUtils.UserDetailsInterface() {
             @Override
-            public void onClick(View view) {
-                PickerViewUtils.selectorDate(ZuFangYyActivity.this,
-                        new boolean[]{true, true, true, true, true, false}, new PickerViewUtils.GetTimeInterface() {
-                    @Override
-                    public void getTime(Date time) {
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                        tv_time.setText(simpleDateFormat.format(time));
-                    }
-                });
+            public void succeed(UserInfoBean result) {
+                hideLoading();
+                tv_nickname.setText(result.getNickname());
+                tv_gender.setText(result.getGender().equals("1") ? "男" : "女");
+                tv_userNo.setText(result.getUserNo());
+            }
+
+            @Override
+            public void failure() {
+                hideLoading();
             }
         });
     }
 
     @Override
-    public void initData() {
-        RetrofitUtil.getInstance().apiService()
-                .getDetails()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Result<UserInfoBean>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Result<UserInfoBean> result) {
-                        hideLoading();
-                        if(isResultOk(result) && result.getData()!=null) {
-                            tv_nickname.setText(result.getData().getNickname());
-                            tv_gender.setText(result.getData().getGender().equals("1")?"男":"女");
-                            tv_userNo.setText(result.getData().getUserNo());
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        hideLoading();
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        hideLoading();
-                    }
-                });
+    protected void onResume() {
+        super.onResume();
+        if(mAdviserListBean!=null){
+            tv_kfr.setText(mAdviserListBean.getRealName());
+        }
     }
 
-    @OnClick({R.id.iv_select, R.id.ll_dkgw, R.id.bnt_kf})
+    @OnClick({R.id.tv_time,R.id.iv_select, R.id.ll_dkgw, R.id.bnt_kf})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_select:
@@ -158,9 +146,66 @@ public class ZuFangYyActivity extends BaseActivity {
             case R.id.ll_dkgw:
                 baseStartActivity(UserInfoListActivity.class, null);
                 break;
+            case R.id.tv_time:
+                PickerViewUtils.selectorDate(ZuFangYyActivity.this,
+                        new boolean[]{true, true, true, true, true, false}, new PickerViewUtils.GetTimeInterface() {
+                            @Override
+                            public void getTime(Date time) {
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                                tv_time.setText(simpleDateFormat.format(time));
+                            }
+                        });
+                break;
             case R.id.bnt_kf:
-                baseStartActivity(ZuFangYyOkActivity.class, null);
+                getAppointmentApply();
                 break;
         }
+    }
+
+    private void getAppointmentApply() {
+        ApponintmentApply mApponintmentApply = new ApponintmentApply();
+        mApponintmentApply.setHasAdviser("0");
+        if(mAdviserListBean!=null && mIvSelect.isSelected()){
+            mApponintmentApply.setHasAdviser("1");
+            mApponintmentApply.setAdviserId(mAdviserListBean.getId());
+            mApponintmentApply.setAdviserAuthentication(mAdviserListBean.getAdviserAuthentication());
+            mApponintmentApply.setAdviserId(mAdviserListBean.getId());
+            mApponintmentApply.setAdvserName(mAdviserListBean.getRealName());
+        }
+        mApponintmentApply.setAppointmentTime(tv_time.getText().toString()+":00");
+        mApponintmentApply.setGender(tv_gender.getText().toString().equals("男")?"1":"2");
+        mApponintmentApply.setHouseId(intent.getStringExtra("id"));
+        mApponintmentApply.setMobile(tv_userNo.getText().toString());
+        mApponintmentApply.setRealName(tv_nickname.getText().toString());
+        mApponintmentApply.setUserId(SharedUtils.getUserId());
+        Log.w("mApponintmentApply","mApponintmentApply:"+mApponintmentApply.toString());
+        RetrofitUtil.getInstance().apiService()
+                .getAppointmentApply(mApponintmentApply)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result<AppointmentDetailsBase>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result<AppointmentDetailsBase> result) {
+                        hideLoading();
+                        if(isResultOk(result) && result.getData()!=null){
+                            baseStartActivity(ZuFangYyOkActivity.class, result.getData().getId());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideLoading();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        hideLoading();
+                    }
+                });
     }
 }

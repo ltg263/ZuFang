@@ -26,6 +26,7 @@
             android:textSize="@dimen/sp_14" />
 
         <TextView
+            android:id="@+id/tv_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="无"
@@ -45,11 +46,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="姓名"
+            android:text="性别"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
         <TextView
+            android:id="@+id/tv_gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="无"
@@ -74,6 +76,7 @@
             android:textSize="@dimen/sp_14" />
 
         <TextView
+            android:id="@+id/tv_userNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="无"
@@ -99,6 +102,7 @@
             android:textSize="@dimen/sp_14" />
 
         <TextView
+            android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableEnd="@mipmap/ic_jiantou_you"
@@ -155,6 +159,7 @@
             android:textSize="@dimen/sp_14" />
 
         <TextView
+            android:id="@+id/tv_kfr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableEnd="@mipmap/ic_jiantou_you"

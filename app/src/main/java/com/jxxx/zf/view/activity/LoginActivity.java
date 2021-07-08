@@ -144,7 +144,6 @@ public class LoginActivity extends BaseActivity {
                             if(StringUtil.isNotBlank(result.getData().getUserBase().getId())){
                                 SharedUtils.singleton().put(ConstValues.USERID,result.getData().getUserBase().getId());
                             }
-                            ToastUtils.showShort("登录成功");
                             finish();
                         }
                     }

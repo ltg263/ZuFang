@@ -8,6 +8,7 @@ import com.jxxx.zf.bean.HouseListBase;
 import com.jxxx.zf.bean.LoginData;
 import com.jxxx.zf.bean.LoginRequest;
 import com.jxxx.zf.bean.Result;
+import com.jxxx.zf.bean.UserInfoBean;
 import com.jxxx.zf.bean.ZuFangDetailsBase;
 
 import java.util.List;
@@ -58,6 +59,10 @@ public interface ApiService {
     Observable<Result<LoginData>> smsRegister(@Query("clientType") String clientType,@Query("phone") String phone,@Query("password") String password,@Query("verify") String verify);
 
 
+    @GET("api/v1/user/getDetails")
+    Observable<Result<UserInfoBean>> getDetails();
+
+
     @GET("api/v1/home/getHome")
     Observable<Result<HomeZuFangListBase>> homeGetHome();
 
@@ -69,4 +74,7 @@ public interface ApiService {
 
     @POST("api/v1/house/compare")
     Observable<Result<List<HouseCompareBean>>> houseCompare(@Query("houseIds") String houseIds,@Query("hideSame") String hideSame);
+
+    @POST("api/v1/user/collection/doCollection")
+    Observable<Result> houseDoCollection(@Query("houseId") String houseId);
 }

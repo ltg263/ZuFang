@@ -1,5 +1,6 @@
 package com.jxxx.zf.view.activity;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Html;
@@ -21,6 +22,7 @@ import com.jxxx.zf.base.BaseActivity;
 import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.bean.ZuFangDetailsBase;
 import com.jxxx.zf.utils.GlideImageLoader;
+import com.jxxx.zf.utils.IntentUtils;
 import com.jxxx.zf.utils.StatusBarUtil;
 import com.jxxx.zf.view.activity.mapAddress.GeoCoderUtil;
 import com.jxxx.zf.view.activity.mapAddress.LatLngEntity;
@@ -133,7 +135,7 @@ public class ZuFangXqActivity extends BaseActivity {
         aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16));
     }
 
-
+    ZuFangDetailsBase data;
     @Override
     public void initData() {
         houseDetails();
@@ -154,7 +156,7 @@ public class ZuFangXqActivity extends BaseActivity {
                     public void onNext(Result<ZuFangDetailsBase> result) {
                         hideLoading();
                         if (isResultOk(result)) {
-                            ZuFangDetailsBase data = result.getData();
+                            data = result.getData();
                             if (data.getImgUrls() != null) {
                                 bannerConfig(data.getImgUrls());
                             }
@@ -316,6 +318,7 @@ public class ZuFangXqActivity extends BaseActivity {
             case R.id.bnt_fx:
                 break;
             case R.id.tv_liulan:
+                houseDoCollection();
                 break;
             case R.id.btn_bd:
                 baseStartActivity(ZuFangListBdActivity.class, null);
@@ -323,9 +326,55 @@ public class ZuFangXqActivity extends BaseActivity {
             case R.id.btn_zx:
                 break;
             case R.id.btn_yykf:
-                baseStartActivity(ZuFangYyActivity.class, null);
+                Intent mIntent = new Intent(this,ZuFangYyActivity.class);
+                mIntent.putExtra("imgUrl",data.getImgUrl());
+                mIntent.putExtra("rentingName",data.getRentingType().equals("1") ? "合租·" : "合租·" + data.getName());
+                mIntent.putExtra("rentingName_2",data.getRentingType().equals("1") ? "合租·" : "合租·" +data.getArea()+"m²·"+mTvArea.getText()+"|"+data.getHousingEstateName());
+                if (data.getLables() != null) {
+                    for (int i = 0; i < data.getLables().size(); i++) {
+                        if (i == 0) {
+                            mIntent.putExtra("lables1",data.getLables().get(i).getName());
+                        }
+                        if (i == 1) {
+                            mIntent.putExtra("lables2",data.getLables().get(i).getName());
+                        }
+                    }
+                }
+                mIntent.putExtra("rent", data.getRent());
+                mIntent.putExtra("viewNum","约看" + data.getViewNum() + "人");
+                startActivity(mIntent);
                 break;
         }
+    }
+    private void houseDoCollection(){
+
+        RetrofitUtil.getInstance().apiService()
+                .houseDoCollection(getIntent().getStringExtra("id"))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result result) {
+                        if(isResultOk(result)){
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Override
@@ -354,12 +403,5 @@ public class ZuFangXqActivity extends BaseActivity {
         super.onSaveInstanceState(outState);
         //在activity执行onSaveInstanceState时执行mMapView.onSaveInstanceState (outState)，保存地图当前的状态
         mMapView.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

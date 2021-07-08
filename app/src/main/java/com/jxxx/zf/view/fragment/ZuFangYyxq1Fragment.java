@@ -59,6 +59,8 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
     TextView mBntLxyx;
     @BindView(R.id.bnt_qrgw)
     TextView mBntQrgw;
+    @BindView(R.id.tv_yyr)
+    TextView tv_yyr;
 
     @Override
     protected int setLayoutResourceID() {
@@ -161,7 +163,11 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
         mTvName.setText("姓名："+data.getRealName());
         mTvPhone.setText("电话："+data.getMobile());
         mTvBz.setText(data.getRemark());
-        mTvDkrxm.setText("姓名："+data.getAdvserName());
+        if(data.getHasAdviser().equals("1")){
+            tv_yyr.setVisibility(View.VISIBLE);
+            mTvDkrxm.setVisibility(View.VISIBLE);
+            mTvDkrxm.setText("姓名："+data.getAdvserName());
+        }
     }
 
     @OnClick({R.id.bnt_lxyx, R.id.bnt_qrgw})

@@ -3,10 +3,10 @@ package com.jxxx.zf.bean;
 public class LoginData {
 
     /**
-     * adviser : true
-     * landlord : true
-     * tokenId : 
-     * userBase : {"clientType":0,"createTime":"","gender":0,"id":0,"nickname":"","openId":"","portraitUri":"","refererId":0,"status":0,"userNo":"","userType":0}
+     * adviser : false
+     * landlord : false
+     * tokenId : 9ecafd65-bb2a-4377-a147-9ac93b743888_1
+     * userBase : {"clientType":3,"createTime":1625652287000,"gender":0,"id":16,"nickname":"","portraitUri":"https://c-ssl.duitang.com/uploads/item/201704/27/20170427155254_Kctx8.jpeg","refererId":0,"status":1,"userNo":"17774004352","userType":1}
      */
 
     private boolean adviser;
@@ -48,17 +48,16 @@ public class LoginData {
 
     public static class UserBaseBean {
         /**
-         * clientType : 0
-         * createTime : 
+         * clientType : 3
+         * createTime : 1625652287000
          * gender : 0
-         * id : 0
+         * id : 16
          * nickname : 
-         * openId : 
-         * portraitUri : 
+         * portraitUri : https://c-ssl.duitang.com/uploads/item/201704/27/20170427155254_Kctx8.jpeg
          * refererId : 0
-         * status : 0
-         * userNo : 
-         * userType : 0
+         * status : 1
+         * userNo : 17774004352
+         * userType : 1
          */
 
         private String clientType;
@@ -66,7 +65,6 @@ public class LoginData {
         private String gender;
         private String id;
         private String nickname;
-        private String openId;
         private String portraitUri;
         private String refererId;
         private String status;
@@ -111,14 +109,6 @@ public class LoginData {
 
         public void setNickname(String nickname) {
             this.nickname = nickname;
-        }
-
-        public String getOpenId() {
-            return openId;
-        }
-
-        public void setOpenId(String openId) {
-            this.openId = openId;
         }
 
         public String getPortraitUri() {

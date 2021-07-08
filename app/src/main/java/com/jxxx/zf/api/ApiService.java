@@ -3,12 +3,14 @@ package com.jxxx.zf.api;
 
 import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.bean.HomeZuFangListBase;
+import com.jxxx.zf.bean.HouseCompareBean;
 import com.jxxx.zf.bean.HouseListBase;
 import com.jxxx.zf.bean.LoginData;
 import com.jxxx.zf.bean.LoginRequest;
 import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.bean.ZuFangDetailsBase;
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -64,4 +66,7 @@ public interface ApiService {
 
     @GET("api/v1/house/details")
     Observable<Result<ZuFangDetailsBase>> houseDetails(@Query("id") String id);
+
+    @POST("api/v1/house/compare")
+    Observable<Result<List<HouseCompareBean>>> houseCompare(@Query("houseIds") String houseIds,@Query("hideSame") String hideSame);
 }

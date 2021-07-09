@@ -26,7 +26,7 @@ public class MineListYyzxAdapter extends BaseQuickAdapter<AppointmentList.ListBe
         helper.addOnClickListener(R.id.bnt_1).addOnClickListener(R.id.bnt_2).addOnClickListener(R.id.bnt_3).setGone(R.id.ll_not,false)
                 .setVisible(R.id.bnt_1, false).setVisible(R.id.bnt_2, false).setVisible(R.id.bnt_3, false)
                 .setText(R.id.tv_qyzt, item.getStausStr())
-                .setText(R.id.tv_htbh, "预约时间：" + StringUtil.getTimeToYMD(item.getAppointmentTime(), "yyyy-MM-dd HH:mm:ss"));
+                .setText(R.id.tv_htbh, "预约时间：" + item.getAppointmentTime());
         //1 已预约 2 已接单 3已认证 4看房中 5已完成 6已签约 7已取消
         switch (item.getStatus()) {
             case "1":

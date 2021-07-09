@@ -159,7 +159,7 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
             mTvJe.setText(dataHouse.getRent());
             mTvLlcs.setText("约看"+dataHouse.getViewNum()+"人");
         }
-        mTvTime.setText(StringUtil.getTimeToYMD(data.getAppointmentTime(),"yyyy-MM-dd HH:mm"));
+        mTvTime.setText(data.getAppointmentTime());
         mTvName.setText("姓名："+data.getRealName());
         mTvPhone.setText("电话："+data.getMobile());
         mTvBz.setText(data.getRemark());

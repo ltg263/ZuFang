@@ -125,8 +125,7 @@ public class ZuFangYyActivity extends BaseActivity {
                 tv_gender.setText(intent.getStringExtra("gender").equals("1") ? "男" : "女");
                 tv_userNo.setText(intent.getStringExtra("mobile"));
                 if (StringUtil.isNotBlank(intent.getStringExtra("appointmentTime"))) {
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                    tv_time.setText(simpleDateFormat.format(Long.parseLong(intent.getStringExtra("appointmentTime"))));
+                    tv_time.setText(intent.getStringExtra("appointmentTime"));
                 }
             }
         }
@@ -195,10 +194,10 @@ public class ZuFangYyActivity extends BaseActivity {
                 break;
             case R.id.tv_time:
                 PickerViewUtils.selectorDate(ZuFangYyActivity.this,
-                        new boolean[]{true, true, true, true, true, false}, new PickerViewUtils.GetTimeInterface() {
+                        new boolean[]{true, true, true, true, true, true}, new PickerViewUtils.GetTimeInterface() {
                             @Override
                             public void getTime(Date time) {
-                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                                 tv_time.setText(simpleDateFormat.format(time));
                             }
                         });

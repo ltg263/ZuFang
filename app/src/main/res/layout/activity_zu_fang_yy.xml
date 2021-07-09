@@ -18,19 +18,23 @@
         android:paddingVertical="@dimen/dp_10">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="姓名"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
-        <TextView
+        <EditText
             android:id="@+id/tv_nickname"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="请输入姓名"
+            android:gravity="end"
             android:text="无"
             android:textColor="@color/color_333333"
+            android:textCursorDrawable="@drawable/common_edit_input_line"
             android:textSize="@dimen/sp_14" />
 
     </LinearLayout>
@@ -43,18 +47,20 @@
         android:paddingVertical="@dimen/dp_10">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="性别"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
         <TextView
             android:id="@+id/tv_gender"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="无"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="end"
+            android:hint="请选择性别"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
@@ -68,18 +74,50 @@
         android:paddingVertical="@dimen/dp_10">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="联系方式"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
-        <TextView
+        <EditText
             android:id="@+id/tv_userNo"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="无"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="end"
+            android:hint="请输入联系方式"
+            android:textColor="@color/color_333333"
+            android:textCursorDrawable="@drawable/common_edit_input_line"
+            android:textSize="@dimen/sp_14" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/white"
+        android:paddingHorizontal="15dp"
+        android:paddingVertical="@dimen/dp_10">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="看房时间"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableEnd="@mipmap/ic_jiantou_you"
+            android:drawablePadding="@dimen/dp_10"
+            android:gravity="end"
+            android:hint="请选择时间"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
@@ -94,21 +132,22 @@
         android:paddingVertical="@dimen/dp_10">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="看房时间"
+            android:text="备注"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/tv_remark"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:drawableEnd="@mipmap/ic_jiantou_you"
-            android:drawablePadding="@dimen/dp_10"
-            android:text="2020-20-20 17:00"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="end"
+            android:hint="填写备注"
             android:textColor="@color/color_333333"
+            android:textCursorDrawable="@drawable/common_edit_input_line"
             android:textSize="@dimen/sp_14" />
 
     </LinearLayout>
@@ -163,12 +202,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableEnd="@mipmap/ic_jiantou_you"
+            android:gravity="end"
             android:drawablePadding="@dimen/dp_10"
-            android:text="力魔"
+            android:hint="请选择带看顾问"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14" />
 
     </LinearLayout>
+
 
     <TextView
         android:id="@+id/bnt_kf"

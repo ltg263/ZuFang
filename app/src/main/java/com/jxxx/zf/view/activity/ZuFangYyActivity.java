@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,7 +28,9 @@ import com.jxxx.zf.utils.SharedUtils;
 import com.jxxx.zf.utils.StringUtil;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,11 +72,13 @@ public class ZuFangYyActivity extends BaseActivity {
     @BindView(R.id.bnt_kf)
     TextView mBntKf;
     @BindView(R.id.tv_nickname)
-    TextView tv_nickname;
+    EditText tv_nickname;
     @BindView(R.id.tv_gender)
     TextView tv_gender;
     @BindView(R.id.tv_userNo)
-    TextView tv_userNo;
+    EditText tv_userNo;
+    @BindView(R.id.tv_remark)
+    TextView tv_remark;
     @BindView(R.id.tv_time)
     TextView tv_time;
     @BindView(R.id.tv_kfr)
@@ -101,6 +106,22 @@ public class ZuFangYyActivity extends BaseActivity {
         }
         mTvJe.setText(intent.getStringExtra("rent"));
         mTvLlcs.setText(intent.getStringExtra("viewNum"));
+        if(StringUtil.isNotBlank(intent.getStringExtra("remark"))){
+            tv_remark.setText(intent.getStringExtra("remark"));
+        }
+        if(StringUtil.isNotBlank(intent.getStringExtra("hasAdviser"))){
+            String hasAdviser = intent.getStringExtra("hasAdviser");
+            if(hasAdviser.equals("1")){
+                if(StringUtil.isNotBlank(intent.getStringExtra("advserName"))){
+                    tv_kfr.setText(intent.getStringExtra("advserName"));
+                }
+                mLlDkgw.setVisibility(View.VISIBLE);
+                mIvSelect.setSelected(true);
+                mAdviserListBean = new AdviserListBean.ListBean();
+                mAdviserListBean.setId(intent.getStringExtra("adviserId"));
+                mAdviserListBean.setRealName(intent.getStringExtra("advserName"));
+            }
+        }
     }
 
     @Override
@@ -130,7 +151,7 @@ public class ZuFangYyActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.tv_time,R.id.iv_select, R.id.ll_dkgw, R.id.bnt_kf})
+    @OnClick({R.id.tv_time,R.id.iv_select, R.id.ll_dkgw, R.id.bnt_kf,R.id.tv_gender})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_select:
@@ -142,6 +163,17 @@ public class ZuFangYyActivity extends BaseActivity {
                     mIvSelect.setSelected(true);
                 }
 
+                break;
+            case R.id.tv_gender:
+                List<String> list = new ArrayList<>();
+                list.add("男");
+                list.add("女");
+                PickerViewUtils.selectorCustom(this, list, "", new PickerViewUtils.ConditionInterfacd() {
+                    @Override
+                    public void setIndex(int pos) {
+                        tv_gender.setText(list.get(pos));
+                    }
+                });
                 break;
             case R.id.ll_dkgw:
                 baseStartActivity(UserInfoListActivity.class, null);
@@ -165,20 +197,52 @@ public class ZuFangYyActivity extends BaseActivity {
     private void getAppointmentApply() {
         ApponintmentApply mApponintmentApply = new ApponintmentApply();
         mApponintmentApply.setHasAdviser("0");
+        mApponintmentApply.setId(intent.getStringExtra("appointmentId"));
         if(mAdviserListBean!=null && mIvSelect.isSelected()){
             mApponintmentApply.setHasAdviser("1");
-            mApponintmentApply.setAdviserId(mAdviserListBean.getId());
-            mApponintmentApply.setAdviserAuthentication(mAdviserListBean.getAdviserAuthentication());
             mApponintmentApply.setAdviserId(mAdviserListBean.getId());
             mApponintmentApply.setAdvserName(mAdviserListBean.getRealName());
         }
         mApponintmentApply.setAppointmentTime(tv_time.getText().toString()+":00");
+        mApponintmentApply.setRemark(tv_remark.getText().toString());
         mApponintmentApply.setGender(tv_gender.getText().toString().equals("男")?"1":"2");
         mApponintmentApply.setHouseId(intent.getStringExtra("id"));
         mApponintmentApply.setMobile(tv_userNo.getText().toString());
         mApponintmentApply.setRealName(tv_nickname.getText().toString());
         mApponintmentApply.setUserId(SharedUtils.getUserId());
         Log.w("mApponintmentApply","mApponintmentApply:"+mApponintmentApply.toString());
+        //更新
+        if(StringUtil.isNotBlank(mApponintmentApply.getId())){
+            RetrofitUtil.getInstance().apiService()
+                    .getAppointmentApplyUpdate(mApponintmentApply)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(new Observer<Result<AppointmentDetailsBase>>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(Result<AppointmentDetailsBase> result) {
+                            hideLoading();
+                            if(isResultOk(result)){
+                                baseStartActivity(ZuFangYyOkActivity.class, mApponintmentApply.getId());
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            hideLoading();
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            hideLoading();
+                        }
+                    });
+            return;
+        }
         RetrofitUtil.getInstance().apiService()
                 .getAppointmentApply(mApponintmentApply)
                 .observeOn(AndroidSchedulers.mainThread())

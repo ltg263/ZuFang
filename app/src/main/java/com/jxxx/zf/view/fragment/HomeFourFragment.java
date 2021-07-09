@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jxxx.zf.R;
 import com.jxxx.zf.api.HttpsUtils;
 import com.jxxx.zf.app.ConstValues;
@@ -30,6 +31,9 @@ import com.jxxx.zf.view.activity.payActivity.ActivityPayHomeQb;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
+import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 public class HomeFourFragment extends BaseFragment {
 
@@ -87,23 +91,36 @@ public class HomeFourFragment extends BaseFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        initData();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            initData();
+        }
+    }
+
+    @Override
     protected void initData() {
         if(StringUtil.isNotBlank(SharedUtils.getToken()) && SharedUtils.singleton().get(ConstValues.ISLOGIN,false)){
-            mTvUserName.setText("用户信息");
             getUserDetails();
         }else{
             mTvUserName.setText("请先登录");
-            GlideImageLoader.loadImage(getContext(),R.mipmap.icon_logo,mTvUserImg);
+            Glide.with(mContext).load(R.mipmap.icon_logo).thumbnail(0.1f)
+                    .apply(bitmapTransform(new CropCircleTransformation())).into(mTvUserImg);
         }
     }
 
     private void getUserDetails() {
-        showLoading();
         HttpsUtils.getUserDetails(new HttpsUtils.UserDetailsInterface() {
             @Override
             public void succeed(UserInfoBean result) {
-                hideLoading();
                 mTvUserName.setText(result.getNickname());
+                GlideImageLoader.loadImageViewWithCirclr(getContext(),result.getPortraitUri(),mTvUserImg);
                 int userType = SharedUtils.singleton().get(ConstValues.USER_TYPE,0);
                 switch (userType){
                     case 0:
@@ -123,7 +140,6 @@ public class HomeFourFragment extends BaseFragment {
 
             @Override
             public void failure() {
-                hideLoading();
             }
         });
     }

@@ -80,6 +80,9 @@ public interface ApiService {
     @POST("api/v1/user/appointment/apply")
     Observable<Result<AppointmentDetailsBase>> getAppointmentApply(@Body ApponintmentApply app);
 
+    @POST("api/v1/user/appointment/update")
+    Observable<Result<AppointmentDetailsBase>> getAppointmentApplyUpdate(@Body ApponintmentApply app);
+
 
     @GET("api/v1/user/appointment/details")
     Observable<Result<AppointmentDetailsBase>> getAppointmentDetails(@Query("id") String  id);

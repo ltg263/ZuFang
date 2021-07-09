@@ -54,10 +54,28 @@ public class AppointmentList {
         private String id;
         private String mobile;
         private String realName;
+        private String remark;
         private String status;
         private String stausStr;
         private String userId;
+        private String advserName;
         private ZuFangDetailsBase house;
+
+        public void setAdvserName(String advserName) {
+            this.advserName = advserName;
+        }
+
+        public String getAdvserName() {
+            return advserName;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark;
+        }
+
+        public String getRemark() {
+            return remark;
+        }
 
         public ZuFangDetailsBase getHouse() {
             return house;

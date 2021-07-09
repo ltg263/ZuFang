@@ -1,5 +1,6 @@
 package com.jxxx.zf.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseActivity;
 import com.jxxx.zf.bean.AppointmentList;
 import com.jxxx.zf.bean.Result;
+import com.jxxx.zf.bean.ZuFangDetailsBase;
 import com.jxxx.zf.utils.DialogUtils;
 import com.jxxx.zf.utils.IntentUtils;
 import com.jxxx.zf.view.adapter.MineListYyzxAdapter;
@@ -108,9 +110,36 @@ public class MineYyzxListActivity extends BaseActivity {
                 });
                 break;
             case "更改预约":
-
+                updateAppointment(data.get(position));
                 break;
         }
+    }
+
+    private void updateAppointment(AppointmentList.ListBean listBean) {
+        Intent mIntent = new Intent(this,ZuFangYyActivity.class);
+        ZuFangDetailsBase data = listBean.getHouse();
+        mIntent.putExtra("appointmentId",listBean.getId());
+        mIntent.putExtra("hasAdviser",listBean.getHasAdviser());
+        mIntent.putExtra("id",data.getId());
+        mIntent.putExtra("imgUrl",data.getImgUrl());
+        mIntent.putExtra("remark",listBean.getRemark());
+        mIntent.putExtra("advserName",listBean.getAdvserName());
+        mIntent.putExtra("adviserId",listBean.getAdviserId());
+        mIntent.putExtra("rentingName",data.getRentingType().equals("1") ? "合租·" : "合租·" + data.getName());
+        mIntent.putExtra("rentingName_2",data.getRentingType().equals("1") ? "合租·" : "合租·" +data.getArea()+"m²·"+""+"|"+data.getHousingEstateName());
+        if (data.getLables() != null) {
+            for (int i = 0; i < data.getLables().size(); i++) {
+                if (i == 0) {
+                    mIntent.putExtra("lables1",data.getLables().get(i).getName());
+                }
+                if (i == 1) {
+                    mIntent.putExtra("lables2",data.getLables().get(i).getName());
+                }
+            }
+        }
+        mIntent.putExtra("rent", data.getRent());
+        mIntent.putExtra("viewNum","约看" + data.getViewNum() + "人");
+        startActivity(mIntent);
     }
 
     private void getAppointmentCancel(String id, int position) {

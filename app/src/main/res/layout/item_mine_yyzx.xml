@@ -36,6 +36,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/ll_not"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/include_yyxx"

@@ -81,7 +81,6 @@ public class ZuFangYyxqActivity extends BaseActivity {
     private List<Fragment> getFragments() {
         Bundle mBundle = new Bundle();
         mBundle.putString("id",getIntent().getStringExtra(ConstValues.APPNAME_ENGLISH));
-        Log.w("APPNAME_ENGLISH","APPNAME_ENGLISH:"+getIntent().getStringExtra(ConstValues.APPNAME_ENGLISH));
         ZuFangYyxq1Fragment mZuFangYyxq1Fragment = new ZuFangYyxq1Fragment();
         mZuFangYyxq1Fragment.setArguments(mBundle);
         fragments.add(mZuFangYyxq1Fragment);

@@ -25,15 +25,4 @@ public class ZuFangYyxq2Fragment extends BaseFragment {
 
     }
 
-    @OnClick({R.id.bnt_lxyx, R.id.bnt_qrgw})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.bnt_lxyx:
-                baseStartActivity(ChatActivity.class,null);
-                break;
-            case R.id.bnt_qrgw:
-                baseStartActivity(MineQianYueActivity.class, null);
-                break;
-        }
-    }
 }

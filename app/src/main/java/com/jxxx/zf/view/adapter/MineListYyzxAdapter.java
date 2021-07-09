@@ -32,16 +32,17 @@ public class MineListYyzxAdapter extends BaseQuickAdapter<AppointmentList.ListBe
             case "1":
             case "2":
             case "3":
-                helper.setGone(R.id.ll_not,true).setVisible(R.id.bnt_1, true).setText(R.id.bnt_1, "取消预约")
-                        .setVisible(R.id.bnt_2, true).setText(R.id.bnt_2, "更改预约")
-                        .setVisible(R.id.bnt_3, true).setText(R.id.bnt_3, "电话联系");
-                break;
+            case "4":
             case "5":
-            case "6":
-                helper.setGone(R.id.ll_not,true).setVisible(R.id.bnt_1, true).setText(R.id.bnt_1, "评价")
-                        .setVisible(R.id.bnt_3, true).setText(R.id.bnt_3, "电话联系");
+                helper.setGone(R.id.ll_not,true)
+                        .setVisible(R.id.bnt_2, true).setText(R.id.bnt_2, "联系对方")
+                        .setVisible(R.id.bnt_3, true).setText(R.id.bnt_3, "取消预约");
                 break;
-//            case "4":
+            case "6":
+                helper.setGone(R.id.ll_not,true)
+                        .setVisible(R.id.bnt_2, true).setText(R.id.bnt_2, "联系对方")
+                        .setVisible(R.id.bnt_3, true).setText(R.id.bnt_3, "评价");
+                break;
 //            case "7":
 //                helper.setVisible(R.id.bnt_3, true).setText(R.id.bnt_3, "电话联系");
 //                break;

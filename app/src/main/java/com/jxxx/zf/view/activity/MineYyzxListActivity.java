@@ -71,10 +71,8 @@ public class MineYyzxListActivity extends BaseActivity {
                 switch (view.getId()) {
                     case R.id.bnt_1:
                     case R.id.bnt_2:
-                        setOnClickListener(tv.getText().toString(),mMineListYyzxAdapter.getData(),position);
-                        break;
                     case R.id.bnt_3:
-                        IntentUtils.startActivityPhone(MineYyzxListActivity.this, mMineListYyzxAdapter.getData().get(position).getMobile());
+                        setOnClickListener(tv.getText().toString(),mMineListYyzxAdapter.getData(),position);
                         break;
 
                 }
@@ -111,6 +109,9 @@ public class MineYyzxListActivity extends BaseActivity {
                 break;
             case "更改预约":
                 updateAppointment(data.get(position));
+                break;
+            case "联系对方":
+                IntentUtils.startActivityPhone(MineYyzxListActivity.this, mMineListYyzxAdapter.getData().get(position).getMobile());
                 break;
         }
     }
@@ -161,7 +162,7 @@ public class MineYyzxListActivity extends BaseActivity {
                     @Override
                     public void onNext(Result result) {
                         hideLoading();
-                        if (isResultOk(result) && result.getData() != null) {
+                        if (isResultOk(result)) {
                             ToastUtils.showLong("取消成功");
                             mMineListYyzxAdapter.remove(position);
                         }

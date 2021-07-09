@@ -217,7 +217,7 @@ public class ZuFangYyActivity extends BaseActivity {
             mApponintmentApply.setAdviserId(mAdviserListBean.getId());
             mApponintmentApply.setAdvserName(mAdviserListBean.getRealName());
         }
-        mApponintmentApply.setAppointmentTime(tv_time.getText().toString()+":00");
+        mApponintmentApply.setAppointmentTime(tv_time.getText().toString());
         mApponintmentApply.setRemark(tv_remark.getText().toString());
         mApponintmentApply.setGender(tv_gender.getText().toString().equals("男")?"1":"2");
         mApponintmentApply.setHouseId(intent.getStringExtra("id"));

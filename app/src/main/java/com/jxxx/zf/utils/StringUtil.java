@@ -278,6 +278,9 @@ public class StringUtil {
     }
 
     public static String getTimeToYMD(String seconds, String layout) {
+        if(StringUtil.isBlank(seconds)){
+            return "";
+        }
         Date d = new Date(Long.parseLong(seconds));
         SimpleDateFormat sdf = new SimpleDateFormat(layout);
         return sdf.format(d).toString();

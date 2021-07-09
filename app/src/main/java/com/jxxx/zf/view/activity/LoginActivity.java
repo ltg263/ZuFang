@@ -64,6 +64,8 @@ public class LoginActivity extends BaseActivity {
     public int intiLayout() {
         SharedUtils.singleton().put(ConstValues.TOKENID,"");
         SharedUtils.singleton().put(ConstValues.USERID,"");
+        SharedUtils.singleton().put(ConstValues.ISLOGIN,false);
+        SharedUtils.singleton().put(ConstValues.USER_TYPE,"0");
         return R.layout.activity_login;
     }
 
@@ -138,8 +140,18 @@ public class LoginActivity extends BaseActivity {
                     public void onNext(Result<LoginData> result) {
                         hideLoading();
                         if(isResultOk(result)){
-                            if(result.getData().getTokenId()!=null){
+                            if(result.getData()!=null){
                                 SharedUtils.singleton().put(ConstValues.TOKENID,result.getData().getTokenId());
+                                SharedUtils.singleton().put(ConstValues.ISLOGIN,true);
+                                if(result.getData().isAdviser() && result.getData().isLandlord()){//房东顾问双身份
+                                    SharedUtils.singleton().put(ConstValues.USER_TYPE,3);
+                                }else if(result.getData().isAdviser()){//房东
+                                    SharedUtils.singleton().put(ConstValues.USER_TYPE,2);
+                                }else if(result.getData().isLandlord()){//顾问
+                                    SharedUtils.singleton().put(ConstValues.USER_TYPE,1);
+                                }else{//用户
+                                    SharedUtils.singleton().put(ConstValues.USER_TYPE,0);
+                                }
                             }
                             if(StringUtil.isNotBlank(result.getData().getUserBase().getId())){
                                 SharedUtils.singleton().put(ConstValues.USERID,result.getData().getUserBase().getId());

@@ -9,14 +9,14 @@ public class AppointmentList {
      * list : [{"adviserId":1,"appointmentTime":1625814600000,"createTime":1625728251000,"delTf":0,"gender":2,"hasAdviser":1,"houseId":2,"id":10,"mobile":"17633332222","realName":"tttt","status":1,"userId":10},{"appointmentTime":1625731260000,"createTime":1625727674000,"delTf":0,"gender":1,"hasAdviser":0,"houseId":1,"id":9,"mobile":"17222214444","realName":"he","status":1,"userId":10},{"appointmentTime":1625719260000,"createTime":1625711403000,"delTf":0,"gender":1,"hasAdviser":0,"houseId":1,"id":8,"mobile":"17622221111","realName":"yer","status":1,"userId":7},{"appointmentTime":1625730960000,"createTime":1625644565000,"delTf":0,"gender":1,"hasAdviser":0,"houseId":1,"id":7,"mobile":"17622123357","realName":"tw","status":1,"userId":10},{"adviserId":1,"appointmentTime":1625719260000,"createTime":1625637848000,"delTf":0,"gender":1,"hasAdviser":0,"houseId":1,"id":6,"mobile":"17622221111","realName":"yer","status":1,"userId":1}]
      */
 
-    private String count;
+    private int count;
     private List<ListBean> list;
 
-    public String getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(String count) {
+    public void setCount(int count) {
         this.count = count;
     }
 
@@ -55,7 +55,17 @@ public class AppointmentList {
         private String mobile;
         private String realName;
         private String status;
+        private String stausStr;
         private String userId;
+        private ZuFangDetailsBase house;
+
+        public ZuFangDetailsBase getHouse() {
+            return house;
+        }
+
+        public void setHouse(ZuFangDetailsBase house) {
+            this.house = house;
+        }
 
         public String getAdviserId() {
             return adviserId;
@@ -150,7 +160,16 @@ public class AppointmentList {
         }
 
         public void setUserId(String userId) {
+
             this.userId = userId;
+        }
+
+        public String getStausStr() {
+            return stausStr;
+        }
+
+        public void setStausStr(String stausStr) {
+            this.stausStr = stausStr;
         }
     }
 }

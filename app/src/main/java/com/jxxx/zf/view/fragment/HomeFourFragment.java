@@ -8,7 +8,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jxxx.zf.R;
+import com.jxxx.zf.api.HttpsUtils;
+import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseFragment;
+import com.jxxx.zf.bean.UserInfoBean;
+import com.jxxx.zf.utils.GlideImageLoader;
+import com.jxxx.zf.utils.SharedUtils;
+import com.jxxx.zf.utils.StringUtil;
 import com.jxxx.zf.view.activity.LoginActivity;
 import com.jxxx.zf.view.activity.MineFylrActivity;
 import com.jxxx.zf.view.activity.MineHtListActivity;
@@ -82,6 +88,44 @@ public class HomeFourFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+        if(StringUtil.isNotBlank(SharedUtils.getToken()) && SharedUtils.singleton().get(ConstValues.ISLOGIN,false)){
+            mTvUserName.setText("用户信息");
+            getUserDetails();
+        }else{
+            mTvUserName.setText("请先登录");
+            GlideImageLoader.loadImage(getContext(),R.mipmap.icon_logo,mTvUserImg);
+        }
+    }
+
+    private void getUserDetails() {
+        showLoading();
+        HttpsUtils.getUserDetails(new HttpsUtils.UserDetailsInterface() {
+            @Override
+            public void succeed(UserInfoBean result) {
+                hideLoading();
+                mTvUserName.setText(result.getNickname());
+                int userType = SharedUtils.singleton().get(ConstValues.USER_TYPE,0);
+                switch (userType){
+                    case 0:
+                        mTvUserInfo.setText("普通用户");
+                        break;
+                    case 1:
+                        mTvUserInfo.setText("房东");
+                        break;
+                    case 2:
+                        mTvUserInfo.setText("顾问");
+                        break;
+                    case 3:
+                        mTvUserInfo.setText("房东|顾问");
+                        break;
+                }
+            }
+
+            @Override
+            public void failure() {
+                hideLoading();
+            }
+        });
     }
 
     @OnClick({R.id.rl_user_info, R.id.ll_top_1, R.id.ll_top_2, R.id.ll_top_3, R.id.ll_top_4, R.id.ll_center_1,

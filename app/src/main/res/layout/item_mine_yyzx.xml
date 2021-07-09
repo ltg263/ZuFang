@@ -7,9 +7,33 @@
     android:orientation="vertical"
     android:paddingVertical="8dp">
 
-    <include
+    <TextView
+        android:id="@+id/tv_htbh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="预约时间："
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/sp_12" />
+
+    <TextView
+        android:id="@+id/tv_qyzt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:padding="10dp"
+        android:text="状态"
+        android:textColor="@color/color_999999"
+        android:textSize="@dimen/sp_12" />
+
+    <RelativeLayout
         android:id="@+id/include_yyxx"
-        layout="@layout/item_include_fyxx" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_htbh">
+
+        <include layout="@layout/item_include_fyxx" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

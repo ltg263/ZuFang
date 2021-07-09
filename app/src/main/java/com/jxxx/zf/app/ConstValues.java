@@ -18,4 +18,5 @@ public class ConstValues {
     //默认连接超时时间
     public static final int DEFAULT_TIMEOUT =60;
     public static final int PAGE_SIZE =10;
+    public static String USER_TYPE = "user_type";//0 用户 1房东 2顾问 3房东顾问
 }

@@ -70,6 +70,12 @@ public interface ApiService {
     @GET("api/v1/user/appointment/appointmentList")
     Observable<Result<AppointmentList>> getAppointmentList();
 
+    @POST("api/v1/user/appointment/cancel")
+    Observable<Result> getAppointmentCancel(@Query("id") String id);
+
+    @GET("api/v1/user/appointment/list")
+    Observable<Result<AppointmentList>> getUserAppointmentList(@Query("page") int page, @Query("pageSize") int pageSize);
+
 
     @POST("api/v1/user/appointment/apply")
     Observable<Result<AppointmentDetailsBase>> getAppointmentApply(@Body ApponintmentApply app);

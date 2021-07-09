@@ -123,6 +123,10 @@ public class MineYyzxListActivity extends BaseActivity {
         mIntent.putExtra("id",data.getId());
         mIntent.putExtra("imgUrl",data.getImgUrl());
         mIntent.putExtra("remark",listBean.getRemark());
+        mIntent.putExtra("realName",listBean.getRealName());
+        mIntent.putExtra("gender",listBean.getGender());
+        mIntent.putExtra("mobile",listBean.getMobile());
+        mIntent.putExtra("appointmentTime",listBean.getAppointmentTime());
         mIntent.putExtra("advserName",listBean.getAdvserName());
         mIntent.putExtra("adviserId",listBean.getAdviserId());
         mIntent.putExtra("rentingName",data.getRentingType().equals("1") ? "合租·" : "合租·" + data.getName());

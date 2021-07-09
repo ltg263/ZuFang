@@ -32,7 +32,6 @@
             android:background="@null"
             android:hint="请输入姓名"
             android:gravity="end"
-            android:text="无"
             android:textColor="@color/color_333333"
             android:textCursorDrawable="@drawable/common_edit_input_line"
             android:textSize="@dimen/sp_14" />

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jxxx.zf.R;
 import com.jxxx.zf.api.RetrofitUtil;
+import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseActivity;
 import com.jxxx.zf.bean.AdviserListBean;
 import com.jxxx.zf.bean.AppointmentList;
@@ -39,8 +40,8 @@ public class UserInfoListActivity extends BaseActivity {
     @Override
     public void initView() {
         setToolbar(mMyToolbar, "选择带看");
-
-        mUserInfoListAdapter = new UserInfoListAdapter(null);
+        String id = getIntent().getStringExtra(ConstValues.APPNAME_ENGLISH);
+        mUserInfoListAdapter = new UserInfoListAdapter(null,id);
         mRvList.setAdapter(mUserInfoListAdapter);
 
         mUserInfoListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

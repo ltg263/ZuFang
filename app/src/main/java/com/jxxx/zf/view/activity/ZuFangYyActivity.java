@@ -120,12 +120,23 @@ public class ZuFangYyActivity extends BaseActivity {
                 mAdviserListBean = new AdviserListBean.ListBean();
                 mAdviserListBean.setId(intent.getStringExtra("adviserId"));
                 mAdviserListBean.setRealName(intent.getStringExtra("advserName"));
+
+                tv_nickname.setText(intent.getStringExtra("realName"));
+                tv_gender.setText(intent.getStringExtra("gender").equals("1") ? "男" : "女");
+                tv_userNo.setText(intent.getStringExtra("mobile"));
+                if (StringUtil.isNotBlank(intent.getStringExtra("appointmentTime"))) {
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    tv_time.setText(simpleDateFormat.format(Long.parseLong(intent.getStringExtra("appointmentTime"))));
+                }
             }
         }
     }
 
     @Override
     public void initData() {
+        if(StringUtil.isNotBlank(intent.getStringExtra("adviserId"))){
+            return;
+        }
         showLoading();
         HttpsUtils.getUserDetails(new HttpsUtils.UserDetailsInterface() {
             @Override
@@ -176,7 +187,11 @@ public class ZuFangYyActivity extends BaseActivity {
                 });
                 break;
             case R.id.ll_dkgw:
-                baseStartActivity(UserInfoListActivity.class, null);
+                if (mAdviserListBean!=null) {
+                    baseStartActivity(UserInfoListActivity.class, mAdviserListBean.getId());
+                }else{
+                    baseStartActivity(UserInfoListActivity.class, null);
+                }
                 break;
             case R.id.tv_time:
                 PickerViewUtils.selectorDate(ZuFangYyActivity.this,

@@ -10,7 +10,7 @@ public class HouseListBase {
          */
 
         private int count;
-        private List<HousesListBean> list;
+        private List<ZuFangDetailsBase> list;
 
         public int getCount() {
             return count;
@@ -20,11 +20,11 @@ public class HouseListBase {
             this.count = count;
         }
 
-        public List<HousesListBean> getList() {
+        public List<ZuFangDetailsBase> getList() {
             return list;
         }
 
-        public void setList(List<HousesListBean> list) {
+        public void setList(List<ZuFangDetailsBase> list) {
             this.list = list;
         }
 }

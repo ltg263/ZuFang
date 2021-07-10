@@ -287,7 +287,7 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
                 });
                 break;
             case "更改预约":
-                updateAppointment(data);
+                ZuFangYyActivity.startActivityYyUpdata(mContext,data);
                 break;
         }
     }
@@ -325,36 +325,4 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
                 });
 
     }
-
-    private void updateAppointment(AppointmentDetailsBase listBean) {
-        Intent mIntent = new Intent(mContext, ZuFangYyActivity.class);
-        ZuFangDetailsBase data = listBean.getHouse();
-        mIntent.putExtra("appointmentId", listBean.getId());
-        mIntent.putExtra("hasAdviser", listBean.getHasAdviser());
-        mIntent.putExtra("id", data.getId());
-        mIntent.putExtra("imgUrl", data.getImgUrl());
-        mIntent.putExtra("remark", listBean.getRemark());
-        mIntent.putExtra("realName", listBean.getRealName());
-        mIntent.putExtra("gender", listBean.getGender());
-        mIntent.putExtra("mobile", listBean.getMobile());
-        mIntent.putExtra("appointmentTime", listBean.getAppointmentTime());
-        mIntent.putExtra("advserName", listBean.getAdvserName());
-        mIntent.putExtra("adviserId", listBean.getAdviserId());
-        mIntent.putExtra("rentingName", data.getRentingType().equals("1") ? "合租·" : "合租·" + data.getName());
-        mIntent.putExtra("rentingName_2", data.getRentingType().equals("1") ? "合租·" : "合租·" + data.getArea() + "m²·" + "" + "|" + data.getHousingEstateName());
-        if (data.getLables() != null) {
-            for (int i = 0; i < data.getLables().size(); i++) {
-                if (i == 0) {
-                    mIntent.putExtra("lables1", data.getLables().get(i).getName());
-                }
-                if (i == 1) {
-                    mIntent.putExtra("lables2", data.getLables().get(i).getName());
-                }
-            }
-        }
-        mIntent.putExtra("rent", data.getRent());
-        mIntent.putExtra("viewNum", "约看" + data.getViewNum() + "人");
-        startActivity(mIntent);
-    }
-
 }

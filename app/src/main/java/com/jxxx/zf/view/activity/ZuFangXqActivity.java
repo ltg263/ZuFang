@@ -334,24 +334,7 @@ public class ZuFangXqActivity extends BaseActivity {
             case R.id.btn_zx:
                 break;
             case R.id.btn_yykf:
-                Intent mIntent = new Intent(this,ZuFangYyActivity.class);
-                mIntent.putExtra("id",data.getId());
-                mIntent.putExtra("imgUrl",data.getImgUrl());
-                mIntent.putExtra("rentingName",data.getRentingType().equals("1") ? "合租·" : "合租·" + data.getName());
-                mIntent.putExtra("rentingName_2",data.getRentingType().equals("1") ? "合租·" : "合租·" +data.getArea()+"m²·"+mTvArea.getText()+"|"+data.getHousingEstateName());
-                if (data.getLables() != null) {
-                    for (int i = 0; i < data.getLables().size(); i++) {
-                        if (i == 0) {
-                            mIntent.putExtra("lables1",data.getLables().get(i).getName());
-                        }
-                        if (i == 1) {
-                            mIntent.putExtra("lables2",data.getLables().get(i).getName());
-                        }
-                    }
-                }
-                mIntent.putExtra("rent", data.getRent());
-                mIntent.putExtra("viewNum","约看" + data.getViewNum() + "人");
-                startActivity(mIntent);
+                ZuFangYyActivity.startActivityYyUi(ZuFangXqActivity.this,data);
                 break;
         }
     }

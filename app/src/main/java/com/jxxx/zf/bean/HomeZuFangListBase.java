@@ -4,14 +4,14 @@ import java.util.List;
 
 public class HomeZuFangListBase {
 
-    private List<HousesListBean> houses;
+    private List<ZuFangDetailsBase> houses;
     private List<BannersBean> banners;
 
-    public List<HousesListBean> getHouses() {
+    public List<ZuFangDetailsBase> getHouses() {
         return houses;
     }
 
-    public void setHouses(List<HousesListBean> houses) {
+    public void setHouses(List<ZuFangDetailsBase> houses) {
         this.houses = houses;
     }
 

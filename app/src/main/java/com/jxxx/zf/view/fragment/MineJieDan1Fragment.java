@@ -93,7 +93,7 @@ public class MineJieDan1Fragment extends BaseFragment {
     protected void initData() {
         showLoading();
         RetrofitUtil.getInstance().apiService()
-                .getUserAppointmentList(page, ConstValues.PAGE_SIZE)
+                .getUserAppointmentJdList(page, ConstValues.PAGE_SIZE, getArguments().getString("status"))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<Result<AppointmentList>>() {

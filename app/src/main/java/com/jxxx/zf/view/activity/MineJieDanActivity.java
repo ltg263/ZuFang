@@ -73,19 +73,23 @@ public class MineJieDanActivity extends BaseActivity {
     List<Fragment> fragments = new ArrayList<>();
     private List<Fragment> getFragments() {
 
-        Bundle mBundle = new Bundle();
-        mBundle.putString("id",getIntent().getStringExtra(ConstValues.APPNAME_ENGLISH));
 
         MineJieDan1Fragment mMineJieDan1Fragment1 = new MineJieDan1Fragment();
-        mMineJieDan1Fragment1.setArguments(mBundle);
+        Bundle mBundle1 = new Bundle();
+        mBundle1.putString("status","1");
+        mMineJieDan1Fragment1.setArguments(mBundle1);
         fragments.add(mMineJieDan1Fragment1);
 
         MineJieDan1Fragment mMineJieDan1Fragment2 = new MineJieDan1Fragment();
-        mMineJieDan1Fragment2.setArguments(mBundle);
+        Bundle mBundle2 = new Bundle();
+        mBundle2.putString("status","2");
+        mMineJieDan1Fragment2.setArguments(mBundle2);
         fragments.add(mMineJieDan1Fragment2);
 
         MineJieDan1Fragment mMineJieDan1Fragment3 = new MineJieDan1Fragment();
-        mMineJieDan1Fragment3.setArguments(mBundle);
+        Bundle mBundle3 = new Bundle();
+        mBundle3.putString("status","3");
+        mMineJieDan1Fragment3.setArguments(mBundle3);
         fragments.add(mMineJieDan1Fragment3);
 
         return fragments;

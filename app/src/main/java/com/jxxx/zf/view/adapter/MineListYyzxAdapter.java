@@ -6,6 +6,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jxxx.zf.R;
+import com.jxxx.zf.bean.AppointmentDetailsBase;
 import com.jxxx.zf.bean.AppointmentList;
 import com.jxxx.zf.bean.ZuFangDetailsBase;
 import com.jxxx.zf.utils.GlideImageLoader;
@@ -15,14 +16,14 @@ import com.jxxx.zf.view.activity.ZuFangXqActivity;
 import java.util.List;
 
 
-public class MineListYyzxAdapter extends BaseQuickAdapter<AppointmentList.ListBean, BaseViewHolder> {
+public class MineListYyzxAdapter extends BaseQuickAdapter<AppointmentDetailsBase, BaseViewHolder> {
 
-    public MineListYyzxAdapter(List<AppointmentList.ListBean> data) {
+    public MineListYyzxAdapter(List<AppointmentDetailsBase> data) {
         super(R.layout.item_mine_yyzx, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, AppointmentList.ListBean item) {
+    protected void convert(BaseViewHolder helper, AppointmentDetailsBase item) {
         helper.addOnClickListener(R.id.bnt_1).addOnClickListener(R.id.bnt_2).addOnClickListener(R.id.bnt_3).setGone(R.id.ll_not,false)
                 .setVisible(R.id.bnt_1, false).setVisible(R.id.bnt_2, false).setVisible(R.id.bnt_3, false)
                 .setText(R.id.tv_qyzt, item.getStausStr())

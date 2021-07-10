@@ -78,7 +78,7 @@ public class ZuFangDetailsBase{
     private String status;
     private String viewNum;
     private List<LablesBean> lables;
-    private List<HousesListBean> nearHouses;
+    private List<ZuFangDetailsBase> nearHouses;
     private List<ParamsBean> params;
 
     public String getAddress() {
@@ -353,11 +353,11 @@ public class ZuFangDetailsBase{
         this.lables = lables;
     }
 
-    public List<HousesListBean> getNearHouses() {
+    public List<ZuFangDetailsBase> getNearHouses() {
         return nearHouses;
     }
 
-    public void setNearHouses(List<HousesListBean> nearHouses) {
+    public void setNearHouses(List<ZuFangDetailsBase> nearHouses) {
         this.nearHouses = nearHouses;
     }
 

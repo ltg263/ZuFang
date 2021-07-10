@@ -1,6 +1,5 @@
 package com.jxxx.zf.bean;
 
-import java.util.List;
 
 public class AppointmentDetailsBase {
 
@@ -22,6 +21,7 @@ public class AppointmentDetailsBase {
      * userId : 16
      */
 
+    private String stausStr;
     private String adviserId;
     private String advserName;
     private String appointmentTime;
@@ -37,6 +37,14 @@ public class AppointmentDetailsBase {
     private String remark;
     private String status;
     private String userId;
+
+    public String getStausStr() {
+        return stausStr;
+    }
+
+    public void setStausStr(String stausStr) {
+        this.stausStr = stausStr;
+    }
 
     public String getAdviserId() {
         return adviserId;

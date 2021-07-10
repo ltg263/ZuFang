@@ -10,7 +10,7 @@ public class AppointmentList {
      */
 
     private int count;
-    private List<ListBean> list;
+    private List<AppointmentDetailsBase> list;
 
     public int getCount() {
         return count;
@@ -20,174 +20,11 @@ public class AppointmentList {
         this.count = count;
     }
 
-    public List<ListBean> getList() {
+    public List<AppointmentDetailsBase> getList() {
         return list;
     }
 
-    public void setList(List<ListBean> list) {
+    public void setList(List<AppointmentDetailsBase> list) {
         this.list = list;
-    }
-
-    public static class ListBean {
-        /**
-         * adviserId : 1
-         * appointmentTime : 1625814600000
-         * createTime : 1625728251000
-         * delTf : 0
-         * gender : 2
-         * hasAdviser : 1
-         * houseId : 2
-         * id : 10
-         * mobile : 17633332222
-         * realName : tttt
-         * status : 1
-         * userId : 10
-         */
-
-        private String adviserId;
-        private String appointmentTime;
-        private String createTime;
-        private String delTf;
-        private String gender;
-        private String hasAdviser;
-        private String houseId;
-        private String id;
-        private String mobile;
-        private String realName;
-        private String remark;
-        private String status;
-        private String stausStr;
-        private String userId;
-        private String advserName;
-        private ZuFangDetailsBase house;
-
-        public void setAdvserName(String advserName) {
-            this.advserName = advserName;
-        }
-
-        public String getAdvserName() {
-            return advserName;
-        }
-
-        public void setRemark(String remark) {
-            this.remark = remark;
-        }
-
-        public String getRemark() {
-            return remark;
-        }
-
-        public ZuFangDetailsBase getHouse() {
-            return house;
-        }
-
-        public void setHouse(ZuFangDetailsBase house) {
-            this.house = house;
-        }
-
-        public String getAdviserId() {
-            return adviserId;
-        }
-
-        public void setAdviserId(String adviserId) {
-            this.adviserId = adviserId;
-        }
-
-        public String getAppointmentTime() {
-            return appointmentTime;
-        }
-
-        public void setAppointmentTime(String appointmentTime) {
-            this.appointmentTime = appointmentTime;
-        }
-
-        public String getCreateTime() {
-            return createTime;
-        }
-
-        public void setCreateTime(String createTime) {
-            this.createTime = createTime;
-        }
-
-        public String getDelTf() {
-            return delTf;
-        }
-
-        public void setDelTf(String delTf) {
-            this.delTf = delTf;
-        }
-
-        public String getGender() {
-            return gender;
-        }
-
-        public void setGender(String gender) {
-            this.gender = gender;
-        }
-
-        public String getHasAdviser() {
-            return hasAdviser;
-        }
-
-        public void setHasAdviser(String hasAdviser) {
-            this.hasAdviser = hasAdviser;
-        }
-
-        public String getHouseId() {
-            return houseId;
-        }
-
-        public void setHouseId(String houseId) {
-            this.houseId = houseId;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getMobile() {
-            return mobile;
-        }
-
-        public void setMobile(String mobile) {
-            this.mobile = mobile;
-        }
-
-        public String getRealName() {
-            return realName;
-        }
-
-        public void setRealName(String realName) {
-            this.realName = realName;
-        }
-
-        public String getStatus() {
-            return status;
-        }
-
-        public void setStatus(String status) {
-            this.status = status;
-        }
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public void setUserId(String userId) {
-
-            this.userId = userId;
-        }
-
-        public String getStausStr() {
-            return stausStr;
-        }
-
-        public void setStausStr(String stausStr) {
-            this.stausStr = stausStr;
-        }
     }
 }

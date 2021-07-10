@@ -6,20 +6,20 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jxxx.zf.R;
-import com.jxxx.zf.bean.HousesListBean;
+import com.jxxx.zf.bean.ZuFangDetailsBase;
 import com.jxxx.zf.utils.GlideImageLoader;
 import com.jxxx.zf.view.activity.ZuFangXqActivity;
 
 import java.util.List;
 
-public class HomeFyAdapter extends BaseQuickAdapter<HousesListBean, BaseViewHolder> {
+public class HomeFyAdapter extends BaseQuickAdapter<ZuFangDetailsBase, BaseViewHolder> {
 
-    public HomeFyAdapter(List<HousesListBean> data) {
+    public HomeFyAdapter(List<ZuFangDetailsBase> data) {
         super(R.layout.item_home_fy_list, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, HousesListBean item) {
+    protected void convert(BaseViewHolder helper, ZuFangDetailsBase item) {
         String orientationStr = "";
         switch (item.getOrientation()) {
             case "1":

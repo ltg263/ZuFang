@@ -162,12 +162,8 @@ public class HomeFourFragment extends BaseFragment {
                 mTvUserInfo.setText("普通用户");
                 list.clear();
                 list.add("我的收藏");
-                list.add("我的租客");
                 list.add("实名认证");
-                list.add("我的客户");
-                list.add("我的接单");
                 list.add("看房状态");
-                list.add("房源上架");
                 list.add("成为房东");
                 list.add("成为顾问");
                 mMineCygjAdapter.setNewData(list);

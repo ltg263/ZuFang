@@ -3,20 +3,41 @@ package com.jxxx.zf.view.adapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jxxx.zf.R;
-import com.jxxx.zf.bean.AppointmentList;
+import com.jxxx.zf.bean.AppointmentDetailsBase;
 import com.jxxx.zf.bean.ZuFangDetailsBase;
 import com.jxxx.zf.utils.GlideImageLoader;
 
 import java.util.List;
 
-public class MineListJdAdapter extends BaseQuickAdapter<AppointmentList.ListBean, BaseViewHolder> {
+public class MineListJdAdapter extends BaseQuickAdapter<AppointmentDetailsBase, BaseViewHolder> {
 
-    public MineListJdAdapter(List<AppointmentList.ListBean> data) {
+    public MineListJdAdapter(List<AppointmentDetailsBase> data) {
         super(R.layout.item_mine_jd, data);
     }
-
+//    var actions = [String].init()
+//        if loginUserManager.adviser {
+//        switch appointmentModel.status {
+//            case 3:
+//                actions = ["联系对方", "去看房"]
+//            case 4:
+//                actions = ["不签约", "线下签约", "线上签约"]
+//            default:
+//                actions = ["联系对方", "去认证"]
+//        }
+//    } else {
+//        switch appointmentModel.status {
+//            case 1:
+//                if appointmentModel.hasAdviser == 0 {
+//                actions = ["取消预约"]
+//            }
+//            case 6:
+//                actions = ["联系对方", "去评价"]
+//            default:
+//                actions = ["联系对方", "取消预约"]
+//        }
+//    }
     @Override
-    protected void convert(BaseViewHolder helper, AppointmentList.ListBean item) {
+    protected void convert(BaseViewHolder helper, AppointmentDetailsBase item) {
         helper.addOnClickListener(R.id.bnt_lx).addOnClickListener(R.id.bnt_jd)
                 .setVisible(R.id.bnt_lx, false).setVisible(R.id.bnt_jd, false)
                 .setText(R.id.tv_qyzt, item.getStausStr())

@@ -76,6 +76,9 @@ public interface ApiService {
     @GET("api/v1/user/appointment/list")
     Observable<Result<AppointmentList>> getUserAppointmentList(@Query("page") int page, @Query("pageSize") int pageSize);
 
+    @GET("api/v1/user/appointment/appointmentList")
+    Observable<Result<AppointmentList>> getUserAppointmentJdList(@Query("page") int page, @Query("pageSize") int pageSize,@Query("status") String status);
+
 
     @POST("api/v1/user/appointment/apply")
     Observable<Result<AppointmentDetailsBase>> getAppointmentApply(@Body ApponintmentApply app);
@@ -105,4 +108,7 @@ public interface ApiService {
 
     @POST("api/v1/user/collection/doCollection")
     Observable<Result<String>> houseDoCollection(@Query("houseId") String houseId);
+
+    @POST("api/v1/user/collection/houseList")
+    Observable<Result<HouseListBase>> HouseCollectionList(@Query("page") int page, @Query("pageSize") int pageSize);
 }

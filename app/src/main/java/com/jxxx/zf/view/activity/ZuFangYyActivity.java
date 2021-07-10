@@ -1,5 +1,6 @@
 package com.jxxx.zf.view.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,8 +18,10 @@ import com.jxxx.zf.api.RetrofitUtil;
 import com.jxxx.zf.base.BaseActivity;
 import com.jxxx.zf.bean.AdviserListBean;
 import com.jxxx.zf.bean.AppointmentDetailsBase;
+import com.jxxx.zf.bean.AppointmentList;
 import com.jxxx.zf.bean.ApponintmentApply;
 import com.jxxx.zf.bean.HomeZuFangListBase;
+import com.jxxx.zf.bean.ZuFangDetailsBase;
 import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.bean.UserInfoBean;
 import com.jxxx.zf.bean.ZuFangDetailsBase;
@@ -285,5 +288,112 @@ public class ZuFangYyActivity extends BaseActivity {
                         hideLoading();
                     }
                 });
+    }
+    public static void startActivityYyUi(Context mContext, ZuFangDetailsBase data){
+        String orientationStr = "";
+        switch (data.getOrientation()) {
+            case "1":
+                orientationStr = "朝东";
+                break;
+            case "2":
+                orientationStr = "朝南";
+                break;
+            case "3":
+                orientationStr = "朝西";
+                break;
+            case "4":
+                orientationStr = "朝北";
+                break;
+            case "5":
+                orientationStr = "朝东南";
+                break;
+            case "6":
+                orientationStr = "朝西南";
+                break;
+            case "7":
+                orientationStr = "朝东北";
+                break;
+            case "8":
+                orientationStr = "朝西北";
+                break;
+        }
+
+        Intent mIntent = new Intent(mContext,ZuFangYyActivity.class);
+        mIntent.putExtra("id",data.getId());
+        mIntent.putExtra("imgUrl",data.getImgUrl());
+        mIntent.putExtra("rentingName",data.getRentingType().equals("1") ? "合租·" : "合租·" + data.getName());
+        mIntent.putExtra("rentingName_2",data.getRentingType().equals("1") ? "合租·" : "合租·" +data.getArea()+"m²·"+orientationStr+"|"+data.getHousingEstateName());
+        if (data.getLables() != null) {
+            for (int i = 0; i < data.getLables().size(); i++) {
+                if (i == 0) {
+                    mIntent.putExtra("lables1",data.getLables().get(i).getName());
+                }
+                if (i == 1) {
+                    mIntent.putExtra("lables2",data.getLables().get(i).getName());
+                }
+            }
+        }
+        mIntent.putExtra("rent", data.getRent());
+        mIntent.putExtra("viewNum","约看" + data.getViewNum() + "人");
+        mContext.startActivity(mIntent);
+    }
+
+
+    public static void startActivityYyUpdata(Context mContext,AppointmentDetailsBase listBean) {
+        String orientationStr = "";
+        switch (listBean.getHouse().getOrientation()) {
+            case "1":
+                orientationStr = "朝东";
+                break;
+            case "2":
+                orientationStr = "朝南";
+                break;
+            case "3":
+                orientationStr = "朝西";
+                break;
+            case "4":
+                orientationStr = "朝北";
+                break;
+            case "5":
+                orientationStr = "朝东南";
+                break;
+            case "6":
+                orientationStr = "朝西南";
+                break;
+            case "7":
+                orientationStr = "朝东北";
+                break;
+            case "8":
+                orientationStr = "朝西北";
+                break;
+        }
+        Intent mIntent = new Intent(mContext, ZuFangYyActivity.class);
+        ZuFangDetailsBase data = listBean.getHouse();
+        mIntent.putExtra("appointmentId", listBean.getId());
+        mIntent.putExtra("hasAdviser", listBean.getHasAdviser());
+        mIntent.putExtra("id", data.getId());
+        mIntent.putExtra("imgUrl", data.getImgUrl());
+        mIntent.putExtra("remark", listBean.getRemark());
+        mIntent.putExtra("realName", listBean.getRealName());
+        mIntent.putExtra("gender", listBean.getGender());
+        mIntent.putExtra("mobile", listBean.getMobile());
+        mIntent.putExtra("appointmentTime", listBean.getAppointmentTime());
+        mIntent.putExtra("advserName", listBean.getAdvserName());
+        mIntent.putExtra("adviserId", listBean.getAdviserId());
+        mIntent.putExtra("rentingName", data.getRentingType().equals("1") ? "合租·" : "合租·" + data.getName());
+        mIntent.putExtra("rentingName_2", data.getRentingType().equals("1") ? "合租·" : "合租·" + data.getArea() + "m²·" + orientationStr + "|" + data.getHousingEstateName());
+        if (data.getLables() != null) {
+            for (int i = 0; i < data.getLables().size(); i++) {
+                if (i == 0) {
+                    mIntent.putExtra("lables1", data.getLables().get(i).getName());
+                }
+                if (i == 1) {
+                    mIntent.putExtra("lables2", data.getLables().get(i).getName());
+                }
+            }
+        }
+        mIntent.putExtra("rent", data.getRent());
+        mIntent.putExtra("viewNum", "约看" + data.getViewNum() + "人");
+        mContext.startActivity(mIntent);
     }
 }

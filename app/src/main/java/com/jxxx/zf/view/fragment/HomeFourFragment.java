@@ -7,7 +7,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jxxx.zf.R;
 import com.jxxx.zf.api.HttpsUtils;
 import com.jxxx.zf.app.ConstValues;
@@ -28,6 +31,11 @@ import com.jxxx.zf.view.activity.MineSetSmrzActivity;
 import com.jxxx.zf.view.activity.MineSettingActivity;
 import com.jxxx.zf.view.activity.MineYyzxListActivity;
 import com.jxxx.zf.view.activity.payActivity.ActivityPayHomeQb;
+import com.jxxx.zf.view.adapter.MineCygjAdapter;
+import com.jxxx.zf.view.adapter.MineJfzdListAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -53,24 +61,6 @@ public class HomeFourFragment extends BaseFragment {
     LinearLayout mLlTop3;
     @BindView(R.id.ll_top_4)
     LinearLayout mLlTop4;
-    @BindView(R.id.ll_center_1)
-    LinearLayout mLlCenter1;
-    @BindView(R.id.ll_center_2)
-    LinearLayout mLlCenter2;
-    @BindView(R.id.ll_center_3)
-    LinearLayout mLlCenter3;
-    @BindView(R.id.ll_center_4)
-    LinearLayout mLlCenter4;
-    @BindView(R.id.ll_center_5)
-    LinearLayout mLlCenter5;
-    @BindView(R.id.ll_center_6)
-    LinearLayout mLlCenter6;
-    @BindView(R.id.ll_center_7)
-    LinearLayout mLlCenter7;
-    @BindView(R.id.ll_center_8)
-    LinearLayout mLlCenter8;
-    @BindView(R.id.ll_center_9)
-    LinearLayout mLlCenter9;
     @BindView(R.id.ll_below_1)
     LinearLayout mLlBelow1;
     @BindView(R.id.ll_below_2)
@@ -79,6 +69,10 @@ public class HomeFourFragment extends BaseFragment {
     LinearLayout mLlBelow3;
     @BindView(R.id.ll_below_4)
     LinearLayout mLlBelow4;
+    @BindView(R.id.rv_list)
+    RecyclerView mRvList;
+    private MineCygjAdapter mMineCygjAdapter;
+    List<String> list = new ArrayList<>();
 
     @Override
     protected int setLayoutResourceID() {
@@ -87,7 +81,42 @@ public class HomeFourFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+        mMineCygjAdapter = new MineCygjAdapter(null);
+        mRvList.setAdapter(mMineCygjAdapter);
+        mMineCygjAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (mMineCygjAdapter.getData().get(position)){
 
+                    case "我的收藏":
+                        baseStartActivity(MineListScActivity.class, null);
+                        break;
+                    case "我的租客":
+                        baseStartActivity(MineKhListActivity.class, null);
+                        break;
+                    case "实名认证":
+                        baseStartActivity(MineSetSmrzActivity.class, null);
+                        break;
+                    case "我的客户":
+                        baseStartActivity(MineKhListActivity.class, null);
+                        break;
+                    case "我的接单":
+                        baseStartActivity(MineJieDanActivity.class, null);
+                        break;
+                    case "看房状态":
+
+                        break;
+                    case "房源上架":
+                        baseStartActivity(MineFylrActivity.class, null);
+                        break;
+                    case "成为房东":
+                        break;
+                    case "成为顾问":
+
+                        break;
+                }
+            }
+        });
     }
 
     @Override
@@ -99,43 +128,91 @@ public class HomeFourFragment extends BaseFragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if(!hidden){
+        if (!hidden) {
             initData();
         }
     }
 
     @Override
     protected void initData() {
-        if(StringUtil.isNotBlank(SharedUtils.getToken()) && SharedUtils.singleton().get(ConstValues.ISLOGIN,false)){
+        if (StringUtil.isNotBlank(SharedUtils.getToken()) && SharedUtils.singleton().get(ConstValues.ISLOGIN, false)) {
             getUserDetails();
-        }else{
+
+        } else {
             mTvUserName.setText("请先登录");
             Glide.with(mContext).load(R.mipmap.icon_logo).thumbnail(0.1f)
                     .apply(bitmapTransform(new CropCircleTransformation())).into(mTvUserImg);
+            list.clear();
+            list.add("我的收藏");
+            list.add("我的租客");
+            list.add("实名认证");
+            list.add("我的客户");
+            list.add("我的接单");
+            list.add("看房状态");
+            list.add("房源上架");
+            list.add("成为房东");
+            list.add("成为顾问");
+            mMineCygjAdapter.setNewData(list);
         }
     }
 
     private void getUserDetails() {
+        switch (SharedUtils.singleton().get(ConstValues.USER_TYPE, 0)) {
+            case 0:
+                mTvUserInfo.setText("普通用户");
+                list.clear();
+                list.add("我的收藏");
+                list.add("我的租客");
+                list.add("实名认证");
+                list.add("我的客户");
+                list.add("我的接单");
+                list.add("看房状态");
+                list.add("房源上架");
+                list.add("成为房东");
+                list.add("成为顾问");
+                mMineCygjAdapter.setNewData(list);
+                break;
+            case 1:
+                mTvUserInfo.setText("房东");
+                list.clear();
+                list.add("我的收藏");
+                list.add("我的租客");
+                list.add("实名认证");
+                list.add("我的客户");
+                list.add("看房状态");
+                list.add("房源上架");
+                list.add("成为顾问");
+                mMineCygjAdapter.setNewData(list);
+                break;
+            case 2:
+                mTvUserInfo.setText("顾问");
+                list.clear();
+                list.add("我的收藏");
+                list.add("我的租客");
+                list.add("实名认证");
+                list.add("我的接单");
+                list.add("看房状态");
+                list.add("房源上架");
+                list.add("成为房东");
+                mMineCygjAdapter.setNewData(list);
+                break;
+            case 3:
+                mTvUserInfo.setText("房东|顾问");
+                list.clear();
+                list.add("我的收藏");
+                list.add("我的租客");
+                list.add("实名认证");
+                list.add("我的客户");
+                list.add("我的接单");
+                list.add("看房状态");
+                list.add("房源上架");
+                break;
+        }
         HttpsUtils.getUserDetails(new HttpsUtils.UserDetailsInterface() {
             @Override
             public void succeed(UserInfoBean result) {
                 mTvUserName.setText(result.getNickname());
-                GlideImageLoader.loadImageViewWithCirclr(getContext(),result.getPortraitUri(),mTvUserImg);
-                int userType = SharedUtils.singleton().get(ConstValues.USER_TYPE,0);
-                switch (userType){
-                    case 0:
-                        mTvUserInfo.setText("普通用户");
-                        break;
-                    case 1:
-                        mTvUserInfo.setText("房东");
-                        break;
-                    case 2:
-                        mTvUserInfo.setText("顾问");
-                        break;
-                    case 3:
-                        mTvUserInfo.setText("房东|顾问");
-                        break;
-                }
+                GlideImageLoader.loadImageViewWithCirclr(getContext(), result.getPortraitUri(), mTvUserImg);
             }
 
             @Override
@@ -144,57 +221,32 @@ public class HomeFourFragment extends BaseFragment {
         });
     }
 
-    @OnClick({R.id.rl_user_info, R.id.ll_top_1, R.id.ll_top_2, R.id.ll_top_3, R.id.ll_top_4, R.id.ll_center_1,
-            R.id.ll_center_2, R.id.ll_center_3, R.id.ll_center_4, R.id.ll_center_5, R.id.ll_center_6, R.id.ll_center_7,
-            R.id.ll_center_8, R.id.ll_center_9, R.id.ll_below_1, R.id.ll_below_2, R.id.ll_below_3, R.id.ll_below_4})
+    @OnClick({R.id.rl_user_info, R.id.ll_top_1, R.id.ll_top_2, R.id.ll_top_3, R.id.ll_top_4,
+            R.id.ll_below_1, R.id.ll_below_2, R.id.ll_below_3, R.id.ll_below_4})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_user_info:
-                baseStartActivity(LoginActivity.class,null);
+                baseStartActivity(LoginActivity.class, null);
                 break;
             case R.id.ll_top_1:
-                baseStartActivity(MineHtListActivity.class,null);
+                baseStartActivity(MineHtListActivity.class, null);
                 break;
             case R.id.ll_top_2:
-                baseStartActivity(MineJfzdActivity.class,null);
+                baseStartActivity(MineJfzdActivity.class, null);
                 break;
             case R.id.ll_top_3:
-                baseStartActivity(MineYyzxListActivity.class,null);
+                baseStartActivity(MineYyzxListActivity.class, null);
                 break;
             case R.id.ll_top_4:
-                baseStartActivity(ActivityPayHomeQb.class,null);
-                break;
-            case R.id.ll_center_1:
-                baseStartActivity(MineListScActivity.class,null);
-                break;
-            case R.id.ll_center_2:
-                baseStartActivity(MineKhListActivity.class,null);
-                break;
-            case R.id.ll_center_3:
-                baseStartActivity(MineSetSmrzActivity.class,null);
-                break;
-            case R.id.ll_center_4:
-                baseStartActivity(MineKhListActivity.class,null);
-                break;
-            case R.id.ll_center_5:
-                baseStartActivity(MineJieDanActivity.class,null);
-                break;
-            case R.id.ll_center_6:
-                break;
-            case R.id.ll_center_7:
-                baseStartActivity(MineFylrActivity.class,null);
-                break;
-            case R.id.ll_center_8:
-                break;
-            case R.id.ll_center_9:
+                baseStartActivity(ActivityPayHomeQb.class, null);
                 break;
             case R.id.ll_below_1:
-                baseStartActivity(MineSettingActivity.class,null);
+                baseStartActivity(MineSettingActivity.class, null);
                 break;
             case R.id.ll_below_2:
                 break;
             case R.id.ll_below_3:
-                baseStartActivity(MineSetGyActivity.class,null);
+                baseStartActivity(MineSetGyActivity.class, null);
                 break;
             case R.id.ll_below_4:
                 break;

@@ -104,5 +104,5 @@ public interface ApiService {
     Observable<Result<List<HouseCompareBean>>> houseCompare(@Query("houseIds") String houseIds,@Query("hideSame") String hideSame);
 
     @POST("api/v1/user/collection/doCollection")
-    Observable<Result> houseDoCollection(@Query("houseId") String houseId);
+    Observable<Result<String>> houseDoCollection(@Query("houseId") String houseId);
 }

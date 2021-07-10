@@ -49,7 +49,7 @@ public class ZuFangDetailsBase{
     private String area;
     private String businessAreaId;
     private String cityId;
-    private boolean collection;
+    private String isCollection;
     private String commission;
     private String createTime;
     private String delTf;
@@ -121,12 +121,12 @@ public class ZuFangDetailsBase{
         this.cityId = cityId;
     }
 
-    public boolean isCollection() {
-        return collection;
+    public String getIsCollection() {
+        return isCollection;
     }
 
-    public void setCollection(boolean collection) {
-        this.collection = collection;
+    public void setIsCollection(String isCollection) {
+        this.isCollection = isCollection;
     }
 
     public String getCommission() {

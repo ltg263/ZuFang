@@ -2,6 +2,7 @@ package com.jxxx.zf.view.activity;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -101,7 +102,6 @@ public class ZuFangXqActivity extends BaseActivity {
     TextView mTvFyxx7;
     @BindView(R.id.tv_details)
     TextView mTvDetails;
-    private HomeFyAdapter mHomeFyAdapter;
 
     @Override
     public int intiLayout() {
@@ -254,6 +254,14 @@ public class ZuFangXqActivity extends BaseActivity {
                                     mTvFyxx4.setText("毛坯");
                                     break;
                             }
+                            Drawable dra1 = getResources().getDrawable(R.drawable.group_829);
+                            dra1.setBounds( 0, 0, dra1.getMinimumWidth(),dra1.getMinimumHeight());
+                            mTvLiulan.setCompoundDrawables(null, dra1,null,null);
+                            if(data.getIsCollection().equals("1")){
+                                Drawable dra = getResources().getDrawable(R.drawable.group_886);
+                                dra.setBounds( 0, 0, dra.getMinimumWidth(),dra.getMinimumHeight());
+                                mTvLiulan.setCompoundDrawables(null, dra,null,null);
+                            }
                             mTvFyxx5.setText(data.getHasElevator().equals("1") ? "是" : "否");
                             mTvFyxx6.setText(data.getHasParking().equals("1") ? "是" : "否");
                             mTvFyxx7.setText("无");
@@ -353,16 +361,25 @@ public class ZuFangXqActivity extends BaseActivity {
                 .houseDoCollection(getIntent().getStringExtra("id"))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Result>() {
+                .subscribe(new Observer<Result<String>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Result result) {
+                    public void onNext(Result<String> result) {
                         if(isResultOk(result)){
-
+                            data.setIsCollection(result.getData());
+                            Drawable dra;
+                            if(result.getData().equals("1")){
+                                dra = getResources().getDrawable(R.drawable.group_886);
+                                dra.setBounds( 0, 0, dra.getMinimumWidth(),dra.getMinimumHeight());
+                            }else{
+                                dra = getResources().getDrawable(R.drawable.group_829);
+                                dra.setBounds( 0, 0, dra.getMinimumWidth(),dra.getMinimumHeight());
+                            }
+                            mTvLiulan.setCompoundDrawables(null, dra,null,null);
                         }
                     }
 

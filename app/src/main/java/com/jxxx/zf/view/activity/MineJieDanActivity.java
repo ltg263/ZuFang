@@ -1,5 +1,7 @@
 package com.jxxx.zf.view.activity;
 
+import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -7,9 +9,12 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.jxxx.zf.R;
+import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseActivity;
 import com.jxxx.zf.utils.MagicIndicatorUtils;
 import com.jxxx.zf.view.fragment.MineJieDan1Fragment;
+import com.jxxx.zf.view.fragment.ZuFangYyxq1Fragment;
+import com.jxxx.zf.view.fragment.ZuFangYyxq2Fragment;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
@@ -67,9 +72,22 @@ public class MineJieDanActivity extends BaseActivity {
     //1,待支付;2,待发货;3,待收货;4,待评价;5,已完成;6,已取消;7,已过期;8,已结束
     List<Fragment> fragments = new ArrayList<>();
     private List<Fragment> getFragments() {
-        fragments.add( new MineJieDan1Fragment());
-        fragments.add( new MineJieDan1Fragment());
-        fragments.add( new MineJieDan1Fragment());
+
+        Bundle mBundle = new Bundle();
+        mBundle.putString("id",getIntent().getStringExtra(ConstValues.APPNAME_ENGLISH));
+
+        MineJieDan1Fragment mMineJieDan1Fragment1 = new MineJieDan1Fragment();
+        mMineJieDan1Fragment1.setArguments(mBundle);
+        fragments.add(mMineJieDan1Fragment1);
+
+        MineJieDan1Fragment mMineJieDan1Fragment2 = new MineJieDan1Fragment();
+        mMineJieDan1Fragment2.setArguments(mBundle);
+        fragments.add(mMineJieDan1Fragment2);
+
+        MineJieDan1Fragment mMineJieDan1Fragment3 = new MineJieDan1Fragment();
+        mMineJieDan1Fragment3.setArguments(mBundle);
+        fragments.add(mMineJieDan1Fragment3);
+
         return fragments;
     }
     @Override

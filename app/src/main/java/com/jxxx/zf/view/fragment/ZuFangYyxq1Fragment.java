@@ -212,15 +212,19 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
         switch (data.getStatus()) {
             case "1":
             case "2":
+                mBnt1.setVisibility(View.VISIBLE);
                 mBnt2.setVisibility(View.VISIBLE);
                 mBnt3.setVisibility(View.VISIBLE);
+                mBnt1.setText("更改预约");
                 mBnt2.setText("联系对方");
                 mBnt3.setText("取消预约");
                 mIvStatus1.setImageResource(R.drawable.group_927);
                 break;
             case "3":
+                mBnt1.setVisibility(View.VISIBLE);
                 mBnt2.setVisibility(View.VISIBLE);
                 mBnt3.setVisibility(View.VISIBLE);
+                mBnt1.setText("更改预约");
                 mBnt2.setText("联系对方");
                 mBnt3.setText("取消预约");
                 mIvStatus1.setImageResource(R.drawable.group_927);

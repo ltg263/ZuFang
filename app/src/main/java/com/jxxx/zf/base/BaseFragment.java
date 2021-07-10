@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.jxxx.zf.R;
+import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.utils.StringUtil;
 import com.jxxx.zf.utils.view.LoadingDialog;
@@ -89,7 +90,7 @@ public abstract class BaseFragment extends Fragment {
     protected void baseStartActivity(Class<?> cls,String str){
         Intent mIntent = new Intent(getActivity(),cls);
         if(StringUtil.isNotBlank(str)){
-            mIntent.putExtra("str",str);
+            mIntent.putExtra(ConstValues.APPNAME_ENGLISH,str);
         }
         startActivity(mIntent);
 

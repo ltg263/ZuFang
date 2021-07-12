@@ -16,6 +16,7 @@ import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.bean.ZuFangDetailsBase;
 import com.jxxx.zf.utils.DialogUtils;
 import com.jxxx.zf.utils.GlideImageLoader;
+import com.jxxx.zf.utils.StringUtil;
 import com.jxxx.zf.view.activity.ChatActivity;
 import com.jxxx.zf.view.activity.MineYypjActivity;
 import com.jxxx.zf.view.activity.ZuFangYyActivity;
@@ -128,34 +129,7 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
         if (dataHouse != null) {
             GlideImageLoader.loadImageAndDefault(getActivity(), dataHouse.getImgUrl(), mHeadIcon);
             mNameType.setText(dataHouse.getRentingType().equals("1") ? "合租·" : "合租·" + dataHouse.getName());
-            String orientation = "";
-            switch (dataHouse.getOrientation()) {
-                case "1":
-                    orientation = "朝东";
-                    break;
-                case "2":
-                    orientation = "朝南";
-                    break;
-                case "3":
-                    orientation = "朝西";
-                    break;
-                case "4":
-                    orientation = "朝北";
-                    break;
-                case "5":
-                    orientation = "朝东南";
-                    break;
-                case "6":
-                    orientation = "朝西南";
-                    break;
-                case "7":
-                    orientation = "朝东北";
-                    break;
-                case "8":
-                    orientation = "朝西北";
-                    break;
-            }
-            mYear.setText(dataHouse.getRentingType().equals("1") ? "合租·" : "合租·" + dataHouse.getArea() + "m²·" + orientation + "|" + dataHouse.getHousingEstateName());
+            mYear.setText(dataHouse.getRentingType().equals("1") ? "合租·" : "合租·" + dataHouse.getArea() + "m²·" + StringUtil.getHouseOrientation(dataHouse.getOrientation()) + "|" + dataHouse.getHousingEstateName());
             if (dataHouse.getLables() != null) {
                 for (int i = 0; i < dataHouse.getLables().size(); i++) {
                     if (i == 0) {

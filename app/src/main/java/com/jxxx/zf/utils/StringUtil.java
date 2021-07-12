@@ -417,4 +417,36 @@ public class StringUtil {
         else return true;
 
     }
+
+    public static String getHouseOrientation(String orientation){
+        String orientationStr = "未知";
+        switch (orientation) {
+            case "1":
+                orientationStr = "朝东";
+                break;
+            case "2":
+                orientationStr = "朝南";
+                break;
+            case "3":
+                orientationStr = "朝西";
+                break;
+            case "4":
+                orientationStr = "朝北";
+                break;
+            case "5":
+                orientationStr = "朝东南";
+                break;
+            case "6":
+                orientationStr = "朝西南";
+                break;
+            case "7":
+                orientationStr = "朝东北";
+                break;
+            case "8":
+                orientationStr = "朝西北";
+                break;
+        }
+        return orientationStr;
+    }
+
 }

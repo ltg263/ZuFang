@@ -25,6 +25,7 @@ import com.jxxx.zf.bean.ZuFangDetailsBase;
 import com.jxxx.zf.utils.GlideImageLoader;
 import com.jxxx.zf.utils.IntentUtils;
 import com.jxxx.zf.utils.StatusBarUtil;
+import com.jxxx.zf.utils.StringUtil;
 import com.jxxx.zf.view.activity.mapAddress.GeoCoderUtil;
 import com.jxxx.zf.view.activity.mapAddress.LatLngEntity;
 import com.jxxx.zf.view.adapter.HomeFyAdapter;
@@ -198,32 +199,7 @@ public class ZuFangXqActivity extends BaseActivity {
                                     break;
                             }
                             mTvArea.setText(data.getArea() + "m²");
-                            switch (data.getOrientation()) {
-                                case "1":
-                                    mTvArea.setText("朝东");
-                                    break;
-                                case "2":
-                                    mTvArea.setText("朝南");
-                                    break;
-                                case "3":
-                                    mTvArea.setText("朝西");
-                                    break;
-                                case "4":
-                                    mTvArea.setText("朝北");
-                                    break;
-                                case "5":
-                                    mTvArea.setText("朝东南");
-                                    break;
-                                case "6":
-                                    mTvArea.setText("朝西南");
-                                    break;
-                                case "7":
-                                    mTvArea.setText("朝东北");
-                                    break;
-                                case "8":
-                                    mTvArea.setText("朝西北");
-                                    break;
-                            }
+                            mTvArea.setText(StringUtil.getHouseOrientation(data.getOrientation()));
                             if (data.getLables() != null) {
                                 for (int i = 0; i < data.getLables().size(); i++) {
                                     if (i == 0) {

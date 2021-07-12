@@ -290,39 +290,11 @@ public class ZuFangYyActivity extends BaseActivity {
                 });
     }
     public static void startActivityYyUi(Context mContext, ZuFangDetailsBase data){
-        String orientationStr = "";
-        switch (data.getOrientation()) {
-            case "1":
-                orientationStr = "朝东";
-                break;
-            case "2":
-                orientationStr = "朝南";
-                break;
-            case "3":
-                orientationStr = "朝西";
-                break;
-            case "4":
-                orientationStr = "朝北";
-                break;
-            case "5":
-                orientationStr = "朝东南";
-                break;
-            case "6":
-                orientationStr = "朝西南";
-                break;
-            case "7":
-                orientationStr = "朝东北";
-                break;
-            case "8":
-                orientationStr = "朝西北";
-                break;
-        }
-
         Intent mIntent = new Intent(mContext,ZuFangYyActivity.class);
         mIntent.putExtra("id",data.getId());
         mIntent.putExtra("imgUrl",data.getImgUrl());
         mIntent.putExtra("rentingName",data.getRentingType().equals("1") ? "合租·" : "合租·" + data.getName());
-        mIntent.putExtra("rentingName_2",data.getRentingType().equals("1") ? "合租·" : "合租·" +data.getArea()+"m²·"+orientationStr+"|"+data.getHousingEstateName());
+        mIntent.putExtra("rentingName_2",data.getRentingType().equals("1") ? "合租·" : "合租·" +data.getArea()+"m²·"+StringUtil.getHouseOrientation(data.getOrientation())+"|"+data.getHousingEstateName());
         if (data.getLables() != null) {
             for (int i = 0; i < data.getLables().size(); i++) {
                 if (i == 0) {
@@ -340,33 +312,6 @@ public class ZuFangYyActivity extends BaseActivity {
 
 
     public static void startActivityYyUpdata(Context mContext,AppointmentDetailsBase listBean) {
-        String orientationStr = "";
-        switch (listBean.getHouse().getOrientation()) {
-            case "1":
-                orientationStr = "朝东";
-                break;
-            case "2":
-                orientationStr = "朝南";
-                break;
-            case "3":
-                orientationStr = "朝西";
-                break;
-            case "4":
-                orientationStr = "朝北";
-                break;
-            case "5":
-                orientationStr = "朝东南";
-                break;
-            case "6":
-                orientationStr = "朝西南";
-                break;
-            case "7":
-                orientationStr = "朝东北";
-                break;
-            case "8":
-                orientationStr = "朝西北";
-                break;
-        }
         Intent mIntent = new Intent(mContext, ZuFangYyActivity.class);
         ZuFangDetailsBase data = listBean.getHouse();
         mIntent.putExtra("appointmentId", listBean.getId());
@@ -381,7 +326,7 @@ public class ZuFangYyActivity extends BaseActivity {
         mIntent.putExtra("advserName", listBean.getAdvserName());
         mIntent.putExtra("adviserId", listBean.getAdviserId());
         mIntent.putExtra("rentingName", data.getRentingType().equals("1") ? "合租·" : "合租·" + data.getName());
-        mIntent.putExtra("rentingName_2", data.getRentingType().equals("1") ? "合租·" : "合租·" + data.getArea() + "m²·" + orientationStr + "|" + data.getHousingEstateName());
+        mIntent.putExtra("rentingName_2", data.getRentingType().equals("1") ? "合租·" : "合租·" + data.getArea() + "m²·" + StringUtil.getHouseOrientation(data.getOrientation()) + "|" + data.getHousingEstateName());
         if (data.getLables() != null) {
             for (int i = 0; i < data.getLables().size(); i++) {
                 if (i == 0) {

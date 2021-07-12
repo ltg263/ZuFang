@@ -98,6 +98,8 @@
         <activity android:name=".view.activity.MineHtNew6Activity" />
         <activity android:name=".view.activity.MineHtNew7Activity" />
         <activity android:name=".view.activity.MineInfoActivity" />
+        <activity android:name=".view.activity.MineApplyGwActivity" />
+        <activity android:name=".view.activity.MineApplyFdActivity" />
         <activity android:name=".view.activity.payActivity.ActivityPayHomeQb" />
         <activity android:name=".view.activity.payActivity.ActivityPayBankCardAdd" />
         <activity android:name=".view.activity.payActivity.ActivityPayBankCardList" />

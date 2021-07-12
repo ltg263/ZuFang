@@ -93,6 +93,9 @@ public class SharedUtils {
 		edit.remove(key);
 		edit.commit();
 	}
+	public static String getIdentityFlag(){
+		return singleton().get(ConstValues.IDENTITY_FLAG,"");
+	}
 	public static String getToken(){
 		Log.w("token","--->>:"+singleton().get(ConstValues.TOKENID,""));
 		return singleton().get(ConstValues.TOKENID,"");

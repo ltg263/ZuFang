@@ -87,6 +87,9 @@ public abstract class BaseFragment extends Fragment {
             mLoading.dismiss();
         }
     }
+    protected void baseStartActivity(Class<?> cls){
+        baseStartActivity(cls,null);
+    }
     protected void baseStartActivity(Class<?> cls,String str){
         Intent mIntent = new Intent(getActivity(),cls);
         if(StringUtil.isNotBlank(str)){

@@ -48,6 +48,15 @@ public class UserInfoBean {
     private String updateTime;
     private String userNo;
     private String userType;
+    private String identityFlag;//	实名认证状态 0未提交 1审核中 2已通过 3审核失败
+
+    public void setIdentityFlag(String identityFlag) {
+        this.identityFlag = identityFlag;
+    }
+
+    public String getIdentityFlag() {
+        return identityFlag;
+    }
 
     public boolean isAdviser() {
         return adviser;

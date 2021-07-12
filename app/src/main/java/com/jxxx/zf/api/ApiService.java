@@ -10,7 +10,7 @@ import com.jxxx.zf.bean.HomeZuFangListBase;
 import com.jxxx.zf.bean.HouseCompareBean;
 import com.jxxx.zf.bean.HouseListBase;
 import com.jxxx.zf.bean.LoginData;
-import com.jxxx.zf.bean.LoginRequest;
+import com.jxxx.zf.bean.ApplyInfoBean;
 import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.bean.UserInfoBean;
 import com.jxxx.zf.bean.ZuFangDetailsBase;
@@ -27,7 +27,6 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -37,7 +36,7 @@ public interface ApiService {
      * @return
      */
     @Multipart
-    @POST(ConstValues.BASE_URL + "api/scmp-application-mall/global/file/upload")
+    @POST(ConstValues.BASE_URL + "api/v1/image")
     Observable<Result> uploadFile(@Part MultipartBody.Part file, @PartMap Map<String, RequestBody> map);
 
 
@@ -78,6 +77,14 @@ public interface ApiService {
 
     @GET("api/v1/user/appointment/appointmentList")
     Observable<Result<AppointmentList>> getUserAppointmentJdList(@Query("page") int page, @Query("pageSize") int pageSize,@Query("status") String status);
+
+
+    @POST("api/v1/user/realNameAuthentication")
+    Observable<Result> realNameAuthentication(@Body ApplyInfoBean.RealNameAuthentication realNameAuthentication);
+
+
+    @POST("api/v1/user/adviser/add")
+    Observable<Result> realNameAdviser(@Body ApplyInfoBean.RealNameAdviser realNameAdviser);
 
 
     @POST("api/v1/user/appointment/apply")

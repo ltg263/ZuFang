@@ -16,9 +16,12 @@ import com.jxxx.zf.api.HttpsUtils;
 import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseFragment;
 import com.jxxx.zf.bean.UserInfoBean;
+import com.jxxx.zf.utils.DialogUtils;
 import com.jxxx.zf.utils.GlideImageLoader;
 import com.jxxx.zf.utils.SharedUtils;
 import com.jxxx.zf.utils.StringUtil;
+import com.jxxx.zf.view.activity.MineApplyFdActivity;
+import com.jxxx.zf.view.activity.MineApplyGwActivity;
 import com.jxxx.zf.view.activity.LoginActivity;
 import com.jxxx.zf.view.activity.MineFylrActivity;
 import com.jxxx.zf.view.activity.MineHtListActivity;
@@ -32,7 +35,6 @@ import com.jxxx.zf.view.activity.MineSettingActivity;
 import com.jxxx.zf.view.activity.MineYyzxListActivity;
 import com.jxxx.zf.view.activity.payActivity.ActivityPayHomeQb;
 import com.jxxx.zf.view.adapter.MineCygjAdapter;
-import com.jxxx.zf.view.adapter.MineJfzdListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,7 +97,18 @@ public class HomeFourFragment extends BaseFragment {
                         baseStartActivity(MineKhListActivity.class, null);
                         break;
                     case "实名认证":
-                        baseStartActivity(MineSetSmrzActivity.class, null);
+                        switch (SharedUtils.getIdentityFlag()){
+                            case "0":// 0未提交 1审核中 2已通过 3审核失败
+                            case "3":// 0未提交 1审核中 2已通过 3审核失败
+                                baseStartActivity(MineSetSmrzActivity.class);
+                                break;
+                            case "1":
+                                DialogUtils.showDialogHint(mContext, "实名审核中", true, null);
+                                break;
+                            case "2":
+                                DialogUtils.showDialogHint(mContext, "已实名", true, null);
+                                break;
+                        }
                         break;
                     case "我的客户":
                         baseStartActivity(MineKhListActivity.class, null);
@@ -110,9 +123,30 @@ public class HomeFourFragment extends BaseFragment {
                         baseStartActivity(MineFylrActivity.class, null);
                         break;
                     case "成为房东":
+                        if(!SharedUtils.getIdentityFlag().equals("2")){
+                            DialogUtils.showDialogHint(mContext, "请先进行实名认证", false,
+                                    new DialogUtils.ErrorDialogInterface() {
+                                @Override
+                                public void btnConfirm() {
+                                    baseStartActivity(MineSetSmrzActivity.class);
+                                }
+                            });
+                            return;
+                        }
+                        baseStartActivity(MineApplyGwActivity.class);
                         break;
                     case "成为顾问":
-
+                        if(!SharedUtils.getIdentityFlag().equals("2")){
+                            DialogUtils.showDialogHint(mContext, "请先进行实名认证", false,
+                                    new DialogUtils.ErrorDialogInterface() {
+                                        @Override
+                                        public void btnConfirm() {
+                                            baseStartActivity(MineSetSmrzActivity.class);
+                                        }
+                                    });
+                            return;
+                        }
+                        baseStartActivity(MineApplyFdActivity.class);
                         break;
                 }
             }
@@ -209,6 +243,27 @@ public class HomeFourFragment extends BaseFragment {
             public void succeed(UserInfoBean result) {
                 mTvUserName.setText(result.getNickname());
                 GlideImageLoader.loadImageViewWithCirclr(getContext(), result.getPortraitUri(), mTvUserImg);
+                if(result.isAdviser() && result.isLandlord()){//房东顾问双身份
+                    SharedUtils.singleton().put(ConstValues.USER_TYPE,3);
+                }else if(result.isAdviser()){//房东
+                    SharedUtils.singleton().put(ConstValues.USER_TYPE,2);
+                }else if(result.isLandlord()){//顾问
+                    SharedUtils.singleton().put(ConstValues.USER_TYPE,1);
+                }else{//用户
+                    SharedUtils.singleton().put(ConstValues.USER_TYPE,0);
+                }
+                SharedUtils.singleton().put(ConstValues.USERID,result.getId());
+                SharedUtils.singleton().put(ConstValues.NICK_NAME,result.getNickname());
+                SharedUtils.singleton().put(ConstValues.USER_NO,result.getUserNo());
+                SharedUtils.singleton().put(ConstValues.IDENTITY_FLAG,result.getIdentityFlag());
+                if(SharedUtils.getIdentityFlag().equals("3")){
+                    DialogUtils.showDialogHint(mContext, "实名失败\n请重新提交审核", false, new DialogUtils.ErrorDialogInterface() {
+                        @Override
+                        public void btnConfirm() {
+                            baseStartActivity(MineSetSmrzActivity.class);
+                        }
+                    });
+                }
             }
 
             @Override

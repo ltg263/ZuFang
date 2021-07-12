@@ -211,7 +211,6 @@ public class HomeFourFragment extends BaseFragment {
                 list.add("我的客户");
                 list.add("看房状态");
                 list.add("房源上架");
-                list.add("成为顾问");
                 mMineCygjAdapter.setNewData(list);
                 break;
             case 2:
@@ -224,6 +223,7 @@ public class HomeFourFragment extends BaseFragment {
                 list.add("看房状态");
                 list.add("房源上架");
                 list.add("成为房东");
+                list.add("成为顾问");
                 mMineCygjAdapter.setNewData(list);
                 break;
             case 3:
@@ -256,6 +256,7 @@ public class HomeFourFragment extends BaseFragment {
                 SharedUtils.singleton().put(ConstValues.NICK_NAME,result.getNickname());
                 SharedUtils.singleton().put(ConstValues.USER_NO,result.getUserNo());
                 SharedUtils.singleton().put(ConstValues.IDENTITY_FLAG,result.getIdentityFlag());
+                SharedUtils.singleton().put(ConstValues.PORTRAIT_URI,result.getPortraitUri());
                 if(SharedUtils.getIdentityFlag().equals("3")){
                     DialogUtils.showDialogHint(mContext, "实名失败\n请重新提交审核", false, new DialogUtils.ErrorDialogInterface() {
                         @Override

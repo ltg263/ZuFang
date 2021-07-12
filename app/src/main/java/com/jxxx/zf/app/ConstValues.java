@@ -14,8 +14,9 @@ public class ConstValues {
     public static final String USERID = "user_id";
     public static final String TOKENID = "token";
     public static final String NICK_NAME = "nickname";
-    public static final String USER_NO = "nickname";
+    public static final String USER_NO = "user_no";
     public static final String IDENTITY_FLAG = "identity_flag";
+    public static final String PORTRAIT_URI = "portrait_uri";
     public static final String BASE_URL = "http://192.168.2.142:8088/renting/";
 
     //默认连接超时时间

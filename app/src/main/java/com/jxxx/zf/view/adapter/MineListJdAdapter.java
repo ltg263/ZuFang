@@ -45,16 +45,26 @@ public class MineListJdAdapter extends BaseQuickAdapter<AppointmentDetailsBase, 
         //1 已预约 2 已接单 3已认证 4看房中 5已完成 6已签约 7已取消
         switch (item.getStatus()) {
             case "1":
-            case "2":
-            case "3":
-            case "4":
-            case "5":
                 helper.setVisible(R.id.bnt_lx, true).setText(R.id.bnt_lx, "联系对方")
                         .setVisible(R.id.bnt_jd, true).setText(R.id.bnt_jd, "接单");
                 break;
+            case "2":
+                helper.setVisible(R.id.bnt_lx, true).setText(R.id.bnt_lx, "联系对方")
+                        .setVisible(R.id.bnt_jd, true).setText(R.id.bnt_jd, "去认证");
+                break;
+            case "3":
+                helper.setVisible(R.id.bnt_lx, true).setText(R.id.bnt_lx, "联系对方")
+                        .setVisible(R.id.bnt_jd, true).setText(R.id.bnt_jd, "去看房");
+                break;
+            case "4":
+                helper.setVisible(R.id.bnt_lx, true).setText(R.id.bnt_lx, "不签约")
+                        .setVisible(R.id.bnt_jd, true).setText(R.id.bnt_jd, "线上签约");
+//                        .setVisible(R.id.bnt_jd, true).setText(R.id.bnt_jd, "线下签约");
+                break;
+            case "5":
             case "6":
                 helper.setVisible(R.id.bnt_lx, true).setText(R.id.bnt_lx, "联系对方")
-                        .setVisible(R.id.bnt_jd, true).setText(R.id.bnt_jd, "接单1");
+                        .setVisible(R.id.bnt_jd, true).setText(R.id.bnt_jd, "已完成");
                 break;
 //            case "7":
 //                helper.setVisible(R.id.bnt_3, true).setText(R.id.bnt_3, "电话联系");

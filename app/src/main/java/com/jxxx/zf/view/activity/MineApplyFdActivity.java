@@ -26,12 +26,12 @@ public class MineApplyFdActivity extends BaseActivity {
 
     @Override
     public int intiLayout() {
-        return R.layout.activity_mine_apply_gw;
+        return R.layout.activity_mine_apply_fd;
     }
 
     @Override
     public void initView() {
-        setToolbar(myToolbar, "申请顾问");
+        setToolbar(myToolbar, "申请房东");
     }
 
     @Override

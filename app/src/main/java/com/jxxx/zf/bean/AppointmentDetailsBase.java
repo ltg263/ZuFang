@@ -1,6 +1,8 @@
 package com.jxxx.zf.bean;
 
 
+import java.util.List;
+
 public class AppointmentDetailsBase {
 
     /**
@@ -30,6 +32,7 @@ public class AppointmentDetailsBase {
     private String gender;
     private String hasAdviser;
     private ZuFangDetailsBase house;
+    private List<StatusBeanList> statusList;
     private String houseId;
     private String id;
     private String mobile;
@@ -37,6 +40,14 @@ public class AppointmentDetailsBase {
     private String remark;
     private String status;
     private String userId;
+
+    public List<StatusBeanList> getStatusList() {
+        return statusList;
+    }
+
+    public void setStatusList(List<StatusBeanList> statusList) {
+        this.statusList = statusList;
+    }
 
     public String getStausStr() {
         return stausStr;
@@ -166,5 +177,80 @@ public class AppointmentDetailsBase {
         this.userId = userId;
     }
 
+    public static class StatusBeanList{
+
+        /**
+         * appointmetId : 0
+         * appointmetStatus : 0
+         * createTime : 
+         * id : 0
+         * remark : 
+         * statusStr : 
+         */
+
+        private String appointmetId;
+        private String appointmetStatus;
+        private String appointmetStr;
+        private String createTime;
+        private String id;
+        private String remark;
+        private String statusStr;
+
+        public void setAppointmetStr(String appointmetStr) {
+            this.appointmetStr = appointmetStr;
+        }
+
+        public String getAppointmetStr() {
+            return appointmetStr;
+        }
+
+        public String getAppointmetId() {
+            return appointmetId;
+        }
+
+        public void setAppointmetId(String appointmetId) {
+            this.appointmetId = appointmetId;
+        }
+
+        public String getAppointmetStatus() {
+            return appointmetStatus;
+        }
+
+        public void setAppointmetStatus(String appointmetStatus) {
+            this.appointmetStatus = appointmetStatus;
+        }
+
+        public String getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(String createTime) {
+            this.createTime = createTime;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getRemark() {
+            return remark;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark;
+        }
+
+        public String getStatusStr() {
+            return statusStr;
+        }
+
+        public void setStatusStr(String statusStr) {
+            this.statusStr = statusStr;
+        }
+    }
 }
 

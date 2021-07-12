@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/my_toolbar" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:overScrollMode="never">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="请填写本人真实有效的信息"
+                android:textColor="@color/red40"
+                android:textSize="@dimen/sp_14" />
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@null"
+                android:gravity="start|center"
+                android:hint="请输入姓名"
+                android:padding="15dp"
+                android:text=""
+                android:textColor="@color/color_000000"
+                android:textColorHint="@color/color_999999"
+                android:textCursorDrawable="@drawable/common_edit_input_line"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:layout_marginHorizontal="@dimen/dp_10"
+                android:background="@color/color_eeeeee" />
+
+            <EditText
+                android:id="@+id/et_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@null"
+                android:gravity="start|center"
+                android:hint="请输入身份证号"
+                android:padding="15dp"
+                android:text=""
+                android:textColor="@color/color_000000"
+                android:textColorHint="@color/color_999999"
+                android:textCursorDrawable="@drawable/common_edit_input_line"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:layout_marginHorizontal="@dimen/dp_10"
+                android:background="@color/color_eeeeee" />
+
+            <TextView
+                android:id="@+id/et_cxqy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@null"
+                android:gravity="start|center"
+                android:hint="城市区域"
+                android:inputType="number"
+                android:padding="15dp"
+                android:text=""
+                android:textColor="@color/color_000000"
+                android:textColorHint="@color/color_999999"
+                android:textCursorDrawable="@drawable/common_edit_input_line"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:layout_marginHorizontal="@dimen/dp_10"
+                android:background="@color/color_eeeeee" />
+
+            <EditText
+                android:id="@+id/et_xq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@null"
+                android:gravity="start|center"
+                android:hint="小区"
+                android:inputType="number"
+                android:padding="15dp"
+                android:text=""
+                android:textColor="@color/color_000000"
+                android:textColorHint="@color/color_999999"
+                android:textCursorDrawable="@drawable/common_edit_input_line"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:layout_marginHorizontal="@dimen/dp_10"
+                android:background="@color/color_eeeeee" />
+
+            <EditText
+                android:id="@+id/et_xqdz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@null"
+                android:gravity="start|center"
+                android:hint="详细地址"
+                android:inputType="number"
+                android:padding="15dp"
+                android:text=""
+                android:textColor="@color/color_000000"
+                android:textColorHint="@color/color_999999"
+                android:textCursorDrawable="@drawable/common_edit_input_line"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:layout_marginHorizontal="@dimen/dp_10"
+                android:background="@color/color_eeeeee" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:padding="15dp"
+                android:text="房产证件信息"
+                android:textColor="@color/color_333333"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="50dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/group_855" />
+
+            <TextView
+                android:id="@+id/bnt"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bnt_details_height"
+                android:layout_marginVertical="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/circle_solid_theme_25"
+                android:gravity="center"
+                android:text="提交审核"
+                android:textColor="@color/white"
+                android:textSize="@dimen/bnt_details_text_size" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

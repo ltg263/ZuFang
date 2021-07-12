@@ -17,7 +17,7 @@ public class ZuFangYyxqZtAdapter extends BaseQuickAdapter<AppointmentDetailsBase
     @Override
     protected void convert(BaseViewHolder helper, AppointmentDetailsBase.StatusBeanList item) {
         helper.setText(R.id.tv_time,item.getCreateTime()).setVisible(R.id.view1,true).setVisible(R.id.view2,true)
-                .setText(R.id.tv_title,item.getAppointmetStr()).setText(R.id.tv_remark,"备注："+item.getRemark());
+                .setText(R.id.tv_title,item.getStatusStr()).setText(R.id.tv_remark,"备注："+item.getRemark());
         if(helper.getLayoutPosition()==0){
             helper.setVisible(R.id.view1,false);
         }else if(item.getAppointmetStatus().equals("6")){

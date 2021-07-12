@@ -190,19 +190,10 @@ public class AppointmentDetailsBase {
 
         private String appointmetId;
         private String appointmetStatus;
-        private String appointmetStr;
         private String createTime;
         private String id;
         private String remark;
         private String statusStr;
-
-        public void setAppointmetStr(String appointmetStr) {
-            this.appointmetStr = appointmetStr;
-        }
-
-        public String getAppointmetStr() {
-            return appointmetStr;
-        }
 
         public String getAppointmetId() {
             return appointmetId;

@@ -1,6 +1,5 @@
 package com.jxxx.zf.view.activity;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,10 +16,8 @@ import com.jxxx.zf.bean.ApplyInfoBean;
 import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.utils.SharedUtils;
 import com.jxxx.zf.utils.StringUtil;
-import com.jxxx.zf.utils.ToastUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;

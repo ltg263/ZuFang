@@ -264,10 +264,8 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.bnt_1:
             case R.id.bnt_2:
-                setOnClickListener(((TextView) view).getText().toString());
-                break;
             case R.id.bnt_3:
-                baseStartActivity(ChatActivity.class, null);
+                setOnClickListener(((TextView) view).getText().toString());
                 break;
         }
     }

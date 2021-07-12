@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jxxx.zf.R;
+import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseActivity;
 import com.jxxx.zf.bean.ImageUrlBean;
 import com.jxxx.zf.utils.PictureSelectorUtils;
@@ -48,9 +49,8 @@ public class ZuFangFaBuActivity extends BaseActivity {
     ZuFangFaBuXxTextAdapter mAdapter_jcss,mAdapter_fkfs,mAdapter_fwcx;
 
 
-    private final String[] list_fkcx = new String[]{"东" ,"南","西","北"};
     private final String[] list_jcss = new String[]{"电视", "洗衣服","冰箱","床","WIFI","空调","沙发","热水器","电梯","阳台","桌子"};
-    private final String[] list_fkfs = new String[]{"押一付一" ,"押一付三","季付","年付"};
+
 
     private boolean isTop = true;
     @Override
@@ -61,7 +61,7 @@ public class ZuFangFaBuActivity extends BaseActivity {
     @Override
     public void initView() {
         setToolbar(mMyToolbar, "录入房源");
-        mAdapter_fwcx = new ZuFangFaBuXxTextAdapter(Arrays.asList(list_fkcx));
+        mAdapter_fwcx = new ZuFangFaBuXxTextAdapter(Arrays.asList(ConstValues.HOUSE_ORIENTATION));
         mRvListFwcx.setAdapter(mAdapter_fwcx);
         mAdapter_fwcx.setOnItemClickListener((adapter, view, position) -> {
 //                mAdapter_fwcx.notifyDataSetChanged();
@@ -77,7 +77,7 @@ public class ZuFangFaBuActivity extends BaseActivity {
             ((TextView)view).setBackground(getResources().getDrawable(R.drawable.circle_solid_theme_25));
         });
 
-        mAdapter_fkfs = new ZuFangFaBuXxTextAdapter(Arrays.asList(list_fkfs));
+        mAdapter_fkfs = new ZuFangFaBuXxTextAdapter(Arrays.asList(ConstValues.HOUSE_RENT_TYPE));
         mRvListFkfs.setAdapter(mAdapter_fkfs);
 
         mAdapter_fkfs.setOnItemClickListener((adapter, view, position) -> {

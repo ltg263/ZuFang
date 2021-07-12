@@ -65,6 +65,10 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
     TextView mBnt2;
     @BindView(R.id.bnt_3)
     TextView mBnt3;
+    @BindView(R.id.tv_hasVideo)
+    TextView tv_hasVideo;
+    @BindView(R.id.hasVideo)
+    TextView hasVideo;
     @BindView(R.id.iv_status_1)
     ImageView mIvStatus1;
     @BindView(R.id.iv_status_2)
@@ -128,8 +132,8 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
         ZuFangDetailsBase dataHouse = data.getHouse();
         if (dataHouse != null) {
             GlideImageLoader.loadImageAndDefault(getActivity(), dataHouse.getImgUrl(), mHeadIcon);
-            mNameType.setText(dataHouse.getRentingType().equals("1") ? "合租·" : "合租·" + dataHouse.getName());
-            mYear.setText(dataHouse.getRentingType().equals("1") ? "合租·" : "合租·" + dataHouse.getArea() + "m²·" + StringUtil.getHouseOrientation(dataHouse.getOrientation()) + "|" + dataHouse.getHousingEstateName());
+            mNameType.setText(dataHouse.getRentingType().equals("1") ? "合租·" : "整租·" + dataHouse.getName());
+            mYear.setText(dataHouse.getRentingType().equals("1") ? "合租·" : "整租·" + dataHouse.getArea() + "m²·" + StringUtil.getHouseOrientation(dataHouse.getOrientation()) + "|" + dataHouse.getHousingEstateName());
             if (dataHouse.getLables() != null) {
                 for (int i = 0; i < dataHouse.getLables().size(); i++) {
                     if (i == 0) {
@@ -145,6 +149,12 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
 
             mTvJe.setText(dataHouse.getRent());
             mTvLlcs.setText("约看" + dataHouse.getViewNum() + "人");
+        }
+        hasVideo.setVisibility(View.GONE);
+        tv_hasVideo.setVisibility(View.GONE);
+        if(data.getHouse().getHasVideo().equals("1")){
+            hasVideo.setVisibility(View.VISIBLE);
+            tv_hasVideo.setVisibility(View.VISIBLE);
         }
         mTvTime.setText(data.getAppointmentTime());
         mTvName.setText("姓名：" + data.getRealName());

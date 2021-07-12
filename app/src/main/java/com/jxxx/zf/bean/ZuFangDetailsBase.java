@@ -77,9 +77,18 @@ public class ZuFangDetailsBase{
     private String rentingType;
     private String status;
     private String viewNum;
+    private String hasVideo;
     private List<LablesBean> lables;
     private List<ZuFangDetailsBase> nearHouses;
     private List<ParamsBean> params;
+
+    public void setHasVideo(String hasVideo) {
+        this.hasVideo = hasVideo;
+    }
+
+    public String getHasVideo() {
+        return hasVideo;
+    }
 
     public String getAddress() {
         return address;

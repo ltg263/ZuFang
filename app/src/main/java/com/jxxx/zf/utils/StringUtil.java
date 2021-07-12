@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.jxxx.zf.app.ConstValues;
+
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.text.ParseException;
@@ -422,31 +424,52 @@ public class StringUtil {
         String orientationStr = "未知";
         switch (orientation) {
             case "1":
-                orientationStr = "朝东";
+                orientationStr = ConstValues.HOUSE_ORIENTATION[0];
                 break;
             case "2":
-                orientationStr = "朝南";
+                orientationStr = ConstValues.HOUSE_ORIENTATION[1];
                 break;
             case "3":
-                orientationStr = "朝西";
+                orientationStr = ConstValues.HOUSE_ORIENTATION[2];
                 break;
             case "4":
-                orientationStr = "朝北";
+                orientationStr = ConstValues.HOUSE_ORIENTATION[3];
                 break;
             case "5":
-                orientationStr = "朝东南";
+                orientationStr = ConstValues.HOUSE_ORIENTATION[4];
                 break;
             case "6":
-                orientationStr = "朝西南";
+                orientationStr = ConstValues.HOUSE_ORIENTATION[5];
                 break;
             case "7":
-                orientationStr = "朝东北";
+                orientationStr = ConstValues.HOUSE_ORIENTATION[6];
                 break;
             case "8":
-                orientationStr = "朝西北";
+                orientationStr = ConstValues.HOUSE_ORIENTATION[7];
                 break;
         }
         return orientationStr;
+    }
+    public static String getHouseRenting(String rentType){
+        String rentStr = "未知";
+        switch (rentType) {
+            case "1":
+                rentStr = ConstValues.HOUSE_RENT_TYPE[0];
+                break;
+            case "2":
+                rentStr = ConstValues.HOUSE_RENT_TYPE[1];
+                break;
+            case "3":
+                rentStr = ConstValues.HOUSE_RENT_TYPE[2];
+                break;
+            case "4":
+                rentStr = ConstValues.HOUSE_RENT_TYPE[3];
+                break;
+            case "5":
+                rentStr = ConstValues.HOUSE_RENT_TYPE[4];
+                break;
+        }
+       return rentStr;
     }
 
 }

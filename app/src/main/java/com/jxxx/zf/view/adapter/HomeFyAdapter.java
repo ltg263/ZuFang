@@ -22,10 +22,13 @@ public class HomeFyAdapter extends BaseQuickAdapter<ZuFangDetailsBase, BaseViewH
     @Override
     protected void convert(BaseViewHolder helper, ZuFangDetailsBase item) {
         GlideImageLoader.loadImageViewRadius(mContext,item.getImgUrl(),helper.getView(R.id.head_icon));
-        helper.setText(R.id.name_type,item.getRentingType().equals("1") ? "合租·" : "合租·" + item.getName())
-                .setText(R.id.year,item.getRentingType().equals("1") ? "合租·" : "合租·" +item.getArea()+"m²·"+ StringUtil.getHouseOrientation(item.getOrientation())+"|"+item.getHousingEstateName())
+        helper.setText(R.id.name_type,item.getRentingType().equals("1") ? "合租·" : "整租·" + item.getName())
+                .setText(R.id.year,item.getRentingType().equals("1") ? "合租·" : "整租·" +item.getArea()+"m²·"+ StringUtil.getHouseOrientation(item.getOrientation())+"|"+item.getHousingEstateName())
         .setText(R.id.tv_llcs,"约看"+item.getViewNum()+"人").setText(R.id.tv_je,item.getRent());
-        helper.setVisible(R.id.tv_lables_1,false).setVisible(R.id.tv_lables_2,false);
+        helper.setVisible(R.id.tv_lables_1,false).setVisible(R.id.tv_lables_2,false).setGone(R.id.tv_hasVideo,false).setGone(R.id.hasVideo,false);
+        if(item.getHasVideo().equals("1")){
+            helper.setVisible(R.id.hasVideo,true).setVisible(R.id.tv_hasVideo,true);
+        }
         if (item.getLables() != null) {
             for (int i = 0; i < item.getLables().size(); i++) {
                 if (i == 0) {

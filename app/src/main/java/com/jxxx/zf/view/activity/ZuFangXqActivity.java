@@ -103,6 +103,8 @@ public class ZuFangXqActivity extends BaseActivity {
     TextView mTvFyxx7;
     @BindView(R.id.tv_details)
     TextView mTvDetails;
+    @BindView(R.id.tv_hasVideo)
+    TextView tv_hasVideo;
 
     @Override
     public int intiLayout() {
@@ -161,26 +163,8 @@ public class ZuFangXqActivity extends BaseActivity {
                             if (data.getImgUrls() != null) {
                                 bannerConfig(data.getImgUrls());
                             }
-                            mTvName.setText(data.getRentingType().equals("1") ? "合租·" : "合租·" + data.getName());
-                            String rentType = "";
-                            switch (data.getRentingType()) {
-                                case "1":
-                                    rentType = "押一付一";
-                                    break;
-                                case "2":
-                                    rentType = "押一付二";
-                                    break;
-                                case "3":
-                                    rentType = "押一付三";
-                                    break;
-                                case "4":
-                                    rentType = "半年";
-                                    break;
-                                case "5":
-                                    rentType = "一年";
-                                    break;
-                            }
-                            String str = "<font color=\"#FF4040\"><big><big>" + data.getRent() + "</big></big></font>" + "元/月(" + rentType + ")";
+                            mTvName.setText(data.getRentingType().equals("1") ? "合租·" : "整租·" + data.getName());
+                            String str = "<font color=\"#FF4040\"><big><big>" + data.getRent() + "</big></big></font>" + "元/月(" + StringUtil.getHouseRenting(data.getRentingType()) + ")";
                             mTvJinE.setText(Html.fromHtml(str));
                             mTvLiulan.setText("约看" + data.getViewNum() + "人");
                             mTvCommission.setText("房东出佣金" + data.getCommission() + "元为奖励");
@@ -197,6 +181,10 @@ public class ZuFangXqActivity extends BaseActivity {
                                 case "4":
                                     mTvHouseType.setText("三室以上");
                                     break;
+                            }
+                            tv_hasVideo.setVisibility(View.GONE);
+                            if(data.getHasVideo().equals("1")){
+                                tv_hasVideo.setVisibility(View.VISIBLE);
                             }
                             mTvArea.setText(data.getArea() + "m²");
                             mTvArea.setText(StringUtil.getHouseOrientation(data.getOrientation()));

@@ -86,6 +86,10 @@ public class ZuFangYyActivity extends BaseActivity {
     TextView tv_time;
     @BindView(R.id.tv_kfr)
     TextView tv_kfr;
+    @BindView(R.id.tv_hasVideo)
+    TextView tv_hasVideo;
+    @BindView(R.id.hasVideo)
+    TextView hasVideo;
     Intent intent;
     public static AdviserListBean.ListBean mAdviserListBean;
     @Override
@@ -109,6 +113,12 @@ public class ZuFangYyActivity extends BaseActivity {
         }
         mTvJe.setText(intent.getStringExtra("rent"));
         mTvLlcs.setText(intent.getStringExtra("viewNum"));
+        hasVideo.setVisibility(View.GONE);
+        tv_hasVideo.setVisibility(View.GONE);
+        if(intent.getStringExtra("hasVideo").equals("1")){
+            hasVideo.setVisibility(View.VISIBLE);
+            tv_hasVideo.setVisibility(View.VISIBLE);
+        }
         if(StringUtil.isNotBlank(intent.getStringExtra("remark"))){
             tv_remark.setText(intent.getStringExtra("remark"));
         }
@@ -293,8 +303,9 @@ public class ZuFangYyActivity extends BaseActivity {
         Intent mIntent = new Intent(mContext,ZuFangYyActivity.class);
         mIntent.putExtra("id",data.getId());
         mIntent.putExtra("imgUrl",data.getImgUrl());
-        mIntent.putExtra("rentingName",data.getRentingType().equals("1") ? "合租·" : "合租·" + data.getName());
-        mIntent.putExtra("rentingName_2",data.getRentingType().equals("1") ? "合租·" : "合租·" +data.getArea()+"m²·"+StringUtil.getHouseOrientation(data.getOrientation())+"|"+data.getHousingEstateName());
+        mIntent.putExtra("hasVideo",data.getHasVideo());
+        mIntent.putExtra("rentingName",data.getRentingType().equals("1") ? "合租·" : "整租·" + data.getName());
+        mIntent.putExtra("rentingName_2",data.getRentingType().equals("1") ? "合租·" : "整租·" +data.getArea()+"m²·"+StringUtil.getHouseOrientation(data.getOrientation())+"|"+data.getHousingEstateName());
         if (data.getLables() != null) {
             for (int i = 0; i < data.getLables().size(); i++) {
                 if (i == 0) {
@@ -322,11 +333,12 @@ public class ZuFangYyActivity extends BaseActivity {
         mIntent.putExtra("realName", listBean.getRealName());
         mIntent.putExtra("gender", listBean.getGender());
         mIntent.putExtra("mobile", listBean.getMobile());
+        mIntent.putExtra("hasVideo",data.getHasVideo());
         mIntent.putExtra("appointmentTime", listBean.getAppointmentTime());
         mIntent.putExtra("advserName", listBean.getAdvserName());
         mIntent.putExtra("adviserId", listBean.getAdviserId());
-        mIntent.putExtra("rentingName", data.getRentingType().equals("1") ? "合租·" : "合租·" + data.getName());
-        mIntent.putExtra("rentingName_2", data.getRentingType().equals("1") ? "合租·" : "合租·" + data.getArea() + "m²·" + StringUtil.getHouseOrientation(data.getOrientation()) + "|" + data.getHousingEstateName());
+        mIntent.putExtra("rentingName", data.getRentingType().equals("1") ? "合租·" : "整租·" + data.getName());
+        mIntent.putExtra("rentingName_2", data.getRentingType().equals("1") ? "合租·" : "整租·" + data.getArea() + "m²·" + StringUtil.getHouseOrientation(data.getOrientation()) + "|" + data.getHousingEstateName());
         if (data.getLables() != null) {
             for (int i = 0; i < data.getLables().size(); i++) {
                 if (i == 0) {

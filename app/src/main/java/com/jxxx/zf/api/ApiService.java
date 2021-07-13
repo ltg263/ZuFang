@@ -125,6 +125,9 @@ public interface ApiService {
     @POST("api/v1/user/adviser/receivingOrder")
     Observable<Result> receivingOrder(@Query("appointmentId") String appointmentId);
 
+    @POST("api/v1/user/adviser/updateStatus")
+    Observable<Result> updateStatus(@Query("appointmentId") String appointmentId,@Query("status") String status);
+
     @GET("api/v1/houseParam/listAll")
     Observable<Result<List<HouseParamListBean>>> getHouseParamAll();
 

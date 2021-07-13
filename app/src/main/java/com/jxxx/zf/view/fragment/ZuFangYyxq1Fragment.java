@@ -17,6 +17,7 @@ import com.jxxx.zf.utils.DialogUtils;
 import com.jxxx.zf.utils.GlideImageLoader;
 import com.jxxx.zf.utils.IntentUtils;
 import com.jxxx.zf.utils.StringUtil;
+import com.jxxx.zf.view.activity.MineHtNew1Activity;
 import com.jxxx.zf.view.activity.MineYypjActivity;
 import com.jxxx.zf.view.activity.ZuFangYyActivity;
 
@@ -64,10 +65,10 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
     TextView mBnt2;
     @BindView(R.id.bnt_3)
     TextView mBnt3;
-    @BindView(R.id.tv_hasVideo)
-    TextView tv_hasVideo;
     @BindView(R.id.hasVideo)
     TextView hasVideo;
+    @BindView(R.id.tv_hasVideo)
+    TextView tv_hasVideo;
     @BindView(R.id.iv_status_1)
     ImageView mIvStatus1;
     @BindView(R.id.iv_status_2)
@@ -205,6 +206,7 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
                 mBnt3.setVisibility(View.VISIBLE);
                 mBnt2.setText("联系对方");
                 mBnt3.setText("接单");
+                mIvStatus1.setImageResource(R.drawable.group_927);
                 break;
             case "2":
                 mBnt2.setVisibility(View.VISIBLE);
@@ -213,12 +215,17 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
                 mBnt3.setText("去认证");
                 break;
             case "3":
+                mIvStatus1.setImageResource(R.drawable.group_927);
+                mIvStatus2.setImageResource(R.drawable.group_927);
                 mBnt2.setVisibility(View.VISIBLE);
                 mBnt3.setVisibility(View.VISIBLE);
                 mBnt2.setText("联系对方");
                 mBnt3.setText("去看房");
                 break;
             case "4":
+                mIvStatus1.setImageResource(R.drawable.group_927);
+                mIvStatus2.setImageResource(R.drawable.group_927);
+                mIvStatus3.setImageResource(R.drawable.group_927);
                 mBnt1.setVisibility(View.VISIBLE);
                 mBnt2.setVisibility(View.VISIBLE);
                 mBnt3.setVisibility(View.VISIBLE);
@@ -228,6 +235,10 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
                 break;
             case "5":
             case "6":
+                mIvStatus1.setImageResource(R.drawable.group_927);
+                mIvStatus2.setImageResource(R.drawable.group_927);
+                mIvStatus3.setImageResource(R.drawable.group_927);
+                mIvStatus4.setImageResource(R.drawable.group_927);
                 mBnt2.setVisibility(View.VISIBLE);
                 mBnt3.setVisibility(View.VISIBLE);
                 mBnt2.setText("联系对方");
@@ -313,28 +324,116 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
                 IntentUtils.startActivityPhone(mContext, data.getMobile());
                 break;
             case "去看房":
-                baseStartActivity(MineYypjActivity.class, null);
-                break;
-            case "去认证":
-                DialogUtils.showDialogHint(mContext, "确定取消预约吗？", false, new DialogUtils.ErrorDialogInterface() {
+                DialogUtils.showDialogHint(mContext, "确认现在去看房吗？", false, new DialogUtils.ErrorDialogInterface() {
                     @Override
                     public void btnConfirm() {
-
+                        adviserUpdate(data.getId(),"4");
+                    }
+                });
+                break;
+            case "去认证":
+                DialogUtils.showDialogHint(mContext, "进行人脸识别", false, new DialogUtils.ErrorDialogInterface() {
+                    @Override
+                    public void btnConfirm() {
+                        adviserUpdate(data.getId(),"3");
                     }
                 });
                 break;
             case "接单":
-//                receivingOrder(data.get(position).getId());
+                DialogUtils.showDialogHint(mContext, "确认接单吗？", false, new DialogUtils.ErrorDialogInterface() {
+                    @Override
+                    public void btnConfirm() {
+                        receivingOrder(data.getId());
+                    }
+                });
                 break;
             case "不签约":
+                DialogUtils.showDialogHint(mContext, "确定取消签约吗？", false, new DialogUtils.ErrorDialogInterface() {
+                    @Override
+                    public void btnConfirm() {
+                        adviserUpdate(data.getId(),"7");
+                    }
+                });
                 break;
             case "线上签约":
+                DialogUtils.showDialogHint(mContext, "确定线上进行签约吗？", false, new DialogUtils.ErrorDialogInterface() {
+                    @Override
+                    public void btnConfirm() {
+                        adviserUpdate(data.getId(),"6");
+                        baseStartActivity(MineHtNew1Activity.class,null);
+                    }
+                });
+                break;
+            case "线下签约":
+                DialogUtils.showDialogHint(mContext, "确定线下进行签约吗？", false, new DialogUtils.ErrorDialogInterface() {
+                    @Override
+                    public void btnConfirm() {
+                        adviserUpdate(data.getId(),"6");
+                    }
+                });
                 break;
             case "已完成":
                 break;
         }
     }
+    private void adviserUpdate(String appointmentId, String status){
+        RetrofitUtil.getInstance().apiService()
+                .updateStatus(appointmentId,status)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
+                    }
+
+                    @Override
+                    public void onNext(Result result) {
+                        if(isResultOk(result)) {
+                            initData();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+    private void receivingOrder(String appointmentId){
+        RetrofitUtil.getInstance().apiService()
+                .receivingOrder(appointmentId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result result) {
+                        if(isResultOk(result)) {
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
     private void setOnClickListenerYyxq(String str) {
         switch (str) {
             case "评价":

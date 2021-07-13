@@ -95,18 +95,29 @@ public class MineJieDan1Fragment extends BaseFragment {
                 IntentUtils.startActivityPhone(mContext, data.get(position).getMobile());
                 break;
             case "去看房":
+                DialogUtils.showDialogHint(mContext, "确认现在去看房吗？", false, new DialogUtils.ErrorDialogInterface() {
+                    @Override
+                    public void btnConfirm() {
+                        adviserUpdate(data.get(position),"4");
+                    }
+                });
                 baseStartActivity(MineYypjActivity.class, null);
                 break;
             case "去认证":
-                DialogUtils.showDialogHint(mContext, "确定取消预约吗？", false, new DialogUtils.ErrorDialogInterface() {
+                DialogUtils.showDialogHint(mContext, "进行人脸识别", false, new DialogUtils.ErrorDialogInterface() {
                     @Override
                     public void btnConfirm() {
-
+                        adviserUpdate(data.get(position),"3");
                     }
                 });
                 break;
             case "接单":
-                receivingOrder(data.get(position).getId());
+                DialogUtils.showDialogHint(mContext, "确认接单吗？", false, new DialogUtils.ErrorDialogInterface() {
+                    @Override
+                    public void btnConfirm() {
+                        receivingOrder(data.get(position).getId());
+                    }
+                });
                 break;
             case "不签约":
                 break;
@@ -115,6 +126,35 @@ public class MineJieDan1Fragment extends BaseFragment {
             case "已完成":
                 break;
         }
+    }
+    private void adviserUpdate(AppointmentDetailsBase mData, String status){
+        RetrofitUtil.getInstance().apiService()
+                .updateStatus(mData.getId(),status)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result result) {
+                        if(isResultOk(result)) {
+                            initData();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
     private void receivingOrder(String appointmentId){
         RetrofitUtil.getInstance().apiService()

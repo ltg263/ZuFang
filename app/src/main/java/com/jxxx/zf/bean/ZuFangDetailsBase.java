@@ -84,9 +84,18 @@ public class ZuFangDetailsBase implements Parcelable {
     private String status="";
     private String viewNum="";
     private String hasVideo="";
+    private String openHomeTime="";
     private List<LablesBean> lables;
     private List<ZuFangDetailsBase> nearHouses;
     private List<ParamsBean> params;
+
+    public void setOpenHomeTime(String openHomeTime) {
+        this.openHomeTime = openHomeTime;
+    }
+
+    public String getOpenHomeTime() {
+        return openHomeTime;
+    }
 
     public void setHasVideo(String hasVideo) {
         this.hasVideo = hasVideo;

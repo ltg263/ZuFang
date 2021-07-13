@@ -93,6 +93,8 @@ public class ZuFangYyActivity extends BaseActivity {
     TextView tv_hasVideo;
     @BindView(R.id.hasVideo)
     TextView hasVideo;
+    @BindView(R.id.openHomeTime)
+    TextView openHomeTime;
     Intent intent;
     public static AdviserListBean.ListBean mAdviserListBean;
     @Override
@@ -115,6 +117,10 @@ public class ZuFangYyActivity extends BaseActivity {
             mTvLables2.setText(intent.getStringExtra("lables2"));
         }
         mTvJe.setText(intent.getStringExtra("rent"));
+        if(StringUtil.isNotBlank(intent.getStringExtra("openHomeTime"))){
+            openHomeTime.setVisibility(View.VISIBLE);
+            openHomeTime.setText("可预约时间:"+intent.getStringExtra("openHomeTime"));
+        }
         mTvLlcs.setText(intent.getStringExtra("viewNum"));
         hasVideo.setVisibility(View.GONE);
         tv_hasVideo.setVisibility(View.GONE);
@@ -316,6 +322,7 @@ public class ZuFangYyActivity extends BaseActivity {
         mIntent.putExtra("id",data.getId());
         mIntent.putExtra("imgUrl",data.getImgUrl());
         mIntent.putExtra("hasVideo",data.getHasVideo());
+        mIntent.putExtra("openHomeTime",data.getOpenHomeTime());
         mIntent.putExtra("rentingName",data.getRentingType().equals("1") ? "合租·" : "整租·" + data.getName());
         mIntent.putExtra("rentingName_2",data.getRentingType().equals("1") ? "合租·" : "整租·" +data.getArea()+"m²·"+StringUtil.getHouseOrientation(data.getOrientation())+"|"+data.getHousingEstateName());
         if (data.getLables() != null) {
@@ -346,6 +353,7 @@ public class ZuFangYyActivity extends BaseActivity {
         mIntent.putExtra("gender", listBean.getGender());
         mIntent.putExtra("mobile", listBean.getMobile());
         mIntent.putExtra("hasVideo",data.getHasVideo());
+        mIntent.putExtra("openHomeTime",data.getOpenHomeTime());
         mIntent.putExtra("appointmentTime", listBean.getAppointmentTime());
         mIntent.putExtra("advserName", listBean.getAdvserName());
         mIntent.putExtra("adviserId", listBean.getAdviserId());

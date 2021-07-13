@@ -1,6 +1,5 @@
 package com.jxxx.zf.view.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,8 +15,8 @@ import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.bean.ZuFangDetailsBase;
 import com.jxxx.zf.utils.DialogUtils;
 import com.jxxx.zf.utils.GlideImageLoader;
+import com.jxxx.zf.utils.IntentUtils;
 import com.jxxx.zf.utils.StringUtil;
-import com.jxxx.zf.view.activity.ChatActivity;
 import com.jxxx.zf.view.activity.MineYypjActivity;
 import com.jxxx.zf.view.activity.ZuFangYyActivity;
 
@@ -77,7 +76,7 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
     ImageView mIvStatus3;
     @BindView(R.id.iv_status_4)
     ImageView mIvStatus4;
-
+    int type = 0;
     @Override
     protected int setLayoutResourceID() {
         return R.layout.fragment_zu_fang_yyxq_1;
@@ -93,6 +92,7 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
         String id = "";
         if (bundle != null) {
             id = bundle.getString("id");
+            type = bundle.getInt("type");
         }
         RetrofitUtil.getInstance().apiService()
                 .getAppointmentDetails(id)
@@ -192,7 +192,55 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
 //                    actions = ["联系对方", "取消预约"]
 //            }
 //        }
-        //1 已预约 2 已接单 3已认证 4看房中 5已完成 6已签约 7已取消
+        if(type==0){
+            showYyxqUi();//预约详情
+        }else{
+            showJdxqUi();//接单详情
+        }
+    }
+    private void showJdxqUi(){
+        switch (data.getStatus()) {
+            case "1":
+                mBnt2.setVisibility(View.VISIBLE);
+                mBnt3.setVisibility(View.VISIBLE);
+                mBnt2.setText("联系对方");
+                mBnt3.setText("接单");
+                break;
+            case "2":
+                mBnt2.setVisibility(View.VISIBLE);
+                mBnt3.setVisibility(View.VISIBLE);
+                mBnt2.setText("联系对方");
+                mBnt3.setText("去认证");
+                break;
+            case "3":
+                mBnt2.setVisibility(View.VISIBLE);
+                mBnt3.setVisibility(View.VISIBLE);
+                mBnt2.setText("联系对方");
+                mBnt3.setText("去看房");
+                break;
+            case "4":
+                mBnt1.setVisibility(View.VISIBLE);
+                mBnt2.setVisibility(View.VISIBLE);
+                mBnt3.setVisibility(View.VISIBLE);
+                mBnt1.setText("线上签约");
+                mBnt2.setText("线下签约");
+                mBnt3.setText("不签约");
+                break;
+            case "5":
+            case "6":
+                mBnt2.setVisibility(View.VISIBLE);
+                mBnt3.setVisibility(View.VISIBLE);
+                mBnt2.setText("联系对方");
+                mBnt3.setText("已完成");
+                break;
+//            case "7":
+//                helper.setVisible(R.id.bnt_3, true).setText(R.id.bnt_3, "电话联系");
+//                break;
+        }
+    }
+
+    //1 已预约 2 已接单 3已认证 4看房中 5已完成 6已签约 7已取消
+    private void showYyxqUi() {
         switch (data.getStatus()) {
             case "1":
             case "2":
@@ -249,13 +297,45 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
             case R.id.bnt_1:
             case R.id.bnt_2:
             case R.id.bnt_3:
-                setOnClickListener(((TextView) view).getText().toString());
+
+                if(type==0){//预约详情
+                    setOnClickListenerYyxq(((TextView) view).getText().toString());
+                }else{//接单详情
+                    setOnClickListenerJdxq(((TextView) view).getText().toString());
+                }
                 break;
         }
     }
 
+    private void setOnClickListenerJdxq(String str) {
+        switch (str){
+            case "联系对方":
+                IntentUtils.startActivityPhone(mContext, data.getMobile());
+                break;
+            case "去看房":
+                baseStartActivity(MineYypjActivity.class, null);
+                break;
+            case "去认证":
+                DialogUtils.showDialogHint(mContext, "确定取消预约吗？", false, new DialogUtils.ErrorDialogInterface() {
+                    @Override
+                    public void btnConfirm() {
 
-    private void setOnClickListener(String str) {
+                    }
+                });
+                break;
+            case "接单":
+//                receivingOrder(data.get(position).getId());
+                break;
+            case "不签约":
+                break;
+            case "线上签约":
+                break;
+            case "已完成":
+                break;
+        }
+    }
+
+    private void setOnClickListenerYyxq(String str) {
         switch (str) {
             case "评价":
                 baseStartActivity(MineYypjActivity.class, null);
@@ -270,6 +350,9 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
                 break;
             case "更改预约":
                 ZuFangYyActivity.startActivityYyUpdata(mContext,data);
+                break;
+            case "联系对方":
+                IntentUtils.startActivityPhone(mContext, data.getAdviserMobile());
                 break;
         }
     }

@@ -41,8 +41,8 @@ public class ZuFangYyOkActivity extends BaseActivity {
                 baseStartActivity(MainActivity.class,null);
                 break;
             case R.id.bnt_ckyyxx:
-                Log.w("APPNAME_ENGLISH","APPNAME_ENGLISH:"+getIntent().getStringExtra(ConstValues.APPNAME_ENGLISH));
-                baseStartActivity(ZuFangYyxqActivity.class,getIntent().getStringExtra(ConstValues.APPNAME_ENGLISH));
+                ZuFangYyxqActivity.startActivity_zf(this,
+                        getIntent().getStringExtra(ConstValues.APPNAME_ENGLISH),0);
                 break;
         }
     }

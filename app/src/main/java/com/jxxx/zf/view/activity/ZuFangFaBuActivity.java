@@ -64,28 +64,24 @@ public class ZuFangFaBuActivity extends BaseActivity {
         mAdapter_fwcx = new ZuFangFaBuXxTextAdapter(Arrays.asList(ConstValues.HOUSE_ORIENTATION));
         mRvListFwcx.setAdapter(mAdapter_fwcx);
         mAdapter_fwcx.setOnItemClickListener((adapter, view, position) -> {
-//                mAdapter_fwcx.notifyDataSetChanged();
-            ((TextView)view).setTextColor(getResources().getColor(R.color.white));
-            ((TextView)view).setBackground(getResources().getDrawable(R.drawable.circle_solid_theme_25));
+            mAdapter_fwcx.setCurPos(position);
+             mAdapter_fwcx.notifyDataSetChanged();
         });
 
         mAdapter_jcss = new ZuFangFaBuXxTextAdapter(Arrays.asList(list_jcss));
         mRvListQtss.setAdapter(mAdapter_jcss);
         mAdapter_jcss.setOnItemClickListener((adapter, view, position) -> {
-//                mAdapter_jcss.notifyDataSetChanged();
             ((TextView)view).setTextColor(getResources().getColor(R.color.white));
             ((TextView)view).setBackground(getResources().getDrawable(R.drawable.circle_solid_theme_25));
         });
 
         mAdapter_fkfs = new ZuFangFaBuXxTextAdapter(Arrays.asList(ConstValues.HOUSE_RENT_TYPE));
         mRvListFkfs.setAdapter(mAdapter_fkfs);
-
         mAdapter_fkfs.setOnItemClickListener((adapter, view, position) -> {
-            ((TextView)view).setTextColor(getResources().getColor(R.color.white));
-            ((TextView)view).setBackground(getResources().getDrawable(R.drawable.circle_solid_theme_25));
+            mAdapter_fkfs.setCurPos(position);
+            mAdapter_fkfs.notifyDataSetChanged();
         });
-        imgListTop.add(null);
-        addImageAdapterTop = new AddImageAdapter(imgListTop);
+        addImageAdapterTop = new AddImageAdapter(null);
         photoRv.setAdapter(addImageAdapterTop);
 
         addImageAdapterTop.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

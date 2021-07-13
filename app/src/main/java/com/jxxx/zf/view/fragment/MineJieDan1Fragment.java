@@ -1,6 +1,8 @@
 package com.jxxx.zf.view.fragment;
 
+import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,13 +12,17 @@ import com.jxxx.zf.R;
 import com.jxxx.zf.api.RetrofitUtil;
 import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseFragment;
+import com.jxxx.zf.bean.AppointmentDetailsBase;
 import com.jxxx.zf.bean.AppointmentList;
 import com.jxxx.zf.bean.Result;
+import com.jxxx.zf.utils.DialogUtils;
 import com.jxxx.zf.utils.IntentUtils;
 import com.jxxx.zf.view.activity.ChatActivity;
 import com.jxxx.zf.view.activity.MineJdxqActivity;
+import com.jxxx.zf.view.activity.MineYypjActivity;
 import com.jxxx.zf.view.activity.MineYyzxListActivity;
 import com.jxxx.zf.view.activity.ZuFangXqActivity;
+import com.jxxx.zf.view.activity.ZuFangYyActivity;
 import com.jxxx.zf.view.activity.ZuFangYyxqActivity;
 import com.jxxx.zf.view.adapter.MineListJdAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -54,24 +60,18 @@ public class MineJieDan1Fragment extends BaseFragment {
         mMineListJdAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                baseStartActivity(MineJdxqActivity.class,null);
-                baseStartActivity(ZuFangYyxqActivity.class, mMineListJdAdapter.getData().get(position).getId());
+                ZuFangYyxqActivity.startActivity_zf(mContext,
+                        mMineListJdAdapter.getData().get(position).getId(),1);
             }
         });
         mMineListJdAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (view.getId()){
-                    case R.id.bnt_lx:
-                        IntentUtils.startActivityPhone(mContext, mMineListJdAdapter.getData().get(position).getMobile());
-                        break;
-                    case R.id.bnt_jd:
-
-                        break;
-
-                }
+                String str = ((TextView)view).getText().toString();
+                setOnClickListener(str,mMineListJdAdapter.getData(),position);
             }
         });
+
 
         mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -89,6 +89,62 @@ public class MineJieDan1Fragment extends BaseFragment {
         });
     }
 
+    private void setOnClickListener(String str, List<AppointmentDetailsBase> data, int position) {
+        switch (str){
+            case "联系对方":
+                IntentUtils.startActivityPhone(mContext, data.get(position).getMobile());
+                break;
+            case "去看房":
+                baseStartActivity(MineYypjActivity.class, null);
+                break;
+            case "去认证":
+                DialogUtils.showDialogHint(mContext, "确定取消预约吗？", false, new DialogUtils.ErrorDialogInterface() {
+                    @Override
+                    public void btnConfirm() {
+
+                    }
+                });
+                break;
+            case "接单":
+                receivingOrder(data.get(position).getId());
+                break;
+            case "不签约":
+                break;
+            case "线上签约":
+                break;
+            case "已完成":
+                break;
+        }
+    }
+    private void receivingOrder(String appointmentId){
+        RetrofitUtil.getInstance().apiService()
+                .receivingOrder(appointmentId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result result) {
+                        if(isResultOk(result)) {
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
     @Override
     protected void initData() {
         showLoading();

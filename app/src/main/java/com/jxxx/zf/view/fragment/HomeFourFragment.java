@@ -133,7 +133,7 @@ public class HomeFourFragment extends BaseFragment {
                             });
                             return;
                         }
-                        baseStartActivity(MineApplyGwActivity.class);
+                        baseStartActivity(MineApplyFdActivity.class);
                         break;
                     case "成为顾问":
                         if(!SharedUtils.getIdentityFlag().equals("2")){
@@ -146,7 +146,7 @@ public class HomeFourFragment extends BaseFragment {
                                     });
                             return;
                         }
-                        baseStartActivity(MineApplyFdActivity.class);
+                        baseStartActivity(MineApplyGwActivity.class);
                         break;
                 }
             }
@@ -200,6 +200,9 @@ public class HomeFourFragment extends BaseFragment {
                 list.add("看房状态");
                 list.add("成为房东");
                 list.add("成为顾问");
+
+
+                list.add("我的接单");
                 mMineCygjAdapter.setNewData(list);
                 break;
             case 1:
@@ -223,7 +226,6 @@ public class HomeFourFragment extends BaseFragment {
                 list.add("看房状态");
                 list.add("房源上架");
                 list.add("成为房东");
-                list.add("成为顾问");
                 mMineCygjAdapter.setNewData(list);
                 break;
             case 3:

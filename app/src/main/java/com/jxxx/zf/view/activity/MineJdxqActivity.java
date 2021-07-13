@@ -11,8 +11,6 @@ import com.jxxx.zf.base.BaseActivity;
 import com.jxxx.zf.utils.MagicIndicatorUtils;
 import com.jxxx.zf.view.fragment.MineJdxq1Fragment;
 import com.jxxx.zf.view.fragment.MineJdxq2Fragment;
-import com.jxxx.zf.view.fragment.ZuFangYyxq1Fragment;
-import com.jxxx.zf.view.fragment.ZuFangYyxq2Fragment;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 

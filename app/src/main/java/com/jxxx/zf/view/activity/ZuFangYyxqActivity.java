@@ -1,5 +1,7 @@
 package com.jxxx.zf.view.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -48,7 +50,11 @@ public class ZuFangYyxqActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        setToolbar(mMyToolbar, "预约详情");
+        if(getIntent().getIntExtra("type",0)==0){//0预约1接单
+            setToolbar(mMyToolbar, "预约详情");
+        }else{
+            setToolbar(mMyToolbar, "接单详情");
+        }
         MagicIndicatorUtils.initMagicIndicator_1(this, mDataList, mMagicIndicator, mViewPager);
         initVP();
     }
@@ -81,6 +87,7 @@ public class ZuFangYyxqActivity extends BaseActivity {
     private List<Fragment> getFragments() {
         Bundle mBundle = new Bundle();
         mBundle.putString("id",getIntent().getStringExtra(ConstValues.APPNAME_ENGLISH));
+        mBundle.putInt("type",getIntent().getIntExtra("type",0));
         ZuFangYyxq1Fragment mZuFangYyxq1Fragment = new ZuFangYyxq1Fragment();
         mZuFangYyxq1Fragment.setArguments(mBundle);
         fragments.add(mZuFangYyxq1Fragment);
@@ -94,4 +101,11 @@ public class ZuFangYyxqActivity extends BaseActivity {
     public void initData() {
     }
 
+
+    public static void startActivity_zf(Context mContext,String id,int type){
+        Intent mIntent = new Intent(mContext,ZuFangYyxqActivity.class);
+        mIntent.putExtra("type",type);
+        mIntent.putExtra(ConstValues.APPNAME_ENGLISH,id);
+        mContext.startActivity(mIntent);
+    }
 }

@@ -116,6 +116,9 @@ public interface ApiService {
     @POST("api/v1/user/collection/doCollection")
     Observable<Result<String>> houseDoCollection(@Query("houseId") String houseId);
 
+    @POST("api/v1/user/adviser/receivingOrder")
+    Observable<Result> receivingOrder(@Query("appointmentId") String appointmentId);
+
     @POST("api/v1/user/collection/houseList")
     Observable<Result<HouseListBase>> HouseCollectionList(@Query("page") int page, @Query("pageSize") int pageSize);
 }

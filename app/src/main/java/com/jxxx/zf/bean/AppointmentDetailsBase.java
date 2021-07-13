@@ -26,6 +26,7 @@ public class AppointmentDetailsBase {
     private String stausStr;
     private String adviserId;
     private String advserName;
+    private String adviserMobile;
     private String appointmentTime;
     private String createTime;
     private String delTf;
@@ -40,6 +41,14 @@ public class AppointmentDetailsBase {
     private String remark;
     private String status;
     private String userId;
+
+    public String getAdviserMobile() {
+        return adviserMobile;
+    }
+
+    public void setAdviserMobile(String adviserMobile) {
+        this.adviserMobile = adviserMobile;
+    }
 
     public List<StatusBeanList> getStatusList() {
         return statusList;

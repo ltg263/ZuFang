@@ -60,7 +60,8 @@ public class MineYyzxListActivity extends BaseActivity {
         mMineListYyzxAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                baseStartActivity(ZuFangYyxqActivity.class, mMineListYyzxAdapter.getData().get(position).getId());
+                ZuFangYyxqActivity.startActivity_zf(MineYyzxListActivity.this,
+                        mMineListYyzxAdapter.getData().get(position).getId(),0);
             }
         });
         mMineListYyzxAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -110,7 +111,7 @@ public class MineYyzxListActivity extends BaseActivity {
                 ZuFangYyActivity.startActivityYyUpdata(this,data.get(position));
                 break;
             case "联系对方":
-                IntentUtils.startActivityPhone(MineYyzxListActivity.this, mMineListYyzxAdapter.getData().get(position).getMobile());
+                IntentUtils.startActivityPhone(MineYyzxListActivity.this, mMineListYyzxAdapter.getData().get(position).getAdviserMobile());
                 break;
         }
     }

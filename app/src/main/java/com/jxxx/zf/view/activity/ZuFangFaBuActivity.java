@@ -9,12 +9,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jxxx.zf.R;
+import com.jxxx.zf.api.RetrofitUtil;
 import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseActivity;
+import com.jxxx.zf.bean.HomeZuFangListBase;
+import com.jxxx.zf.bean.HouseListBase;
+import com.jxxx.zf.bean.HouseParamListBean;
 import com.jxxx.zf.bean.ImageUrlBean;
+import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.utils.PictureSelectorUtils;
 import com.jxxx.zf.view.adapter.AddImageAdapter;
 import com.jxxx.zf.view.adapter.ZuFangFaBuXxTextAdapter;
+import com.jxxx.zf.view.adapter.ZuFangFaBuXxTextSsAdapter;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
@@ -25,6 +31,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -46,12 +56,10 @@ public class ZuFangFaBuActivity extends BaseActivity {
     @BindView(R.id.rv_list_fwtp)
     RecyclerView mRvListFwtp;
     private AddImageAdapter addImageAdapterTop,addImageAdapterB;
-    ZuFangFaBuXxTextAdapter mAdapter_jcss,mAdapter_fkfs,mAdapter_fwcx;
+    ZuFangFaBuXxTextAdapter mAdapter_fkfs,mAdapter_fwcx;
+    ZuFangFaBuXxTextSsAdapter mAdapter_jcss;
 
-
-    private final String[] list_jcss = new String[]{"电视", "洗衣服","冰箱","床","WIFI","空调","沙发","热水器","电梯","阳台","桌子"};
-
-
+    List<String> houseParams = new ArrayList<>();
     private boolean isTop = true;
     @Override
     public int intiLayout() {
@@ -68,9 +76,14 @@ public class ZuFangFaBuActivity extends BaseActivity {
              mAdapter_fwcx.notifyDataSetChanged();
         });
 
-        mAdapter_jcss = new ZuFangFaBuXxTextAdapter(Arrays.asList(list_jcss));
+        mAdapter_jcss = new ZuFangFaBuXxTextSsAdapter(null);
         mRvListQtss.setAdapter(mAdapter_jcss);
         mAdapter_jcss.setOnItemClickListener((adapter, view, position) -> {
+            if(houseParams.contains(mAdapter_jcss.getData().get(position).getId())){
+                houseParams.remove(position);
+            }else{
+                houseParams.add(mAdapter_jcss.getData().get(position).getId());
+            }
             ((TextView)view).setTextColor(getResources().getColor(R.color.white));
             ((TextView)view).setBackground(getResources().getDrawable(R.drawable.circle_solid_theme_25));
         });
@@ -135,7 +148,34 @@ public class ZuFangFaBuActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        RetrofitUtil.getInstance().apiService()
+                .getHouseParamAll()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result<List<HouseParamListBean>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
+                    }
+
+                    @Override
+                    public void onNext(Result<List<HouseParamListBean>> result) {
+                        hideLoading();
+                        if(isResultOk(result) && result.getData()!=null) {
+                            mAdapter_jcss.setNewData(result.getData());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideLoading();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        hideLoading();
+                    }
+                });
     }
 
 

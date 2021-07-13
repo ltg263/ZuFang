@@ -9,6 +9,7 @@ import com.jxxx.zf.bean.ApponintmentApply;
 import com.jxxx.zf.bean.HomeZuFangListBase;
 import com.jxxx.zf.bean.HouseCompareBean;
 import com.jxxx.zf.bean.HouseListBase;
+import com.jxxx.zf.bean.HouseParamListBean;
 import com.jxxx.zf.bean.LoginData;
 import com.jxxx.zf.bean.ApplyInfoBean;
 import com.jxxx.zf.bean.Result;
@@ -119,6 +120,6 @@ public interface ApiService {
     @POST("api/v1/user/adviser/receivingOrder")
     Observable<Result> receivingOrder(@Query("appointmentId") String appointmentId);
 
-    @POST("api/v1/user/collection/houseList")
-    Observable<Result<HouseListBase>> HouseCollectionList(@Query("page") int page, @Query("pageSize") int pageSize);
+    @GET("api/v1/houseParam/listAll")
+    Observable<Result<List<HouseParamListBean>>> getHouseParamAll();
 }

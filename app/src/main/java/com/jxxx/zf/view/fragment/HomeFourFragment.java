@@ -203,6 +203,7 @@ public class HomeFourFragment extends BaseFragment {
 
 
                 list.add("我的接单");
+                list.add("房源上架");
                 mMineCygjAdapter.setNewData(list);
                 break;
             case 1:

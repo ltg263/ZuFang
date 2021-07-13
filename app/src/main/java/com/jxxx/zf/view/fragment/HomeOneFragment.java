@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jxxx.zf.R;
 import com.jxxx.zf.api.RetrofitUtil;
+import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseFragment;
 import com.jxxx.zf.bean.HomeZuFangListBase;
+import com.jxxx.zf.bean.HouseListBase;
 import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.utils.GlideImageLoader;
 import com.jxxx.zf.utils.RadioGroupSelectUtils;
@@ -52,7 +54,7 @@ public class HomeOneFragment extends BaseFragment {
     RecyclerView mRvHomeList;
     @BindView(R.id.iv_icon)
     ImageView iv_icon;
-
+    int page = 1;
     private HomeFyAdapter mHomeFyAdapter;
 
     @Override
@@ -63,7 +65,15 @@ public class HomeOneFragment extends BaseFragment {
     @Override
     protected void initView() {
         GlideImageLoader.loadImageViewRadiusNoCenter(getActivity(),"http://img.netbian.com/file/2021/0527/1f20f9804cb7390efc842f02f4765901.jpg",iv_icon);
-        new RadioGroupSelectUtils().setOnChangeListener(getActivity(),mMRadioGroup,mRbHomeSelect1,mRbHomeSelect2,mRbHomeSelect3,mRbHomeSelect4);
+        new RadioGroupSelectUtils().setOnChangeListener(getActivity(),
+                mMRadioGroup, mRbHomeSelect1, mRbHomeSelect2, mRbHomeSelect3, mRbHomeSelect4
+                , new RadioGroupSelectUtils.DialogInterface() {
+                    @Override
+                    public void btnConfirm(String str) {
+                        page = 1;
+                        HouseList(str);
+                    }
+                });
 
 
         mHomeFyAdapter = new HomeFyAdapter(null);
@@ -75,6 +85,83 @@ public class HomeOneFragment extends BaseFragment {
 
             }
         });
+    }
+    String rentingType = null;
+    String rentBegin = null;
+    String rentEnd = null;
+    private void HouseList(String str){
+        switch (str){
+            case "不限":
+                rentingType = null;
+                break;
+            case "整租":
+                rentingType = "2";
+                break;
+            case "合租":
+                rentingType = "1";
+                break;
+            case "不限 ":
+                rentBegin = null;
+                rentEnd = null;
+                break;
+            case "500元以下":
+                rentBegin = "0";
+                rentEnd = "500";
+                break;
+            case "500-1000元":
+                rentBegin = "500";
+                rentEnd = "1000";
+                break;
+            case "1000-1500元":
+                rentBegin = "1000";
+                rentEnd = "1500";
+                break;
+            case "1500-2000元":
+                rentBegin = "1500";
+                rentEnd = "2000";
+                break;
+            case "2000-3000元":
+                rentBegin = "2000";
+                rentEnd = "3000";
+                break;
+            case "3000-5000元":
+                rentBegin = "30000";
+                rentEnd = "5000";
+                break;
+            case "5000元以上":
+                rentBegin = "5000";
+                break;
+        }
+        RetrofitUtil.getInstance().apiService()
+                .HouseList(page, ConstValues.PAGE_SIZE,rentingType,rentBegin,rentEnd)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result<HouseListBase>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result<HouseListBase> result) {
+                        hideLoading();
+                        if(isResultOk(result) && result.getData()!=null){
+                            if(result.getData().getList()!=null){
+                                mHomeFyAdapter.setNewData(result.getData().getList());
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideLoading();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        hideLoading();
+                    }
+                });
     }
 
     @Override

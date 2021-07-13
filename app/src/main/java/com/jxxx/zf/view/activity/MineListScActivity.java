@@ -124,7 +124,7 @@ public class MineListScActivity extends BaseActivity {
     @Override
     public void initData() {
         RetrofitUtil.getInstance().apiService()
-                .HouseList(page, ConstValues.PAGE_SIZE)
+                .collectionHouseList(page, ConstValues.PAGE_SIZE)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<Result<HouseListBase>>() {

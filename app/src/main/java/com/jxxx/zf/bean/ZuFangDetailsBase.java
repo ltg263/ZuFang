@@ -46,40 +46,40 @@ public class ZuFangDetailsBase{
      * viewNum : 11
      */
 
-    private String address;
-    private String appointmentNum;
-    private String area;
-    private String businessAreaId;
-    private String cityId;
-    private String isCollection;
-    private String commission;
-    private String createTime;
-    private String delTf;
-    private String details;
-    private String districtId;
-    private String floor;
-    private String hasElevator;
-    private String hasParking;
-    private String houseEstateId;
-    private String houseLables;
-    private String houseParams;
-    private String houseType;
-    private String housingEstateName;
-    private String id;
-    private String imgUrl;
-    private String imgUrls;
-    private String lat;
-    private String lon;
-    private String name;
-    private String orientation;
-    private String provinceId;
-    private String renovationType;
-    private String rent;
-    private String rentType;
-    private String rentingType;
-    private String status;
-    private String viewNum;
-    private String hasVideo;
+    private String address="";
+    private String appointmentNum="";
+    private String area="";
+    private String businessAreaId="";
+    private String cityId="";
+    private String isCollection="";
+    private String commission="";
+    private String createTime="";
+    private String delTf="";
+    private String details="";
+    private String districtId="";
+    private String floor="";
+    private String hasElevator="";
+    private String hasParking="";
+    private String houseEstateId="";
+    private String houseLables="";
+    private String houseParams="";
+    private String houseType="";
+    private String housingEstateName="";
+    private String id="";
+    private String imgUrl="";
+    private String imgUrls="";
+    private String lat="";
+    private String lon="";
+    private String name="";
+    private String orientation="";
+    private String provinceId="";
+    private String renovationType="";
+    private String rent="";
+    private String rentType="";
+    private String rentingType="";
+    private String status="";
+    private String viewNum="";
+    private String hasVideo="";
     private List<LablesBean> lables;
     private List<ZuFangDetailsBase> nearHouses;
     private List<ParamsBean> params;
@@ -296,9 +296,6 @@ public class ZuFangDetailsBase{
     }
 
     public String getOrientation() {
-        if(StringUtil.isBlank(orientation)){
-            return "无";
-        }
         return orientation;
     }
 
@@ -339,9 +336,6 @@ public class ZuFangDetailsBase{
     }
 
     public String getRentingType() {
-        if(StringUtil.isBlank(rentingType)){
-            return "无";
-        }
         return rentingType;
     }
 
@@ -395,8 +389,8 @@ public class ZuFangDetailsBase{
          * name : 靠近地铁
          */
 
-        private String id;
-        private String name;
+        private String id="";
+        private String name="";
 
         public String getId() {
             return id;
@@ -421,9 +415,9 @@ public class ZuFangDetailsBase{
          * paramName : 空调
          */
 
-        private String id;
-        private String paramName;
-        private String iconUrl;
+        private String id="";
+        private String paramName="";
+        private String iconUrl="";
 
         public String getIconUrl() {
             return iconUrl;

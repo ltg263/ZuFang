@@ -66,7 +66,13 @@ public class HomeTwoFragment_1 extends BaseFragment implements LocationSource{
 
     @Override
     protected void initView() {
-        new RadioGroupSelectUtils().setOnChangeListener(getActivity(),mMRadioGroup,mRbHomeSelect1,mRbHomeSelect2,mRbHomeSelect3,mRbHomeSelect4);
+        new RadioGroupSelectUtils().setOnChangeListener(getActivity(),
+                mMRadioGroup, mRbHomeSelect1, mRbHomeSelect2, mRbHomeSelect3, mRbHomeSelect4, new RadioGroupSelectUtils.DialogInterface() {
+                    @Override
+                    public void btnConfirm(String str) {
+
+                    }
+                });
         initMap();
         address.setOnClickListener(new View.OnClickListener() {
             @Override

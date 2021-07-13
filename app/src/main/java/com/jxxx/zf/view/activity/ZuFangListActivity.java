@@ -61,7 +61,7 @@ public class ZuFangListActivity extends BaseActivity {
 
     private HomeFyAdapter mHomeFyAdapter;
 
-
+    String str = "";
 
     @Override
     public int intiLayout() {
@@ -87,7 +87,16 @@ public class ZuFangListActivity extends BaseActivity {
 
             }
         });
-        new RadioGroupSelectUtils().setOnChangeListener(this,mMRadioGroup,mRbHomeSelect1,mRbHomeSelect2,mRbHomeSelect3,mRbHomeSelect4);
+
+        new RadioGroupSelectUtils().setOnChangeListener(this,
+                mMRadioGroup, mRbHomeSelect1, mRbHomeSelect2, mRbHomeSelect3, mRbHomeSelect4, new RadioGroupSelectUtils.DialogInterface() {
+            @Override
+            public void btnConfirm(String str) {
+                ZuFangListActivity.this.str = str;
+                page = 1;
+                initData();
+            }
+        });
         mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
@@ -104,10 +113,55 @@ public class ZuFangListActivity extends BaseActivity {
         });
     }
 
+    String rentingType = null;
+    String rentBegin = null;
+    String rentEnd = null;
     @Override
     public void initData() {
+        switch (str){
+            case "不限":
+                rentingType = null;
+                break;
+            case "整租":
+                rentingType = "2";
+                break;
+            case "合租":
+                rentingType = "1";
+                break;
+            case "不限 ":
+                rentBegin = null;
+                rentEnd = null;
+                break;
+            case "500元以下":
+                rentBegin = "0";
+                rentEnd = "500";
+                break;
+            case "500-1000元":
+                rentBegin = "500";
+                rentEnd = "1000";
+                break;
+            case "1000-1500元":
+                rentBegin = "1000";
+                rentEnd = "1500";
+                break;
+            case "1500-2000元":
+                rentBegin = "1500";
+                rentEnd = "2000";
+                break;
+            case "2000-3000元":
+                rentBegin = "2000";
+                rentEnd = "3000";
+                break;
+            case "3000-5000元":
+                rentBegin = "30000";
+                rentEnd = "5000";
+                break;
+            case "5000元以上":
+                rentBegin = "5000";
+                break;
+        }
         RetrofitUtil.getInstance().apiService()
-                .HouseList(page, ConstValues.PAGE_SIZE)
+                .HouseList(page, ConstValues.PAGE_SIZE,rentingType,rentBegin,rentEnd)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<Result<HouseListBase>>() {

@@ -106,7 +106,12 @@ public interface ApiService {
     Observable<Result<HomeZuFangListBase>> homeGetHome();
 
     @GET("api/v1/house/list")
-    Observable<Result<HouseListBase>> HouseList(@Query("page") int page, @Query("pageSize") int pageSize);
+    Observable<Result<HouseListBase>> HouseList(@Query("page") int page, @Query("pageSize") int pageSize,
+                                                @Query("rentingType") String rentingType
+                                            ,@Query("rentBegin") String rentBegin,@Query("rentEnd") String rentEnd);
+
+    @GET("api/v1/user/collection/houseList")
+    Observable<Result<HouseListBase>> collectionHouseList(@Query("page") int page, @Query("pageSize") int pageSize);
 
     @GET("api/v1/house/details")
     Observable<Result<ZuFangDetailsBase>> houseDetails(@Query("id") String id);

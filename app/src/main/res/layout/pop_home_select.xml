@@ -1,59 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:orientation="vertical"
-android:background="@color/white"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
 
-<RadioGroup
-    android:id="@+id/rgb_sort"
-    android:orientation="vertical"
-    android:layout_width="120dp"
-    android:layout_height="wrap_content">
-    <RadioButton
-        android:id="@+id/rb11"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:textColor="@color/selector_color"
-        android:text="3km以内"
-        android:button="@null"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line_gray"/>
-    <RadioButton
-        android:id="@+id/rb12"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:textColor="@color/selector_color"
-        android:text="5km以内"
-        android:button="@null"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line_gray"/>
-    <RadioButton
-        android:id="@+id/rb13"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:textColor="@color/selector_color"
-        android:text="10km以内"
-        android:button="@null"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line_gray"/>
-    <RadioButton
-        android:id="@+id/rb14"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:textColor="@color/selector_color"
-        android:text="不限"
-        android:button="@null"/>
-</RadioGroup>
+    <RadioGroup
+        android:id="@+id/rgb_sort_fs"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rb11"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:button="@null"
+            android:gravity="center"
+            android:text="不限"
+            android:textColor="@color/selector_color" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_gray" />
+
+        <RadioButton
+            android:id="@+id/rb12"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:button="@null"
+            android:gravity="center"
+            android:text="整租"
+            android:textColor="@color/selector_color" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_gray" />
+
+        <RadioButton
+            android:id="@+id/rb13"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:button="@null"
+            android:gravity="center"
+            android:text="合租"
+            android:textColor="@color/selector_color" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/rgb_sort_zj"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rb21"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:button="@null"
+            android:gravity="center"
+            android:text="不限"
+            android:textColor="@color/selector_color" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_gray" />
+
+        <RadioButton
+            android:id="@+id/rb22"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:button="@null"
+            android:gravity="center"
+            android:text="500元以下"
+            android:textColor="@color/selector_color" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_gray" />
+
+        <RadioButton
+            android:id="@+id/rb23"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:button="@null"
+            android:gravity="center"
+            android:text="500-1000元"
+            android:textColor="@color/selector_color" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_gray" />
+
+        <RadioButton
+            android:id="@+id/rb24"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:button="@null"
+            android:gravity="center"
+            android:text="1000-1500元"
+            android:textColor="@color/selector_color" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_gray" />
+
+        <RadioButton
+            android:id="@+id/rb25"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:button="@null"
+            android:gravity="center"
+            android:text="1500-2000元"
+            android:textColor="@color/selector_color" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_gray" />
+
+        <RadioButton
+            android:id="@+id/rb26"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:button="@null"
+            android:gravity="center"
+            android:text="2000-3000元"
+            android:textColor="@color/selector_color" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_gray" />
+
+        <RadioButton
+            android:id="@+id/rb27"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:button="@null"
+            android:gravity="center"
+            android:text="3000-5000元"
+            android:textColor="@color/selector_color" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_gray" />
+
+        <RadioButton
+            android:id="@+id/rb28"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:button="@null"
+            android:gravity="center"
+            android:text="5000元以上"
+            android:textColor="@color/selector_color" />
+
+    </RadioGroup>
 </LinearLayout>

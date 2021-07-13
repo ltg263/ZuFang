@@ -122,4 +122,7 @@ public interface ApiService {
 
     @GET("api/v1/houseParam/listAll")
     Observable<Result<List<HouseParamListBean>>> getHouseParamAll();
+
+    @POST("api/v1/user/house/add")
+    Observable<Result> addUserHouse(@Body ZuFangDetailsBase mZuFangDetailsBase);
 }

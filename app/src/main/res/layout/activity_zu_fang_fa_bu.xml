@@ -30,30 +30,23 @@
                 android:textSize="@dimen/sp_14" />
 
             <TextView
+                android:id="@+id/home_banner_tv"
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
                 android:drawableTop="@mipmap/ic_mrt"
                 android:drawablePadding="25dp"
                 android:gravity="center_horizontal"
                 android:paddingTop="80dp"
-                android:text="用于活动封面，最多可上传五张"
-                android:visibility="gone" />
+                android:text="用于活动封面，最多可上传五张" />
 
             <com.youth.banner.Banner
                 android:id="@+id/home_banner"
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
+                android:visibility="gone"
                 android:background="@mipmap/ic_launcher"
                 android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:visibility="gone" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/photoRv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="3" />
+                android:focusableInTouchMode="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -64,6 +57,7 @@
                 android:textSize="@dimen/sp_16" />
 
             <EditText
+                android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -101,6 +95,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <EditText
+                    android:id="@+id/et_mj"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -130,6 +125,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <EditText
+                    android:id="@+id/et_wz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -159,6 +155,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <EditText
+                    android:id="@+id/et_lc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -187,11 +184,13 @@
                     android:textColor="@color/color_000000"
                     android:textSize="@dimen/sp_14" />
 
-                <EditText
+                <TextView
+                    android:id="@+id/bnt_zx"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:hint="请输入"
+                    android:hint="请选择装修风格"
+                    android:drawableEnd="@mipmap/ic_jiantou_you"
                     android:textColor="@color/color_333333"
                     android:textColorHint="@color/color_999999"
                     android:textCursorDrawable="@drawable/common_edit_input_line"
@@ -216,11 +215,13 @@
                     android:textColor="@color/color_000000"
                     android:textSize="@dimen/sp_14" />
 
-                <EditText
+                <TextView
+                    android:id="@+id/bnt_dt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:hint="请输入"
+                    android:drawableEnd="@mipmap/ic_jiantou_you"
+                    android:hint="是否有电梯"
                     android:textColor="@color/color_333333"
                     android:textColorHint="@color/color_999999"
                     android:textCursorDrawable="@drawable/common_edit_input_line"
@@ -245,11 +246,12 @@
                     android:textColor="@color/color_000000"
                     android:textSize="@dimen/sp_14" />
 
-                <EditText
+                <TextView
+                    android:id="@+id/bnt_cw"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:hint="请输入"
+                    android:hint="是否有停车位"
                     android:textColor="@color/color_333333"
                     android:textColorHint="@color/color_999999"
                     android:textCursorDrawable="@drawable/common_edit_input_line"
@@ -274,11 +276,13 @@
                     android:textColor="@color/color_000000"
                     android:textSize="@dimen/sp_14" />
 
-                <EditText
+                <TextView
+                    android:id="@+id/bnt_kfsj"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:hint="请输入"
+                    android:hint="请选择看房时间"
+                    android:drawableEnd="@mipmap/ic_jiantou_you"
                     android:textColor="@color/color_333333"
                     android:textColorHint="@color/color_999999"
                     android:textCursorDrawable="@drawable/common_edit_input_line"
@@ -368,6 +372,7 @@
                 android:textSize="@dimen/sp_16" />
 
             <EditText
+                android:id="@+id/et_contact"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
                 android:layout_marginVertical="15dp"

@@ -1,5 +1,7 @@
 package com.jxxx.zf.bean;
 
+import com.jxxx.zf.utils.StringUtil;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -227,6 +229,9 @@ public class ZuFangDetailsBase{
     }
 
     public String getHouseType() {
+        if(StringUtil.isBlank(houseType)){
+            return "";
+        }
         return houseType;
     }
 
@@ -291,6 +296,9 @@ public class ZuFangDetailsBase{
     }
 
     public String getOrientation() {
+        if(StringUtil.isBlank(orientation)){
+            return "无";
+        }
         return orientation;
     }
 
@@ -331,6 +339,9 @@ public class ZuFangDetailsBase{
     }
 
     public String getRentingType() {
+        if(StringUtil.isBlank(rentingType)){
+            return "无";
+        }
         return rentingType;
     }
 

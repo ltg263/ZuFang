@@ -8,6 +8,7 @@ import com.jxxx.zf.bean.AppointmentList;
 import com.jxxx.zf.bean.ApponintmentApply;
 import com.jxxx.zf.bean.HomeZuFangListBase;
 import com.jxxx.zf.bean.HouseCompareBean;
+import com.jxxx.zf.bean.HouseLableBase;
 import com.jxxx.zf.bean.HouseListBase;
 import com.jxxx.zf.bean.HouseParamListBean;
 import com.jxxx.zf.bean.LoginData;
@@ -107,10 +108,15 @@ public interface ApiService {
     @GET("api/v1/home/getHome")
     Observable<Result<HomeZuFangListBase>> homeGetHome();
 
+
+    @GET("api/v1/houseLable/listAll")
+    Observable<Result<List<HouseLableBase>>> getHouseLable();
+
     @GET("api/v1/house/list")
     Observable<Result<HouseListBase>> HouseList(@Query("page") int page, @Query("pageSize") int pageSize,
                                                 @Query("rentingType") String rentingType
-                                            ,@Query("rentBegin") String rentBegin,@Query("rentEnd") String rentEnd);
+                                            ,@Query("rentBegin") String rentBegin,@Query("rentEnd") String rentEnd
+                                            ,@Query("houseType") String houseType,@Query("lables") String lables);
 
     @GET("api/v1/user/collection/houseList")
     Observable<Result<HouseListBase>> collectionHouseList(@Query("page") int page, @Query("pageSize") int pageSize);

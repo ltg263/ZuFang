@@ -28,16 +28,16 @@ public class HomeMineZfAdapter extends BaseQuickAdapter<MineZfBean, BaseViewHold
             tvCont.setBackground(mContext.getResources().getDrawable(R.drawable.circle_solid_f4f4f4_5));
         }
 
-        tvCont.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                for(int i= 0;i<mData.size();i++){
-                    mData.get(i).setSelect(false);
-                }
-                item.setSelect(true);
-                notifyDataSetChanged();
-            }
-        });
+    //        tvCont.setOnClickListener(new View.OnClickListener() {
+    //            @Override
+    //            public void onClick(View view) {
+    //                for(int i= 0;i<mData.size();i++){
+    //                    mData.get(i).setSelect(false);
+    //                }
+    //                item.setSelect(true);
+    //                notifyDataSetChanged();
+    //            }
+    //        });
     }
 
 }

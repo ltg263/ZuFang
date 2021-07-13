@@ -2,6 +2,8 @@ package com.jxxx.zf.view.activity;
 
 
 import android.content.ContentValues;
+import android.content.Intent;
+import android.graphics.LinearGradient;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -22,6 +25,7 @@ import com.jxxx.zf.bean.HomeZuFangListBase;
 import com.jxxx.zf.bean.HouseListBase;
 import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.utils.RadioGroupSelectUtils;
+import com.jxxx.zf.utils.StringUtil;
 import com.jxxx.zf.utils.view.CustomPopWindow;
 import com.jxxx.zf.view.adapter.HomeFyAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -62,6 +66,7 @@ public class ZuFangListActivity extends BaseActivity {
     private HomeFyAdapter mHomeFyAdapter;
 
     String str = "";
+    private Intent mIntent;
 
     @Override
     public int intiLayout() {
@@ -70,13 +75,31 @@ public class ZuFangListActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        mIntent = getIntent();
+        if(StringUtil.isNotBlank(mIntent.getStringExtra("type"))){
+            rentBegin = mIntent.getStringExtra("rentBegin");
+            rentEnd = mIntent.getStringExtra("rentEnd");
+            rentingType =  mIntent.getStringExtra("rentingType");
+            houseType = mIntent.getStringExtra("houseType");
+            lables = mIntent.getStringExtra("lables");
+            if(rentingType==null){
+                mRbHomeSelect2.setText("不限");
+            }
+            if(StringUtil.isNotBlank(rentingType)){
+                if(rentingType.equals("1")){
+                    mRbHomeSelect2.setText("合租");
+                }
+                if(rentingType.equals("2")){
+                    mRbHomeSelect2.setText("整租");
+                }
+            }
+        }
         iv_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-
 
         mHomeFyAdapter = new HomeFyAdapter(null);
         mRvHomeList.setAdapter(mHomeFyAdapter);
@@ -116,6 +139,8 @@ public class ZuFangListActivity extends BaseActivity {
     String rentingType = null;
     String rentBegin = null;
     String rentEnd = null;
+    String houseType = null;
+    String lables = null;
     @Override
     public void initData() {
         switch (str){
@@ -161,7 +186,7 @@ public class ZuFangListActivity extends BaseActivity {
                 break;
         }
         RetrofitUtil.getInstance().apiService()
-                .HouseList(page, ConstValues.PAGE_SIZE,rentingType,rentBegin,rentEnd)
+                .HouseList(page, ConstValues.PAGE_SIZE,rentingType,rentBegin,rentEnd,houseType,lables)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<Result<HouseListBase>>() {
@@ -204,6 +229,33 @@ public class ZuFangListActivity extends BaseActivity {
                         hideLoading();
                     }
                 });
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 0 && data!=null){
+            if(StringUtil.isNotBlank(data.getStringExtra("type"))){
+                rentBegin = data.getStringExtra("rentBegin");
+                rentEnd = data.getStringExtra("rentEnd");
+                rentingType =  data.getStringExtra("rentingType");
+                houseType = data.getStringExtra("houseType");
+                lables = data.getStringExtra("lables");
+                if(rentingType==null){
+                    mRbHomeSelect2.setText("不限");
+                }
+                if(StringUtil.isNotBlank(rentingType)){
+                    if(rentingType.equals("1")){
+                        mRbHomeSelect2.setText("合租");
+                    }
+                    if(rentingType.equals("2")){
+                        mRbHomeSelect2.setText("整租");
+                    }
+                }
+                initData();
+            }
+        }
     }
 
 

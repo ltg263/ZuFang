@@ -59,7 +59,7 @@ public class RangeSeekBar extends View {
 //    private int lineEnd = lineLength + paddingLeft;
 
     private float smallValue = 1.0f;//最小值
-    private float bigValue = 30.0f;//最大值
+    private float bigValue = 50.0f;//最大值
 
     private float smallRange = smallValue;
     private float bigRange = bigValue;

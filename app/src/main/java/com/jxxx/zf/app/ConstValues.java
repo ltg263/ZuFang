@@ -22,6 +22,8 @@ public class ConstValues {
     public static final String[] HOUSE_ORIENTATION = new String[]{"朝东" ,"朝南","朝西","朝北","朝东南","朝西南","朝东北","朝西北"};
     //	租金方式:1,押一付一;2,押一付二;3,押一付三;4,半年;5,一年
     public static  final String[] HOUSE_RENT_TYPE= new String[]{"押一付一" ,"押一付二","押一付三","半年","一年"};
+    //	租金方式:1,押一付一;2,押一付二;3,押一付三;4,半年;5,一年
+    public static  final String[] HOUSE_TYPE= new String[]{"一室" ,"两室","三室","三室以上"};
     //默认连接超时时间
     public static final int DEFAULT_TIMEOUT =60;
     public static final int PAGE_SIZE =10;

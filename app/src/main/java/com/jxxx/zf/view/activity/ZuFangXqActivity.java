@@ -168,20 +168,7 @@ public class ZuFangXqActivity extends BaseActivity {
                             mTvJinE.setText(Html.fromHtml(str));
                             mTvLiulan.setText("约看" + data.getViewNum() + "人");
                             mTvCommission.setText("房东出佣金" + data.getCommission() + "元为奖励");
-                            switch (data.getHouseType()) {
-                                case "1":
-                                    mTvHouseType.setText("一室");
-                                    break;
-                                case "2":
-                                    mTvHouseType.setText("两室");
-                                    break;
-                                case "3":
-                                    mTvHouseType.setText("三室");
-                                    break;
-                                case "4":
-                                    mTvHouseType.setText("三室以上");
-                                    break;
-                            }
+                            mTvHouseType.setText(StringUtil.getHouseTypeStr(data.getHouseType()));
                             tv_hasVideo.setVisibility(View.GONE);
                             if(data.getHasVideo().equals("1")){
                                 tv_hasVideo.setVisibility(View.VISIBLE);

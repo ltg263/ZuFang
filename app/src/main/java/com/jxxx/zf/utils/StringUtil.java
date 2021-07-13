@@ -471,6 +471,24 @@ public class StringUtil {
         }
        return rentStr;
     }
+    public static String getHouseTypeStr(String rentType){
+        String rentStr = "未知";
+        switch (rentType) {
+            case "1":
+                rentStr = ConstValues.HOUSE_TYPE[0];
+                break;
+            case "2":
+                rentStr = ConstValues.HOUSE_TYPE[1];
+                break;
+            case "3":
+                rentStr = ConstValues.HOUSE_TYPE[2];
+                break;
+            case "4":
+                rentStr = ConstValues.HOUSE_TYPE[3];
+                break;
+        }
+       return rentStr;
+    }
 
 
 }

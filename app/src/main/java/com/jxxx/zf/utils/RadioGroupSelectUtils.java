@@ -29,6 +29,7 @@ public class RadioGroupSelectUtils {
 //                        else {
 //                            mCustomPopWindow1.showAsDropDown(mRbHomeSelect1);
 //                        }
+                        mRbHomeSelect1.setChecked(false);
                         break;
                     case R.id.rb_home_select2:
                         if (mCustomPopWindow2 == null)
@@ -50,7 +51,10 @@ public class RadioGroupSelectUtils {
 //                        else {
 //                            mCustomPopWindow4.showAsDropDown(mRbHomeSelect4);
 //                        }
-                        mContext.startActivity(new Intent(mContext,MineZfSelectActivity.class));
+                        mRbHomeSelect4.setChecked(false);
+                        Intent mIntent = new Intent(mContext,MineZfSelectActivity.class);
+                        mIntent.putExtra("type","0");
+                        mContext.startActivityForResult(mIntent,1);
                         break;
                 }
             }

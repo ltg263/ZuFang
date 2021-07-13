@@ -1,19 +1,18 @@
 package com.jxxx.zf.view.activity;
 
 
+import android.content.Intent;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jxxx.zf.R;
-import com.jxxx.zf.api.RetrofitUtil;
-import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseActivity;
-import com.jxxx.zf.bean.HouseCompareBean;
-import com.jxxx.zf.bean.HouseListBase;
-import com.jxxx.zf.bean.Result;
+import com.jxxx.zf.bean.ZuFangDetailsBase;
 import com.jxxx.zf.view.adapter.HomeFyAdapter;
 
 import java.util.ArrayList;
@@ -21,10 +20,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class ZuFangListBdActivity extends BaseActivity {
 
@@ -34,7 +29,9 @@ public class ZuFangListBdActivity extends BaseActivity {
     RecyclerView mRvList;
     boolean hideSame = false;
     private HomeFyAdapter mHomeFyAdapter;
-
+    List<ZuFangDetailsBase> mData = new ArrayList<>();
+    String houseIds = "";
+    String houseNames = "";
     @Override
     public int intiLayout() {
         return R.layout.activity_zufang_list_bd;
@@ -43,13 +40,10 @@ public class ZuFangListBdActivity extends BaseActivity {
     @Override
     public void initView() {
         setToolbar(mMyToolbar, "对比");
-        List<String> list = new ArrayList<>();
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        mHomeFyAdapter = new HomeFyAdapter(null);
+        mData.add(getIntent().getParcelableExtra("data"));
+        houseIds = mData.get(0).getId();
+        houseNames = mData.get(0).getName();
+        mHomeFyAdapter = new HomeFyAdapter(mData);
         mRvList.setAdapter(mHomeFyAdapter);
 
         mHomeFyAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -62,46 +56,42 @@ public class ZuFangListBdActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        RetrofitUtil.getInstance().apiService()
-                .houseCompare("1,2,3,4,5,6",hideSame?"1":null)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Result>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+    }
 
-                    }
-
-                    @Override
-                    public void onNext(Result result) {
-                        hideLoading();
-                        if(isResultOk(result) && result.getData()!=null){
-
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                        hideLoading();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                        hideLoading();
-                    }
-                });
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent mIntent) {
+        super.onActivityResult(requestCode, resultCode, mIntent);
+        if(resultCode==0){
+            ZuFangDetailsBase data = mIntent.getParcelableExtra("data");
+            if(data!=null){
+                if(!houseIds.contains(data.getId())){
+                    houseIds = houseIds+","+data.getId();
+                    houseNames = houseNames+","+data.getName();
+                    mHomeFyAdapter.addData(data);
+                }
+            }
+        }
     }
 
     @OnClick({R.id.bnt_tjfy, R.id.bnt_ksdb})
     public void onClick(View view) {
+        Intent mIntent;
         switch (view.getId()) {
+
             case R.id.bnt_tjfy:
-                baseStartActivity(MineListScActivity.class,null);
+                mIntent = new Intent(this,MineListScActivity.class);
+                mIntent.putExtra("type","1");
+                startActivityForResult(mIntent, 1);
                 break;
             case R.id.bnt_ksdb:
-                baseStartActivity(ZuFangFybdActivity.class,null);
+                if(!houseIds.contains(",")){
+                    ToastUtils.showLong("无对比房源");
+                    return;
+                }
+                mIntent = new Intent(this,ZuFangFybdActivity.class);
+                mIntent.putExtra("houseNames",houseNames);
+                mIntent.putExtra("houseIds",houseIds);
+                startActivity(mIntent);
                 break;
         }
     }

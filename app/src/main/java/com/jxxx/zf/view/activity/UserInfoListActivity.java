@@ -57,8 +57,8 @@ public class UserInfoListActivity extends BaseActivity {
     @Override
     public void initData() {
         showLoading();
-        RetrofitUtil.getInstance().apiService()
-                .getAdviserList()
+        RetrofitUtil.getInstance().apiService()//
+                .getAdviserList(getIntent().getStringExtra("appointTime"),getIntent().getStringExtra("houseId"))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<Result<AdviserListBean>>() {

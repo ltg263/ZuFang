@@ -12,9 +12,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.jxxx.zf.R;
 import com.jxxx.zf.api.HttpsUtils;
 import com.jxxx.zf.api.RetrofitUtil;
+import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseActivity;
 import com.jxxx.zf.bean.AdviserListBean;
 import com.jxxx.zf.bean.AppointmentDetailsBase;
@@ -29,6 +31,7 @@ import com.jxxx.zf.utils.GlideImageLoader;
 import com.jxxx.zf.utils.PickerViewUtils;
 import com.jxxx.zf.utils.SharedUtils;
 import com.jxxx.zf.utils.StringUtil;
+import com.jxxx.zf.utils.ToastUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -199,17 +202,26 @@ public class ZuFangYyActivity extends BaseActivity {
                 });
                 break;
             case R.id.ll_dkgw:
-                if (mAdviserListBean!=null) {
-                    baseStartActivity(UserInfoListActivity.class, mAdviserListBean.getId());
-                }else{
-                    baseStartActivity(UserInfoListActivity.class, null);
+                if(StringUtil.isBlank(tv_time.getText().toString())){
+                    ToastUtils.showLong("");
+                    return;
                 }
+                Intent mIntent = new Intent(this,UserInfoListActivity.class);
+                mIntent.putExtra("appointTime",tv_time.getText().toString());
+                mIntent.putExtra("houseId",intent.getStringExtra("id"));
+                if (mAdviserListBean!=null) {
+                    mIntent.putExtra(ConstValues.APPNAME_ENGLISH,mAdviserListBean.getId());
+                }
+                startActivity(mIntent);
                 break;
             case R.id.tv_time:
                 PickerViewUtils.selectorDate(ZuFangYyActivity.this,
                         new boolean[]{true, true, true, true, true, true}, new PickerViewUtils.GetTimeInterface() {
                             @Override
                             public void getTime(Date time) {
+                                mAdviserListBean = null;
+                                tv_kfr.setText("");
+                                mIvSelect.setSelected(false);
                                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                                 tv_time.setText(simpleDateFormat.format(time));
                             }

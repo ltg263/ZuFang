@@ -2,6 +2,7 @@ package com.jxxx.zf.view.activity;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -50,14 +51,25 @@ public class MineListScActivity extends BaseActivity {
     @Override
     public void initView() {
         setToolbar(mMyToolbar, "我的收藏");
-
         mMineListScAdapter = new MineListScAdapter(null);
         mRvList.setAdapter(mMineListScAdapter);
 
         mMineListScAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                baseStartActivity(ZuFangXqActivity.class,null);
+                if(getIntent().getStringExtra("type").equals("1")){
+                    Intent data = new Intent();
+                    //把要传递的数据封装至意图对象中
+                    data.putExtra("data",mMineListScAdapter.getData().get(position));
+                    //当前Activity销毁时，data这个意图就会传递给启动当前Activity的那个Activity
+                    setResult(0,data);
+                    //销毁当前Activity
+                    finish();
+                    return;
+                }
+                Intent mIntent = new Intent(MineListScActivity.this, ZuFangXqActivity.class);
+                mIntent.putExtra("id",mMineListScAdapter.getData().get(position).getId());
+                startActivity(mIntent);
             }
         });
         mMineListScAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {

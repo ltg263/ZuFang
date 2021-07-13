@@ -37,14 +37,6 @@ public class MineListScAdapter extends BaseQuickAdapter<ZuFangDetailsBase, BaseV
                 }
             }
         }
-        helper.getView(R.id.include_yyxx).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent mIntent = new Intent(mContext, ZuFangXqActivity.class);
-                mIntent.putExtra("id", item.getId());
-                mContext.startActivity(mIntent);
-            }
-        });
     }
 
 }

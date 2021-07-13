@@ -1,11 +1,15 @@
 package com.jxxx.zf.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.jxxx.zf.utils.StringUtil;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class ZuFangDetailsBase{
+public class ZuFangDetailsBase implements Parcelable {
 
     /**
      * address : BBBBBB
@@ -383,7 +387,7 @@ public class ZuFangDetailsBase{
         this.params = params;
     }
 
-    public static class LablesBean {
+    public static class LablesBean implements Parcelable {
         /**
          * id : 1
          * name : 靠近地铁
@@ -407,9 +411,45 @@ public class ZuFangDetailsBase{
         public void setName(String name) {
             this.name = name;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.id);
+            dest.writeString(this.name);
+        }
+
+        public void readFromParcel(Parcel source) {
+            this.id = source.readString();
+            this.name = source.readString();
+        }
+
+        public LablesBean() {
+        }
+
+        protected LablesBean(Parcel in) {
+            this.id = in.readString();
+            this.name = in.readString();
+        }
+
+        public static final Creator<LablesBean> CREATOR = new Creator<LablesBean>() {
+            @Override
+            public LablesBean createFromParcel(Parcel source) {
+                return new LablesBean(source);
+            }
+
+            @Override
+            public LablesBean[] newArray(int size) {
+                return new LablesBean[size];
+            }
+        };
     }
 
-    public static class ParamsBean {
+    public static class ParamsBean implements Parcelable {
         /**
          * id : 1
          * paramName : 空调
@@ -442,5 +482,191 @@ public class ZuFangDetailsBase{
         public void setParamName(String paramName) {
             this.paramName = paramName;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.id);
+            dest.writeString(this.paramName);
+            dest.writeString(this.iconUrl);
+        }
+
+        public void readFromParcel(Parcel source) {
+            this.id = source.readString();
+            this.paramName = source.readString();
+            this.iconUrl = source.readString();
+        }
+
+        public ParamsBean() {
+        }
+
+        protected ParamsBean(Parcel in) {
+            this.id = in.readString();
+            this.paramName = in.readString();
+            this.iconUrl = in.readString();
+        }
+
+        public static final Creator<ParamsBean> CREATOR = new Creator<ParamsBean>() {
+            @Override
+            public ParamsBean createFromParcel(Parcel source) {
+                return new ParamsBean(source);
+            }
+
+            @Override
+            public ParamsBean[] newArray(int size) {
+                return new ParamsBean[size];
+            }
+        };
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.address);
+        dest.writeString(this.appointmentNum);
+        dest.writeString(this.area);
+        dest.writeString(this.businessAreaId);
+        dest.writeString(this.cityId);
+        dest.writeString(this.isCollection);
+        dest.writeString(this.commission);
+        dest.writeString(this.createTime);
+        dest.writeString(this.delTf);
+        dest.writeString(this.details);
+        dest.writeString(this.districtId);
+        dest.writeString(this.floor);
+        dest.writeString(this.hasElevator);
+        dest.writeString(this.hasParking);
+        dest.writeString(this.houseEstateId);
+        dest.writeString(this.houseLables);
+        dest.writeString(this.houseParams);
+        dest.writeString(this.houseType);
+        dest.writeString(this.housingEstateName);
+        dest.writeString(this.id);
+        dest.writeString(this.imgUrl);
+        dest.writeString(this.imgUrls);
+        dest.writeString(this.lat);
+        dest.writeString(this.lon);
+        dest.writeString(this.name);
+        dest.writeString(this.orientation);
+        dest.writeString(this.provinceId);
+        dest.writeString(this.renovationType);
+        dest.writeString(this.rent);
+        dest.writeString(this.rentType);
+        dest.writeString(this.rentingType);
+        dest.writeString(this.status);
+        dest.writeString(this.viewNum);
+        dest.writeString(this.hasVideo);
+        dest.writeList(this.lables);
+        dest.writeList(this.nearHouses);
+        dest.writeList(this.params);
+    }
+
+    public void readFromParcel(Parcel source) {
+        this.address = source.readString();
+        this.appointmentNum = source.readString();
+        this.area = source.readString();
+        this.businessAreaId = source.readString();
+        this.cityId = source.readString();
+        this.isCollection = source.readString();
+        this.commission = source.readString();
+        this.createTime = source.readString();
+        this.delTf = source.readString();
+        this.details = source.readString();
+        this.districtId = source.readString();
+        this.floor = source.readString();
+        this.hasElevator = source.readString();
+        this.hasParking = source.readString();
+        this.houseEstateId = source.readString();
+        this.houseLables = source.readString();
+        this.houseParams = source.readString();
+        this.houseType = source.readString();
+        this.housingEstateName = source.readString();
+        this.id = source.readString();
+        this.imgUrl = source.readString();
+        this.imgUrls = source.readString();
+        this.lat = source.readString();
+        this.lon = source.readString();
+        this.name = source.readString();
+        this.orientation = source.readString();
+        this.provinceId = source.readString();
+        this.renovationType = source.readString();
+        this.rent = source.readString();
+        this.rentType = source.readString();
+        this.rentingType = source.readString();
+        this.status = source.readString();
+        this.viewNum = source.readString();
+        this.hasVideo = source.readString();
+        this.lables = new ArrayList<LablesBean>();
+        source.readList(this.lables, LablesBean.class.getClassLoader());
+        this.nearHouses = new ArrayList<ZuFangDetailsBase>();
+        source.readList(this.nearHouses, ZuFangDetailsBase.class.getClassLoader());
+        this.params = new ArrayList<ParamsBean>();
+        source.readList(this.params, ParamsBean.class.getClassLoader());
+    }
+
+    public ZuFangDetailsBase() {
+    }
+
+    protected ZuFangDetailsBase(Parcel in) {
+        this.address = in.readString();
+        this.appointmentNum = in.readString();
+        this.area = in.readString();
+        this.businessAreaId = in.readString();
+        this.cityId = in.readString();
+        this.isCollection = in.readString();
+        this.commission = in.readString();
+        this.createTime = in.readString();
+        this.delTf = in.readString();
+        this.details = in.readString();
+        this.districtId = in.readString();
+        this.floor = in.readString();
+        this.hasElevator = in.readString();
+        this.hasParking = in.readString();
+        this.houseEstateId = in.readString();
+        this.houseLables = in.readString();
+        this.houseParams = in.readString();
+        this.houseType = in.readString();
+        this.housingEstateName = in.readString();
+        this.id = in.readString();
+        this.imgUrl = in.readString();
+        this.imgUrls = in.readString();
+        this.lat = in.readString();
+        this.lon = in.readString();
+        this.name = in.readString();
+        this.orientation = in.readString();
+        this.provinceId = in.readString();
+        this.renovationType = in.readString();
+        this.rent = in.readString();
+        this.rentType = in.readString();
+        this.rentingType = in.readString();
+        this.status = in.readString();
+        this.viewNum = in.readString();
+        this.hasVideo = in.readString();
+        this.lables = new ArrayList<LablesBean>();
+        in.readList(this.lables, LablesBean.class.getClassLoader());
+        this.nearHouses = new ArrayList<ZuFangDetailsBase>();
+        in.readList(this.nearHouses, ZuFangDetailsBase.class.getClassLoader());
+        this.params = new ArrayList<ParamsBean>();
+        in.readList(this.params, ParamsBean.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<ZuFangDetailsBase> CREATOR = new Parcelable.Creator<ZuFangDetailsBase>() {
+        @Override
+        public ZuFangDetailsBase createFromParcel(Parcel source) {
+            return new ZuFangDetailsBase(source);
+        }
+
+        @Override
+        public ZuFangDetailsBase[] newArray(int size) {
+            return new ZuFangDetailsBase[size];
+        }
+    };
 }

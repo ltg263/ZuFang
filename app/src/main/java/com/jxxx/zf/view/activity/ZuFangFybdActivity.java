@@ -1,14 +1,20 @@
 package com.jxxx.zf.view.activity;
 
+import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jxxx.zf.R;
 import com.jxxx.zf.api.RetrofitUtil;
+import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseActivity;
 import com.jxxx.zf.bean.HouseCompareBean;
 import com.jxxx.zf.bean.Result;
@@ -17,7 +23,10 @@ import com.jxxx.zf.view.adapter.ZfxqFwssAdapter;
 import com.jxxx.zf.view.adapter.ZuFangDbAdapter;
 import com.jxxx.zf.view.adapter.ZuFangDbAdapterFzDz;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,7 +44,10 @@ public class ZuFangFybdActivity extends BaseActivity {
     RecyclerView mRvListTop;
     ZuFangDbAdapter mZuFangDbAdapter;
     private ZuFangDbAdapterFzDz mZuFangDbAdapterFzDz;
-    String str;
+    String houseIds;
+    String houseNames;
+    List<String> houseNameLists =new ArrayList<>();
+    List<String> houseIdLists =new ArrayList<>();
     boolean hideSame = false;
     @Override
     public int intiLayout() {
@@ -45,18 +57,20 @@ public class ZuFangFybdActivity extends BaseActivity {
     @Override
     public void initView() {
         setToolbar(mMyToolbar, "房源对比");
-        str = "1,2,3,4,5,6";
-        List<String> houseName = new ArrayList<>();
-        houseName.add("隐藏相同");
-        houseName.add("小区名称1");
-        houseName.add("小区名称2");
-        houseName.add("小区名称3");
-        houseName.add("小区名称4");
-        houseName.add("小区名称5");
-        houseName.add("小区名称6");
-        mZuFangDbAdapterFzDz = new ZuFangDbAdapterFzDz(houseName);
+        houseIds = getIntent().getStringExtra("houseIds");
+        houseNames = "隐藏相同,"+getIntent().getStringExtra("houseNames");
+        List<String> arrFyName = Arrays.asList(houseNames.split(","));
+        for(int i=0;i<arrFyName.size();i++){
+            houseNameLists.add(arrFyName.get(i));
+        }
+        List<String> arrFyId = Arrays.asList(houseIds.split(","));
+        for(int i=0;i<arrFyId.size();i++){
+            houseIdLists.add(arrFyId.get(i));
+        }
+        mZuFangDbAdapterFzDz = new ZuFangDbAdapterFzDz(houseNameLists);
         mRvListTop.setAdapter(mZuFangDbAdapterFzDz);
         mZuFangDbAdapterFzDz.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()){
@@ -67,15 +81,21 @@ public class ZuFangFybdActivity extends BaseActivity {
                         initData();
                         break;
                     case R.id.iv_select1:
-                        houseName.clear();
-                        houseName.add("隐藏相同");
-                        houseName.add("小区名称1");
-                        houseName.add("小区名称2");
-                        houseName.add("小区名称3");
-                        houseName.add("小区名称4");
-                        houseName.add("小区名称5");
-                        mZuFangDbAdapterFzDz.setNewData(houseName);
-                        str = "1,2,3,4,5";
+                        if(mZuFangDbAdapterFzDz.getData().size()==3){
+                            ToastUtils.showLong("不可删除");
+                            return;
+                        }
+                        mZuFangDbAdapterFzDz.remove(position);
+                        houseIdLists.remove(position-1);
+                        houseIds = "";
+                        for(int i= 0;i<houseIdLists.size();i++){
+                            if (i==0) {
+                                houseIds = houseIdLists.get(i);
+                            }else{
+                                houseIds = houseIds+","+houseIdLists.get(i);
+                            }
+                        }
+                        Log.w("houseIds","houseIds"+houseIds);
                         initData();
                         break;
                 }
@@ -90,7 +110,7 @@ public class ZuFangFybdActivity extends BaseActivity {
     @Override
     public void initData() {
         RetrofitUtil.getInstance().apiService()
-                .houseCompare(str,hideSame?"1":null)
+                .houseCompare(houseIds,hideSame?"1":null)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<Result<List<HouseCompareBean>>>() {

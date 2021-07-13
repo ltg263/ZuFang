@@ -293,7 +293,9 @@ public class ZuFangXqActivity extends BaseActivity {
                 houseDoCollection();
                 break;
             case R.id.btn_bd:
-                baseStartActivity(ZuFangListBdActivity.class, null);
+                Intent mIntent = new Intent(this,ZuFangListBdActivity.class);
+                mIntent.putExtra("data",data);
+                startActivity(mIntent);
                 break;
             case R.id.btn_zx:
                 break;

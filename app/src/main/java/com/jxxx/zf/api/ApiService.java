@@ -98,8 +98,10 @@ public interface ApiService {
     @GET("api/v1/user/appointment/details")
     Observable<Result<AppointmentDetailsBase>> getAppointmentDetails(@Query("id") String  id);
 
-    @GET("api/v1/adviser/list")
-    Observable<Result<AdviserListBean>> getAdviserList();
+//    @GET("api/v1/adviser/list")
+//    Observable<Result<AdviserListBean>> getAdviserList();
+    @GET("api/v1/adviser/optionalAdvisers")
+    Observable<Result<AdviserListBean>> getAdviserList(@Query("appointTime") String appointTime ,@Query("houseId") String houseId);
 
 
     @GET("api/v1/home/getHome")

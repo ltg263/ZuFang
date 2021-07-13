@@ -23,5 +23,8 @@ public class ZuFangDbAdapterFzDz extends BaseQuickAdapter<String, BaseViewHolder
                     .setGone(R.id.iv_select1,false)
                     .addOnClickListener(R.id.iv_select);
         }
+        if(helper.getLayoutPosition()==1){
+            helper.setVisible(R.id.iv_select1,false);
+        }
     }
 }

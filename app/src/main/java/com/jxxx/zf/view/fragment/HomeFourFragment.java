@@ -33,6 +33,7 @@ import com.jxxx.zf.view.activity.MineSetGyActivity;
 import com.jxxx.zf.view.activity.MineSetSmrzActivity;
 import com.jxxx.zf.view.activity.MineSettingActivity;
 import com.jxxx.zf.view.activity.MineYyzxListActivity;
+import com.jxxx.zf.view.activity.ZuFangFaBuActivity;
 import com.jxxx.zf.view.activity.payActivity.ActivityPayHomeQb;
 import com.jxxx.zf.view.adapter.MineCygjAdapter;
 
@@ -117,10 +118,10 @@ public class HomeFourFragment extends BaseFragment {
                         baseStartActivity(MineJieDanActivity.class, null);
                         break;
                     case "看房状态":
-
+                        baseStartActivity(MineFylrActivity.class, null);
                         break;
                     case "房源上架":
-                        baseStartActivity(MineFylrActivity.class, null);
+                        baseStartActivity(ZuFangFaBuActivity.class,null);
                         break;
                     case "成为房东":
                         if(!SharedUtils.getIdentityFlag().equals("2")){

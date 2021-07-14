@@ -46,7 +46,7 @@ public class MineFylrActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        setToolbar(mMyToolbar, "房源录入","批量下架");
+        setToolbar(mMyToolbar, "房源状态","批量下架");
         MagicIndicatorUtils.initMagicIndicator_1(this, mDataList, mMagicIndicator, mViewPager);
         initVP();
         mIvAddFy.setOnClickListener(new View.OnClickListener() {

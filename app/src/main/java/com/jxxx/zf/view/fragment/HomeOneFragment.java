@@ -64,7 +64,8 @@ public class HomeOneFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        GlideImageLoader.loadImageViewRadiusNoCenter(getActivity(),"http://img.netbian.com/file/2021/0527/1f20f9804cb7390efc842f02f4765901.jpg",iv_icon);
+//        GlideImageLoader.loadImageViewRadiusNoCenter(getActivity(),
+//                "http://img.netbian.com/file/2021/0527/1f20f9804cb7390efc842f02f4765901.jpg",iv_icon);
         new RadioGroupSelectUtils().setOnChangeListener(getActivity(),
                 mMRadioGroup, mRbHomeSelect1, mRbHomeSelect2, mRbHomeSelect3, mRbHomeSelect4
                 , new RadioGroupSelectUtils.DialogInterface() {

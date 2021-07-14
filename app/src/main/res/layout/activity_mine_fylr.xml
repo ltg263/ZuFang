@@ -121,6 +121,7 @@
         <ImageView
             android:id="@+id/iv_add_fy"
             android:layout_width="45dp"
+            android:visibility="gone"
             android:layout_height="45dp"
             android:layout_marginEnd="20dp"
             android:layout_alignParentEnd="true"

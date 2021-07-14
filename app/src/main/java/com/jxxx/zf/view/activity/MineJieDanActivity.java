@@ -9,12 +9,9 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.jxxx.zf.R;
-import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseActivity;
 import com.jxxx.zf.utils.MagicIndicatorUtils;
 import com.jxxx.zf.view.fragment.MineJieDan1Fragment;
-import com.jxxx.zf.view.fragment.ZuFangYyxq1Fragment;
-import com.jxxx.zf.view.fragment.ZuFangYyxq2Fragment;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 

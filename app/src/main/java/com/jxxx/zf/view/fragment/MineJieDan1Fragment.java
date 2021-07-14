@@ -1,6 +1,5 @@
 package com.jxxx.zf.view.fragment;
 
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,12 +16,6 @@ import com.jxxx.zf.bean.AppointmentList;
 import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.utils.DialogUtils;
 import com.jxxx.zf.utils.IntentUtils;
-import com.jxxx.zf.view.activity.ChatActivity;
-import com.jxxx.zf.view.activity.MineJdxqActivity;
-import com.jxxx.zf.view.activity.MineYypjActivity;
-import com.jxxx.zf.view.activity.MineYyzxListActivity;
-import com.jxxx.zf.view.activity.ZuFangXqActivity;
-import com.jxxx.zf.view.activity.ZuFangYyActivity;
 import com.jxxx.zf.view.activity.ZuFangYyxqActivity;
 import com.jxxx.zf.view.adapter.MineListJdAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -30,7 +23,6 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;

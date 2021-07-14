@@ -29,20 +29,26 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="15dp"
-                    android:text="用户名"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="15dp"
-                    android:text="00"
+                    android:text="申请人"
                     android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/et_realName"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="end|center"
+                    android:hint="请输入申请人真实姓名"
+                    android:paddingLeft="20dp"
+                    android:paddingEnd="15dp"
+                    android:textColor="@color/color_000000"
+                    android:textColorHint="@color/color_999999"
+                    android:textCursorDrawable="@drawable/common_edit_input_line"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -52,21 +58,28 @@
                 android:background="@color/white"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="15dp"
-                    android:text="身份证号"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="15dp"
-                    android:text="00"
+                    android:text="申请人证件号"
                     android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/et_realNum"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="end|center"
+                    android:hint="请输入申请人证件号"
+                    android:paddingLeft="20dp"
+                    android:paddingEnd="15dp"
+                    android:textColor="@color/color_000000"
+                    android:textColorHint="@color/color_999999"
+                    android:textCursorDrawable="@drawable/common_edit_input_line"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -76,21 +89,29 @@
                 android:background="@color/white"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="15dp"
-                    android:text="联系方式"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="15dp"
-                    android:text="00"
+                    android:text="申请人联系方式"
                     android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/et_mobile"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="end|center"
+                    android:hint="请输入申请人联系方式"
+                    android:inputType="phone"
+                    android:paddingLeft="20dp"
+                    android:paddingEnd="15dp"
+                    android:textColor="@color/color_000000"
+                    android:textColorHint="@color/color_999999"
+                    android:textCursorDrawable="@drawable/common_edit_input_line"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -102,21 +123,23 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:padding="15dp"
                     android:text="合适入驻"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/bnt_rq_rz"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:drawableEnd="@mipmap/ic_right_gray"
                     android:drawablePadding="5dp"
+                    android:gravity="end"
+                    android:hint="请选择入住日期"
                     android:padding="15dp"
-                    android:text="00"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -128,24 +151,28 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:padding="15dp"
                     android:text="想住多久"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/bnt_rq_dq"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:drawableEnd="@mipmap/ic_right_gray"
                     android:drawablePadding="5dp"
+                    android:gravity="end"
+                    android:hint="请选择入住日期"
                     android:padding="15dp"
-                    android:text="00"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
             </LinearLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -154,21 +181,23 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:padding="15dp"
                     android:text="租房方式"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/bnt_zffs"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:drawableEnd="@mipmap/ic_right_gray"
                     android:drawablePadding="5dp"
+                    android:gravity="end"
+                    android:hint="请选择租房方式"
                     android:padding="15dp"
-                    android:text="00"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -203,26 +232,27 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
                 android:background="@color/white"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:padding="15dp"
                     android:text="付款方式"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/bnt_fkfs"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:drawableEnd="@mipmap/ic_right_gray"
                     android:drawablePadding="5dp"
+                    android:gravity="end"
+                    android:hint="请选择付款方式"
                     android:padding="15dp"
-                    android:text="00"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
             </LinearLayout>

@@ -86,7 +86,6 @@
         <activity android:name=".view.activity.MineSetSmrz2Activity" />
         <activity android:name=".view.activity.MineKhListActivity" />
         <activity android:name=".view.activity.MineJieDanActivity" />
-        <activity android:name=".view.activity.MineJdxqActivity" />
         <activity android:name=".view.activity.MineQianYueActivity" />
         <activity android:name=".view.activity.MineFylrActivity" />
         <activity android:name=".view.activity.MineFytjActivity" />

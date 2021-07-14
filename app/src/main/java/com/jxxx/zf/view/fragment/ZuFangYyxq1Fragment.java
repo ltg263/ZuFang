@@ -18,6 +18,7 @@ import com.jxxx.zf.utils.GlideImageLoader;
 import com.jxxx.zf.utils.IntentUtils;
 import com.jxxx.zf.utils.StringUtil;
 import com.jxxx.zf.view.activity.MineHtNew1Activity;
+import com.jxxx.zf.view.activity.MineQianYueActivity;
 import com.jxxx.zf.view.activity.MineYypjActivity;
 import com.jxxx.zf.view.activity.ZuFangYyActivity;
 
@@ -67,6 +68,8 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
     TextView mBnt3;
     @BindView(R.id.hasVideo)
     TextView hasVideo;
+    @BindView(R.id.tv_state)
+    TextView tv_state;
     @BindView(R.id.tv_hasVideo)
     TextView tv_hasVideo;
     @BindView(R.id.iv_status_1)
@@ -78,6 +81,7 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
     @BindView(R.id.iv_status_4)
     ImageView mIvStatus4;
     int type = 0;
+    String id = "";
     @Override
     protected int setLayoutResourceID() {
         return R.layout.fragment_zu_fang_yyxq_1;
@@ -90,7 +94,6 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
     @Override
     protected void initData() {
         Bundle bundle = getArguments();
-        String id = "";
         if (bundle != null) {
             id = bundle.getString("id");
             type = bundle.getInt("type");
@@ -171,34 +174,13 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
         mBnt2.setVisibility(View.INVISIBLE);
         mBnt3.setVisibility(View.INVISIBLE);
 
-//        var actions = [String].init()
-//        if loginUserManager.adviser {
-//            switch appointmentModel.status {
-//                case 3:
-//                    actions = ["联系对方", "去看房"]
-//                case 4:
-//                    actions = ["不签约", "线下签约", "线上签约"]
-//                default:
-//                    actions = ["联系对方", "去认证"]
-//            }
-//        } else {
-//            switch appointmentModel.status {
-//                case 1:
-//                    if appointmentModel.hasAdviser == 0 {
-//                    actions = ["取消预约"]
-//                }
-//                case 6:
-//                    actions = ["联系对方", "去评价"]
-//                default:
-//                    actions = ["联系对方", "取消预约"]
-//            }
-//        }
         if(type==0){
             showYyxqUi();//预约详情
         }else{
             showJdxqUi();//接单详情
         }
     }
+    //1 已预约 2 已接单 3已认证 4看房中 5未签约 6已签约 7待评价 8完成 9取消
     private void showJdxqUi(){
         switch (data.getStatus()) {
             case "1":
@@ -234,7 +216,6 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
                 mBnt3.setText("不签约");
                 break;
             case "5":
-            case "6":
                 mIvStatus1.setImageResource(R.drawable.group_927);
                 mIvStatus2.setImageResource(R.drawable.group_927);
                 mIvStatus3.setImageResource(R.drawable.group_927);
@@ -243,6 +224,19 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
                 mBnt3.setVisibility(View.VISIBLE);
                 mBnt2.setText("联系对方");
                 mBnt3.setText("已完成");
+                tv_state.setText("未签约");
+                break;
+            case "6":
+            case "7":
+                mIvStatus1.setImageResource(R.drawable.group_927);
+                mIvStatus2.setImageResource(R.drawable.group_927);
+                mIvStatus3.setImageResource(R.drawable.group_927);
+                mIvStatus4.setImageResource(R.drawable.group_927);
+                mBnt2.setVisibility(View.VISIBLE);
+                mBnt3.setVisibility(View.VISIBLE);
+                mBnt2.setText("联系对方");
+                mBnt3.setText("已完成");
+                tv_state.setText("已签约");
                 break;
 //            case "7":
 //                helper.setVisible(R.id.bnt_3, true).setText(R.id.bnt_3, "电话联系");
@@ -250,7 +244,7 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
         }
     }
 
-    //1 已预约 2 已接单 3已认证 4看房中 5已完成 6已签约 7已取消
+    //1 已预约 2 已接单 3已认证 4看房中 5未签约 6已签约 7待评价 8完成 9取消
     private void showYyxqUi() {
         switch (data.getStatus()) {
             case "1":
@@ -279,30 +273,35 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
                 mIvStatus1.setImageResource(R.drawable.group_927);
                 mIvStatus2.setImageResource(R.drawable.group_927);
             case "4":
+                mBnt3.setVisibility(View.VISIBLE);
+                mBnt3.setText("联系对方");
+                mIvStatus1.setImageResource(R.drawable.group_927);
+                mIvStatus2.setImageResource(R.drawable.group_927);
+                mIvStatus3.setImageResource(R.drawable.group_927);
+                break;
             case "5":
                 mBnt2.setVisibility(View.VISIBLE);
                 mBnt3.setVisibility(View.VISIBLE);
                 mBnt2.setText("联系对方");
-                mBnt3.setText("取消预约");
-                mIvStatus1.setImageResource(R.drawable.group_927);
-                mIvStatus2.setImageResource(R.drawable.group_927);
-                mIvStatus3.setImageResource(R.drawable.group_927);
-                break;
-            case "6":
+                mBnt3.setText("评价");
+                tv_state.setText("未签约");
                 mIvStatus1.setImageResource(R.drawable.group_927);
                 mIvStatus2.setImageResource(R.drawable.group_927);
                 mIvStatus3.setImageResource(R.drawable.group_927);
                 mIvStatus4.setImageResource(R.drawable.group_927);
+                break;
+            case "6":
+            case "7":
                 mBnt2.setVisibility(View.VISIBLE);
                 mBnt3.setVisibility(View.VISIBLE);
                 mBnt2.setText("联系对方");
                 mBnt3.setText("评价");
+                tv_state.setText("已签约");
                 mIvStatus1.setImageResource(R.drawable.group_927);
-                mIvStatus2.setImageResource(R.drawable.group_930);
+                mIvStatus2.setImageResource(R.drawable.group_927);
+                mIvStatus3.setImageResource(R.drawable.group_927);
+                mIvStatus4.setImageResource(R.drawable.group_927);
                 break;
-//            case "7":
-//                helper.setVisible(R.id.bnt_3, true).setText(R.id.bnt_3, "电话联系");
-//                break;
         }
     }
 
@@ -357,7 +356,7 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
                 DialogUtils.showDialogHint(mContext, "确定取消签约吗？", false, new DialogUtils.ErrorDialogInterface() {
                     @Override
                     public void btnConfirm() {
-                        adviserUpdate(data.getId(),"7");
+                        adviserUpdate(data.getId(),"5");
                     }
                 });
                 break;
@@ -379,6 +378,7 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
                 });
                 break;
             case "已完成":
+                baseStartActivity(MineQianYueActivity.class,id);
                 break;
         }
     }

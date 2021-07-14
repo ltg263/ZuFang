@@ -43,7 +43,7 @@ public class MineListJdAdapter extends BaseQuickAdapter<AppointmentDetailsBase, 
                 .setVisible(R.id.bnt_lx, false).setVisible(R.id.bnt_jd, false)
                 .setText(R.id.tv_qyzt, item.getStausStr())
                 .setText(R.id.tv_htbh, "预约时间：" + item.getAppointmentTime());
-        //1 已预约 2 已接单 3已认证 4看房中 5已完成 6已签约 7已取消
+        //1 已预约 2 已接单 3已认证 4看房中 5未签约 6已签约 7待评价 8完成 9取消
         switch (item.getStatus()) {
             case "1":
                 helper.setVisible(R.id.bnt_lx, true).setText(R.id.bnt_lx, "联系对方")
@@ -64,6 +64,7 @@ public class MineListJdAdapter extends BaseQuickAdapter<AppointmentDetailsBase, 
                 break;
             case "5":
             case "6":
+            case "7":
                 helper.setVisible(R.id.bnt_lx, true).setText(R.id.bnt_lx, "联系对方")
                         .setVisible(R.id.bnt_jd, true).setText(R.id.bnt_jd, "已完成");
                 break;

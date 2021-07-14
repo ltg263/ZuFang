@@ -34,6 +34,10 @@ public class MineListYyzxAdapter extends BaseQuickAdapter<AppointmentDetailsBase
         //1 已预约 2 已接单 3已认证 4看房中 5已完成 6已签约 7已取消
         switch (item.getStatus()) {
             case "1":
+                helper.setGone(R.id.ll_not,true)
+                        .setVisible(R.id.bnt_2, true).setText(R.id.bnt_2, "更改预约")
+                        .setVisible(R.id.bnt_3, true).setText(R.id.bnt_3, "取消预约");
+                break;
             case "2":
             case "3":
                 helper.setGone(R.id.ll_not,true)

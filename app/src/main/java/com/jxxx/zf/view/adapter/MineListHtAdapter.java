@@ -18,7 +18,8 @@ public class MineListHtAdapter extends BaseQuickAdapter<UserContractBean.ListBea
     protected void convert(BaseViewHolder helper, UserContractBean.ListBean item) {
         helper.addOnClickListener(R.id.bnt_jy).addOnClickListener(R.id.bnt_xy).addOnClickListener(R.id.bnt_zd)
         .setText(R.id.tv_htbh,item.getContractNo()).setText(R.id.tv_qyzt,item.getStatus())
-                .setText(R.id.tv_title,"名称").setText(R.id.tv_llcs,item.getStartTime()+"-"+item.getEndTime());
+                .setText(R.id.tv_title,"名称")
+                .setText(R.id.tv_llcs,item.getStartTime().replace(" 00:00:00","")+"-"+item.getEndTime().replace(" 00:00:00",""));
     }
 
 }

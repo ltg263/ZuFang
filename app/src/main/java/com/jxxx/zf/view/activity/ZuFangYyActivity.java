@@ -209,7 +209,7 @@ public class ZuFangYyActivity extends BaseActivity {
                 break;
             case R.id.ll_dkgw:
                 if(StringUtil.isBlank(tv_time.getText().toString())){
-                    ToastUtils.showLong("");
+                    ToastUtils.showLong("请先选择看房时间");
                     return;
                 }
                 Intent mIntent = new Intent(this,UserInfoListActivity.class);

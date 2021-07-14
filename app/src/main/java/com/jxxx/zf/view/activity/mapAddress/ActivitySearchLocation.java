@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
@@ -20,7 +21,10 @@ import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.jxxx.zf.R;
+import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseActivity;
+import com.jxxx.zf.utils.SharedUtils;
+import com.jxxx.zf.utils.StringUtil;
 
 import java.util.List;
 
@@ -56,12 +60,18 @@ public class ActivitySearchLocation extends BaseActivity implements AMap.OnCamer
     public void initView() {
         setToolbar(myToolbar, "选择地址","历史记录");
         aMap = mMapView.getMap();
-        final LatLng latLng = new LatLng(29.8877248806424, 121.523712565104);
+        String lon = SharedUtils.singleton().get(ConstValues.LOCATION_LONGITUDE, "");
+        String lat = SharedUtils.singleton().get(ConstValues.LOCATION_LATITUDE, "");
+        LatLng latLng = new LatLng(0.0,0.0);
+        if(StringUtil.isNotBlank(lon) && StringUtil.isNotBlank(lat)){
+            latLng = new LatLng(Double.parseDouble(lat),Double.parseDouble(lon));
+        }
 
+        LatLng finalLatLng = latLng;
         GeoCoderUtil.getInstance(ActivitySearchLocation.this).geoAddress(new LatLngEntity(latLng.latitude, latLng.longitude), new GeoCoderUtil.GeoCoderAddressListener() {
             @Override
             public void onAddressResult(String result) {
-                marker = aMap.addMarker(new MarkerOptions().position(latLng).snippet(result));
+                marker = aMap.addMarker(new MarkerOptions().position(finalLatLng).snippet(result));
                 marker.showInfoWindow();
 
                 addressEdit.setText(result);

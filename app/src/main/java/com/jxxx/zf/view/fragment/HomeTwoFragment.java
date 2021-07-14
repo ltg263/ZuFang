@@ -31,8 +31,10 @@ import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jxxx.zf.R;
+import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseFragment;
 import com.jxxx.zf.utils.RadioGroupSelectUtils;
+import com.jxxx.zf.utils.SharedUtils;
 import com.jxxx.zf.utils.view.DrawerLayout;
 import com.jxxx.zf.utils.view.MyRecyclerView;
 import com.jxxx.zf.view.adapter.HomeFyAdapter;
@@ -142,80 +144,38 @@ public class HomeTwoFragment extends BaseFragment {
     protected void initData() {
 
     }
-    private AMapLocationClient locationClient = null;//定位类
     private void initMap() {
         //这个功能是去掉地图的logo和放大缩小图标
         //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图
         mMapView.onCreate(savedInstanceState);
-        //初始化client
-        locationClient = new AMapLocationClient(getActivity().getApplicationContext());
-        //设置定位参数
-        locationClient.setLocationOption(getDefaultOption());
-        // 设置定位监听
-        locationClient.setLocationListener(locationListener);
-        locationClient.startLocation();
-    }
-
-    private AMapLocationClientOption getDefaultOption(){
-        AMapLocationClientOption mOption = new AMapLocationClientOption();
-        mOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
-        mOption.setGpsFirst(false);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
-        mOption.setHttpTimeOut(30000);//可选，设置网络请求超时时间。默认为30秒。在仅设备模式下无效
-        mOption.setInterval(2000);//可选，设置定位间隔。默认为2秒
-        mOption.setNeedAddress(true);//可选，设置是否返回逆地理地址信息。默认是true
-        mOption.setOnceLocation(true);//可选，设置是否单次定位。默认是false
-        mOption.setOnceLocationLatest(false);//可选，设置是否等待wifi刷新，默认为false.如果设置为true,会自动变为单次定位，持续定位时不要使用
-        AMapLocationClientOption.setLocationProtocol(AMapLocationClientOption.AMapLocationProtocol.HTTP);//可选， 设置网络请求的协议。可选HTTP或者HTTPS。默认为HTTP
-        mOption.setSensorEnable(false);//可选，设置是否使用传感器。默认是false
-        mOption.setWifiScan(true); //可选，设置是否开启wifi扫描。默认为true，如果设置为false会同时停止主动刷新，停止以后完全依赖于系统刷新，定位位置可能存在误差
-        mOption.setLocationCacheEnable(false); //可选，设置是否使用缓存定位，默认为true
-        return mOption;
-    }
-
-
-    /**
-     * 定位监听
-     */
-    AMapLocationListener locationListener = new AMapLocationListener() {
-        @Override
-        public void onLocationChanged(AMapLocation loc) {
-            if (null != loc) {
-                //解析定位结果
-                String city = loc.getCity();
-                Log.e("yufs","當前经度"+loc.getLongitude()+"当前维度："+loc.getLatitude());
-//                initUiD(loc.getLatitude(), loc.getLongitude());
-
-                //初始化地图对象
-                if (mAMap == null) {
-                    mAMap = mMapView.getMap();
-                    mAMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
-                        @Override
-                        public boolean onMarkerClick(Marker marker) {
-                            Log.i("lgq","dianjiddd===="+marker.getPeriod());//获取markerID
-                            List<String> list = new ArrayList<>();
-                            list.add("");
-                            list.add("");
-                            list.add("");
-                            list.add("");
-                            list.add("");
+        mAMap = mMapView.getMap();
+        mAMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                Log.i("lgq","dianjiddd===="+marker.getPeriod());//获取markerID
+                List<String> list = new ArrayList<>();
+                list.add("");
+                list.add("");
+                list.add("");
+                list.add("");
+                list.add("");
 //                            mHomeFyAdapter.setNewData(list);
-                            mDrawer2.setVisibility(View.VISIBLE);
-                            return false;
-                        }});
-                    mAMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromView(getBubble("房子名称(5)套")))
-                                                               .position(new LatLng(29.807416,121.560213)).period(5));
+                mDrawer2.setVisibility(View.VISIBLE);
+                return false;
+            }});
+        mAMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromView(getBubble("房子名称(5)套")))
+                .position(new LatLng(29.807416,121.560213)).period(5));
 
-                    mAMap.addMarker(new MarkerOptions().anchor(0.5f, 0.5f).icon(BitmapDescriptorFactory.fromBitmap(
-                                                               BitmapFactory.decodeResource(getResources(), R.mipmap.poi_marker_1)))
-                                                               .position(new LatLng(loc.getLatitude(), loc.getLongitude())));
+        String lon = SharedUtils.singleton().get(ConstValues.LOCATION_LONGITUDE, "");
+        String lat = SharedUtils.singleton().get(ConstValues.LOCATION_LATITUDE, "");
 
-                                                   }
-                mAMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 14));
-            } else {
-                Toast.makeText(getActivity(), "定位失败，请打开位置权限", Toast.LENGTH_SHORT).show();
-            }
-        }
-    };
+        mAMap.addMarker(new MarkerOptions().anchor(0.5f, 0.5f).icon(BitmapDescriptorFactory.fromBitmap(
+                BitmapFactory.decodeResource(getResources(), R.mipmap.poi_marker_1)))
+                .position(new LatLng(Double.parseDouble(lat), Double.parseDouble(lon))));
+
+        mAMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.parseDouble(lat), Double.parseDouble(lon)), 14));
+    }
+
     public View getBubble(String userhead) {
         View view = this.getLayoutInflater().inflate(R.layout.layout_map_fy,null);
         TextView mTvFyName = view.findViewById(R.id.tv_fyName);

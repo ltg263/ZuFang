@@ -1,17 +1,26 @@
 package com.jxxx.zf;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseActivity;
+import com.jxxx.zf.utils.SharedUtils;
 import com.jxxx.zf.utils.StatusBarUtil;
 import com.jxxx.zf.view.fragment.HomeFourFragment;
 import com.jxxx.zf.view.fragment.HomeOneFragment;
@@ -28,6 +37,7 @@ public class MainActivity extends BaseActivity{
     private HomeOneFragment mHomeOneFragment;
     private HomeThreeFragment mHomeThreeFragment;
     private HomeFourFragment mHomeFourFragment;
+    public static AMapLocationClientOption mOption;
     @Override
     public int intiLayout() {
         return R.layout.activity_main;
@@ -54,7 +64,7 @@ public class MainActivity extends BaseActivity{
         transaction.add(R.id.frameLayout, mHomeOneFragment).commit();
 
         mFragment = mHomeOneFragment;
-
+        mOption = getDefaultOption();
         // 不使用图标默认变色
         mBnvHomeNavigation.setItemIconTintList(null);
         mBnvHomeNavigation.setOnNavigationItemSelectedListener(item -> {
@@ -91,6 +101,7 @@ public class MainActivity extends BaseActivity{
         }
     }
 
+    private AMapLocationClient locationClient = null;//定位类
     /**
      * 开始定位（使用定位前必须请求定位权限，否则定位失败）
      */
@@ -101,13 +112,51 @@ public class MainActivity extends BaseActivity{
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 200);
         } else {
             Log.w("requestCode:", "requestCode-----:");
-            //开始定位
-//            show(getActivity());
-//            ZsnaviManager.getInstance(getActivity()).setOnLocationCallback(locationCallback);//设置定位回调
-//            ZsnaviManager.getInstance(getActivity()).startLocation();//开启定位，该定位只会回调一次定位信息，建议使用完后调用停止定位接口
+            getLocationClient();
         }
-
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.w("requestCode:", "requestCode:"+requestCode );
+        if(requestCode==200){
+            getLocationClient();
+        }
+    }
 
+    //开始定位
+    private void getLocationClient() {
+        locationClient = new AMapLocationClient(this.getApplicationContext());
+        //设置定位参数
+        locationClient.setLocationOption(mOption);
+        // 设置定位监听
+        locationClient.setLocationListener(new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation aMapLocation) {
+                String city = aMapLocation.getCity();
+                Log.e("locationClient","當前经度"+aMapLocation.getLongitude()+"当前维度："+aMapLocation.getLatitude());
+                Log.e("locationClient","所在地："+aMapLocation.getCity());
+                SharedUtils.singleton().put(ConstValues.LOCATION_LONGITUDE,aMapLocation.getLongitude()+"");
+                SharedUtils.singleton().put(ConstValues.LOCATION_LATITUDE,aMapLocation.getLatitude()+"");
+            }
+        });
+        locationClient.startLocation();
+    }
+
+    private static AMapLocationClientOption getDefaultOption(){
+        AMapLocationClientOption mOption = new AMapLocationClientOption();
+        mOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
+        mOption.setGpsFirst(false);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
+        mOption.setHttpTimeOut(30000);//可选，设置网络请求超时时间。默认为30秒。在仅设备模式下无效
+        mOption.setInterval(2000);//可选，设置定位间隔。默认为2秒
+        mOption.setNeedAddress(true);//可选，设置是否返回逆地理地址信息。默认是true
+        mOption.setOnceLocation(true);//可选，设置是否单次定位。默认是false
+        mOption.setOnceLocationLatest(false);//可选，设置是否等待wifi刷新，默认为false.如果设置为true,会自动变为单次定位，持续定位时不要使用
+        AMapLocationClientOption.setLocationProtocol(AMapLocationClientOption.AMapLocationProtocol.HTTP);//可选， 设置网络请求的协议。可选HTTP或者HTTPS。默认为HTTP
+        mOption.setSensorEnable(false);//可选，设置是否使用传感器。默认是false
+        mOption.setWifiScan(true); //可选，设置是否开启wifi扫描。默认为true，如果设置为false会同时停止主动刷新，停止以后完全依赖于系统刷新，定位位置可能存在误差
+        mOption.setLocationCacheEnable(false); //可选，设置是否使用缓存定位，默认为true
+        return mOption;
+    }
 }

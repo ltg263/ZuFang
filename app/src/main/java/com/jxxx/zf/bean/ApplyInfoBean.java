@@ -253,4 +253,101 @@ public class ApplyInfoBean {
         }
     }
 
+    public static class AppointmentComment{
+
+
+        /**
+         * adviserId : 0
+         * appointmentId : 0
+         * createTime :
+         * delTf : 0
+         * detail :
+         * id : 0
+         * isAnonymous : 0
+         * score : 0
+         * status : 0
+         */
+
+        private String adviserId;
+        private String appointmentId;
+        private String createTime;
+        private String delTf;
+        private String detail;
+        private String id;
+        private String isAnonymous;
+        private String score;
+        private String status;
+
+        public String getAdviserId() {
+            return adviserId;
+        }
+
+        public void setAdviserId(String adviserId) {
+            this.adviserId = adviserId;
+        }
+
+        public String getAppointmentId() {
+            return appointmentId;
+        }
+
+        public void setAppointmentId(String appointmentId) {
+            this.appointmentId = appointmentId;
+        }
+
+        public String getCreateTime() {
+            return createTime;
+        }
+
+        public void setCreateTime(String createTime) {
+            this.createTime = createTime;
+        }
+
+        public String getDelTf() {
+            return delTf;
+        }
+
+        public void setDelTf(String delTf) {
+            this.delTf = delTf;
+        }
+
+        public String getDetail() {
+            return detail;
+        }
+
+        public void setDetail(String detail) {
+            this.detail = detail;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getIsAnonymous() {
+            return isAnonymous;
+        }
+
+        public void setIsAnonymous(String isAnonymous) {
+            this.isAnonymous = isAnonymous;
+        }
+
+        public String getScore() {
+            return score;
+        }
+
+        public void setScore(String score) {
+            this.score = score;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+    }
 }

@@ -437,7 +437,7 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
     private void setOnClickListenerYyxq(String str) {
         switch (str) {
             case "评价":
-                baseStartActivity(MineYypjActivity.class, null);
+                MineYypjActivity.startActivity_pj(mContext,data.getAdviserId(),data.getId());
                 break;
             case "取消预约":
                 DialogUtils.showDialogHint(mContext, "确定取消预约吗？", false, new DialogUtils.ErrorDialogInterface() {

@@ -97,7 +97,7 @@ public class MineYyzxListActivity extends BaseActivity {
     private void setOnClickListener(String str, List<AppointmentDetailsBase> data, int position) {
         switch (str){
             case "评价":
-                baseStartActivity(MineYypjActivity.class, null);
+                MineYypjActivity.startActivity_pj(this,data.get(position).getAdviserId(),data.get(position).getId());
                 break;
             case "取消预约":
                 DialogUtils.showDialogHint(this, "确定取消预约吗？", false, new DialogUtils.ErrorDialogInterface() {

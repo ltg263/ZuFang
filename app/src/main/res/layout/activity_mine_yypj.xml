@@ -142,7 +142,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/dp_10"
                     android:layout_weight="1"
-                    android:text="是否指定带看顾问"
+                    android:text="匿名评价"
                     android:textColor="@color/color_333333"
                     android:textSize="@dimen/sp_14" />
 

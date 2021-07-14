@@ -1,5 +1,7 @@
 package com.jxxx.zf.view.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -11,8 +13,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.jxxx.zf.R;
+import com.jxxx.zf.api.RetrofitUtil;
 import com.jxxx.zf.base.BaseActivity;
+import com.jxxx.zf.bean.ApplyInfoBean;
+import com.jxxx.zf.bean.AppointmentDetailsBase;
+import com.jxxx.zf.bean.Result;
+import com.jxxx.zf.utils.StringUtil;
 import com.jxxx.zf.utils.view.RatingBar;
 import com.jxxx.zf.utils.view.ShoppingFlowLayout;
 
@@ -21,6 +29,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MineYypjActivity extends BaseActivity {
 
@@ -52,6 +64,7 @@ public class MineYypjActivity extends BaseActivity {
         mSelectNum.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
             @Override
             public void onRatingChange(float ratingCount) {
+                mSelectNum.setStarNum(ratingCount);
                 setTvEvaluatel((int) ratingCount, mTvT);
             }
         });
@@ -74,6 +87,7 @@ public class MineYypjActivity extends BaseActivity {
 
     @Override
     public void initData() {
+
     }
 
     private void setHistorySearchData() {
@@ -151,8 +165,59 @@ public class MineYypjActivity extends BaseActivity {
                 }
                 break;
             case R.id.bnt:
-                baseStartActivity(MineHtJcOkActivity.class,null);
+                getAdviserList();
                 break;
         }
+    }
+
+    private void getAdviserList() {
+        if(StringUtil.isBlank(mEtContact.getText().toString())){
+            ToastUtils.showLong("评价内容不能为空");
+            return;
+        }
+        ApplyInfoBean.AppointmentComment mAppointmentComment = new ApplyInfoBean.AppointmentComment();
+        mAppointmentComment.setAdviserId(getIntent().getStringExtra("adviserId"));
+        mAppointmentComment.setAppointmentId(getIntent().getStringExtra("appointmentId"));
+        mAppointmentComment.setDetail(mEtContact.getText().toString());
+        mAppointmentComment.setScore(mSelectNum.getStarNum()+"");
+        mAppointmentComment.setIsAnonymous(mIvSelect.isSelected()?"1":"0");
+        RetrofitUtil.getInstance().apiService()
+                .getAdviserList(mAppointmentComment)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result result) {
+                        hideLoading();
+                        if(isResultOk(result)){
+//                            baseStartActivity(MineHtJcOkActivity.class,null);
+                            ToastUtils.showLong("评论成功");
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideLoading();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        hideLoading();
+                    }
+                });
+        return;
+    }
+
+    public static void startActivity_pj(Context mContext,String adviserId,String appointmentId){
+        Intent mIntent = new Intent(mContext,MineYypjActivity.class);
+        mIntent.putExtra("adviserId",adviserId);
+        mIntent.putExtra("appointmentId",appointmentId);
+        mContext.startActivity(mIntent);
     }
 }

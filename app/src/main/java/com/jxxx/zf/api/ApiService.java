@@ -14,6 +14,7 @@ import com.jxxx.zf.bean.HouseParamListBean;
 import com.jxxx.zf.bean.LoginData;
 import com.jxxx.zf.bean.ApplyInfoBean;
 import com.jxxx.zf.bean.Result;
+import com.jxxx.zf.bean.UserContractBean;
 import com.jxxx.zf.bean.UserInfoBean;
 import com.jxxx.zf.bean.ZuFangDetailsBase;
 
@@ -99,11 +100,12 @@ public interface ApiService {
     @GET("api/v1/user/appointment/details")
     Observable<Result<AppointmentDetailsBase>> getAppointmentDetails(@Query("id") String  id);
 
-//    @GET("api/v1/adviser/list")
-//    Observable<Result<AdviserListBean>> getAdviserList();
+    @POST("api/v1/user/appointment/comment")
+    Observable<Result> getAdviserList(@Body ApplyInfoBean.AppointmentComment mAppointmentComment);
+
+
     @GET("api/v1/adviser/optionalAdvisers")
     Observable<Result<AdviserListBean>> getAdviserList(@Query("appointTime") String appointTime ,@Query("houseId") String houseId);
-
 
     @GET("api/v1/home/getHome")
     Observable<Result<HomeZuFangListBase>> homeGetHome();
@@ -136,6 +138,9 @@ public interface ApiService {
 
     @POST("api/v1/user/adviser/updateStatus")
     Observable<Result> updateStatus(@Query("appointmentId") String appointmentId,@Query("status") String status);
+
+    @GET("api/v1/user/contract/list")
+    Observable<Result<UserContractBean>> getUserContractList(@Query("page") int page, @Query("pageSize") int pageSize);
 
     @GET("api/v1/houseParam/listAll")
     Observable<Result<List<HouseParamListBean>>> getHouseParamAll();

@@ -101,7 +101,6 @@ public class MineJieDan1Fragment extends BaseFragment {
                         adviserUpdate(data.get(position),"4");
                     }
                 });
-                baseStartActivity(MineYypjActivity.class, null);
                 break;
             case "去认证":
                 DialogUtils.showDialogHint(mContext, "进行人脸识别", false, new DialogUtils.ErrorDialogInterface() {

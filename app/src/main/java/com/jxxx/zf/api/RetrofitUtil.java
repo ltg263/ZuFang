@@ -22,17 +22,6 @@ public class RetrofitUtil {
     private static RetrofitUtil util;
     private ApiService apiService;
 
-    public static RetrofitUtil getInstance() {
-        if (util == null) {
-            synchronized (RetrofitUtil.class) {
-                if (util == null) {
-                    util = new RetrofitUtil();
-                }
-            }
-        }
-        return util;
-    }
-
     private RetrofitUtil() {
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
         httpClientBuilder.connectTimeout(ConstValues.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
@@ -57,6 +46,17 @@ public class RetrofitUtil {
                 .build();
         apiService = retrofit.create(ApiService.class);
         Log.i("HTTP","接口请求retrofit："+ retrofit.toString());
+    }
+
+    public static RetrofitUtil getInstance() {
+        if (util == null) {
+            synchronized (RetrofitUtil.class) {
+                if (util == null) {
+                    util = new RetrofitUtil();
+                }
+            }
+        }
+        return util;
     }
 
     public ApiService apiService() {

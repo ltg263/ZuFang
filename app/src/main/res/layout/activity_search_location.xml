@@ -7,7 +7,7 @@
 
     <include
         android:id="@+id/include"
-        layout="@layout/my_toolbar" />
+        layout="@layout/include_toolbar" />
 
     <com.amap.api.maps.MapView
         android:id="@+id/map"

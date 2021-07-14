@@ -186,7 +186,7 @@ public class ZuFangListActivity extends BaseActivity {
                 break;
         }
         RetrofitUtil.getInstance().apiService()
-                .HouseList(page, ConstValues.PAGE_SIZE,rentingType,rentBegin,rentEnd,houseType,lables)
+                .HouseList(page, ConstValues.PAGE_SIZE,rentingType,rentBegin,rentEnd,houseType,lables,null)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<Result<HouseListBase>>() {

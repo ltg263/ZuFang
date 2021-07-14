@@ -20,6 +20,7 @@ import com.jxxx.zf.utils.GlideImageLoader;
 import com.jxxx.zf.utils.RadioGroupSelectUtils;
 import com.jxxx.zf.view.activity.MineZfSelectActivity;
 import com.jxxx.zf.view.activity.ZuFangListActivity;
+import com.jxxx.zf.view.activity.search.SearchGoodsActivity;
 import com.jxxx.zf.view.adapter.HomeFyAdapter;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -64,8 +65,6 @@ public class HomeOneFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-//        GlideImageLoader.loadImageViewRadiusNoCenter(getActivity(),
-//                "http://img.netbian.com/file/2021/0527/1f20f9804cb7390efc842f02f4765901.jpg",iv_icon);
         new RadioGroupSelectUtils().setOnChangeListener(getActivity(),
                 mMRadioGroup, mRbHomeSelect1, mRbHomeSelect2, mRbHomeSelect3, mRbHomeSelect4
                 , new RadioGroupSelectUtils.DialogInterface() {
@@ -134,7 +133,7 @@ public class HomeOneFragment extends BaseFragment {
                 break;
         }
         RetrofitUtil.getInstance().apiService()
-                .HouseList(page, ConstValues.PAGE_SIZE,rentingType,rentBegin,rentEnd,null,null)
+                .HouseList(page, ConstValues.PAGE_SIZE,rentingType,rentBegin,rentEnd,null,null,null)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<Result<HouseListBase>>() {
@@ -206,10 +205,9 @@ public class HomeOneFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.address:
-
                 break;
             case R.id.tv_search:
-
+                baseStartActivity(SearchGoodsActivity.class,null);
                 break;
             case R.id.ll_home_top1:
                 baseStartActivity(ZuFangListActivity.class,null);

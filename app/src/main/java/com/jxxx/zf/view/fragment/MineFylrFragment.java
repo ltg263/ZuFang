@@ -77,7 +77,7 @@ public class MineFylrFragment extends BaseFragment {
     @Override
     protected void initData() {
         RetrofitUtil.getInstance().apiService()
-                .HouseList(page, ConstValues.PAGE_SIZE, null, null, null, null, null)
+                .HouseList(page, ConstValues.PAGE_SIZE, null, null, null, null, null,null)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<Result<HouseListBase>>() {

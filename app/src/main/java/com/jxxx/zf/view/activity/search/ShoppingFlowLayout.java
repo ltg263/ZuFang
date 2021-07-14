@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import androidx.core.text.TextUtilsCompat;
 
-
 import com.jxxx.zf.R;
 
 import java.util.ArrayList;

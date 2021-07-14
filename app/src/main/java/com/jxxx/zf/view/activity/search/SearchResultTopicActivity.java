@@ -4,21 +4,31 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jxxx.zf.R;
+import com.jxxx.zf.api.RetrofitUtil;
+import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseActivity;
+import com.jxxx.zf.bean.HouseListBase;
+import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.view.adapter.HomeFyAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class SearchResultTopicActivity extends BaseActivity {
 
 
+    @BindView(R.id.include)
+    Toolbar mMyToolbar;
     @BindView(R.id.tv_top_title)
     TextView tvTopTitle;
     @BindView(R.id.ll_no_data)
@@ -38,25 +48,23 @@ public class SearchResultTopicActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        search = getIntent().getStringExtra("search");
+        setToolbar(mMyToolbar, "搜索");
+        search = getIntent().getStringExtra(ConstValues.APPNAME_ENGLISH);
         tvTopTitle.setText(search);
         mRefreshLayout.setEnableLoadMore(false);
         mRefreshLayout.setEnableRefresh(false);
 
         mHomeFyAdapter = new HomeFyAdapter(null);
         mRvList.setLayoutManager(new LinearLayoutManager(this));
-        mRvList.setHasFixedSize(true);
         mRvList.setAdapter(mHomeFyAdapter);
 
-        mHomeFyAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                LotListBean.ListBean data = mBookingSpaceAdapter.getData().get(position);
-//                Intent mIntent = new Intent(SearchResultTopicActivity.this, ShotCarDeActivity.class);
-//                mIntent.putExtra("data", data);
-//                startActivity(mIntent);
-            }
-        });
+//        mHomeFyAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//                ShopDetailsActivity.startActivityIntent(
+//                        SearchResultTopicActivity.this,mHomeFyAdapter.getData().get(position).getId());
+//            }
+//        });
         getAllTopic();
     }
 
@@ -66,10 +74,10 @@ public class SearchResultTopicActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.img_top_back, R.id.tv_top_title})
+    @OnClick({R.id.activity_search_goods_search_tv, R.id.tv_top_title})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.img_top_back:
+            case R.id.activity_search_goods_search_tv:
             case R.id.tv_top_title:
                 finish();
                 break;
@@ -77,37 +85,36 @@ public class SearchResultTopicActivity extends BaseActivity {
     }
 
     private void getAllTopic(){
-//        String lng = SharedUtils.singleton().get("Longitude", "");
-//        String lat = SharedUtils.singleton().get("Latitude", "");
-//        RetrofitUtil.getInstance().apiService()
-//                .getLotList(null,search,lng,lat,null)
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeOn(Schedulers.io())
-//                .subscribe(new Observer<Result<LotListBean>>() {
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(Result<LotListBean> result) {
-//                        if (isDataInfoSucceed(result)) {
-//                            if(result.getData().getList()!=null && result.getData().getList().size()>0){
-//                                llNoData.setVisibility(View.GONE);
-//                                mRefreshLayout.setVisibility(View.VISIBLE);
-//                                mBookingSpaceAdapter.setNewData(result.getData().getList());
-//                            }
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//                    }
-//                });
+        RetrofitUtil.getInstance().apiService()
+                .HouseList(1,10,null,null,null,null,null,search)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result<HouseListBase>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result<HouseListBase> result) {
+                        if (isResultOk(result)) {
+                            if(result.getData()!=null &&result.getData().getList()!=null
+                                    && result.getData().getList().size()>0){
+                                llNoData.setVisibility(View.GONE);
+                                mRefreshLayout.setVisibility(View.VISIBLE);
+                                mHomeFyAdapter.setNewData(result.getData().getList());
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
     }
 
 }

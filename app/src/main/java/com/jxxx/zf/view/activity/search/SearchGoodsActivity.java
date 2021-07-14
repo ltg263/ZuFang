@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,8 +36,8 @@ import butterknife.OnClick;
 public class SearchGoodsActivity extends BaseActivity {
 
 
-    @BindView(R.id.img_top_back)
-    ImageView imgTopBack;
+    @BindView(R.id.include)
+    Toolbar mMyToolbar;
     @BindView(R.id.tv_top_title)
     EditText searchEt;
     @BindView(R.id.activity_search_goods_search_tv)
@@ -53,7 +53,6 @@ public class SearchGoodsActivity extends BaseActivity {
     @BindView(R.id.rv_list)
     RecyclerView mRecyclerView;
     private String searchStr = null;
-    private int searchType = 0;
     public static SearchGoodsActivity activity;
     private HomeFyAdapter mHomeFyAdapter;
 
@@ -76,12 +75,7 @@ public class SearchGoodsActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        searchType = getIntent().getIntExtra("searchType",0);
-        if(searchType==1){
-            searchEt.setHint("搜索内容或圈子");
-        }else if(searchType == 2){
-            searchEt.setHint("搜索要去的目的地");
-        }
+        setToolbar(mMyToolbar, "搜索");
         activity = this;
 //        ImmersionBar.with(this).statusBarDarkFont(true).titleBar(R.id.rl_actionbar).fitsSystemWindows(true).init();
         setHistorySearchData();
@@ -243,12 +237,9 @@ public class SearchGoodsActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.img_top_back, R.id.activity_search_goods_search_tv})
+    @OnClick({R.id.activity_search_goods_search_tv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.img_top_back:
-                finish();
-                break;
             case R.id.activity_search_goods_search_tv:
                 if(searchEt.getText().toString().trim().length()>0){
                     startSearchResultActivity(searchEt.getText().toString().trim());
@@ -261,14 +252,8 @@ public class SearchGoodsActivity extends BaseActivity {
         }
     }
 
-    private void startSearchResultActivity(String inputText){
-        SearchHistorySpUtil.saveSearchHistory(SearchGoodsActivity.this,"goods","goodsName",inputText);
-        if(searchType==1){
-//            IntentUtils.getInstence().intent(SearchGoodsActivity.this, SearchResultGoodsActivity.class,"search",inputText);
-        }
-        if(searchType==2){
-//            IntentUtils.getInstence().intent(SearchGoodsActivity.this, SearchResultTopicActivity.class,"search",inputText);
-        }
+    private void startSearchResultActivity(String inputText) {
+        SearchHistorySpUtil.saveSearchHistory(SearchGoodsActivity.this, "goods", "goodsName", inputText);
+        baseStartActivity(SearchResultTopicActivity.class, inputText);
     }
-
 }

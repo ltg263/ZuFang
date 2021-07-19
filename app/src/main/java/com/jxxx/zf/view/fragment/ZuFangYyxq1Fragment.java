@@ -1,6 +1,7 @@
 package com.jxxx.zf.view.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -94,6 +95,7 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
     @Override
     protected void initData() {
         Bundle bundle = getArguments();
+
         if (bundle != null) {
             id = bundle.getString("id");
             type = bundle.getInt("type");

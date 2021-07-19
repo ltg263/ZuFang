@@ -1,5 +1,6 @@
 package com.jxxx.zf.view.activity;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,9 +12,12 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.jxxx.zf.R;
+import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseActivity;
 import com.jxxx.zf.utils.MagicIndicatorUtils;
 import com.jxxx.zf.view.fragment.MineFylrFragment;
+import com.jxxx.zf.view.fragment.MineJieDan1Fragment;
+import com.jxxx.zf.view.fragment.ZuFangYyxq1Fragment;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 
@@ -100,9 +104,27 @@ public class MineFylrActivity extends BaseActivity {
 
     List<Fragment> fragments = new ArrayList<>();
     private List<Fragment> getFragments() {
-        fragments.add(new MineFylrFragment());
-        fragments.add(new MineFylrFragment());
-        fragments.add(new MineFylrFragment());
+
+        Bundle mBundle1 = new Bundle();
+        mBundle1.putString("status","0");
+        MineFylrFragment mMineFylrFragment1 = new MineFylrFragment();
+        mMineFylrFragment1.setArguments(mBundle1);
+        fragments.add(mMineFylrFragment1);
+
+        Bundle mBundle2 = new Bundle();
+        mBundle2.putString("status","4");
+        MineFylrFragment mMineFylrFragment2 = new MineFylrFragment();
+        mMineFylrFragment2.setArguments(mBundle2);
+        fragments.add(mMineFylrFragment2);
+
+        Bundle mBundle3 = new Bundle();
+        mBundle3.putString("status","3");
+        MineFylrFragment mMineFylrFragment3 = new MineFylrFragment();
+        mMineFylrFragment3.setArguments(mBundle3);
+        fragments.add(mMineFylrFragment3);
+
+
+        MineJieDan1Fragment mMineJieDan1Fragment1 = new MineJieDan1Fragment();
         return fragments;
     }
     @Override

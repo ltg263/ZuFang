@@ -3,7 +3,6 @@ package com.jxxx.zf.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -12,11 +11,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.jxxx.zf.R;
-import com.jxxx.zf.api.RetrofitUtil;
 import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseActivity;
-import com.jxxx.zf.bean.AppointmentDetailsBase;
-import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.utils.MagicIndicatorUtils;
 import com.jxxx.zf.view.fragment.ZuFangYyxq1Fragment;
 import com.jxxx.zf.view.fragment.ZuFangYyxq2Fragment;
@@ -28,10 +24,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class ZuFangYyxqActivity extends BaseActivity {
     @BindView(R.id.my_toolbar)

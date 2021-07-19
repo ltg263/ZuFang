@@ -1,5 +1,7 @@
 package com.jxxx.zf.view.fragment;
 
+import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +36,7 @@ public class MineFylrFragment extends BaseFragment {
     @BindView(R.id.rv_list)
     RecyclerView mRvList;
     int page = 1;
+    String status = null;
     @Override
     protected int setLayoutResourceID() {
         return R.layout.fragment_register;
@@ -41,6 +44,11 @@ public class MineFylrFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+        Bundle bundle = getArguments();
+        Log.w("bundle","bundle"+bundle);
+        if(bundle!=null){
+            status = bundle.getString("status");
+        }
         mMineListFylrAdapter = new MineListFylrAdapter(null);
         mRvList.setAdapter(mMineListFylrAdapter);
 
@@ -77,7 +85,7 @@ public class MineFylrFragment extends BaseFragment {
     @Override
     protected void initData() {
         RetrofitUtil.getInstance().apiService()
-                .HouseList(page, ConstValues.PAGE_SIZE, null, null, null, null, null,null)
+                .userHouseList(status,page, ConstValues.PAGE_SIZE)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<Result<HouseListBase>>() {

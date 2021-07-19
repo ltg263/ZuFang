@@ -30,7 +30,7 @@ public class WebViewActivity extends BaseActivity {
         String type = getIntent().getStringExtra("type");
         setToolbar(myToolbar, "快递协议");
         setWebViewClient();
-        mWeb.loadUrl("https://xztc.nbyjdz.com/html/admin/xy/index.html");
+        mWeb.loadUrl("https://elastech.nbqichen.com/zhongkeyan/html/download/");
     }
 
     @Override

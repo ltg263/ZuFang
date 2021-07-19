@@ -1,6 +1,10 @@
 package com.jxxx.zf.view.fragment;
 
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -19,6 +23,7 @@ import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.utils.GlideImageLoader;
 import com.jxxx.zf.utils.RadioGroupSelectUtils;
 import com.jxxx.zf.view.activity.MineZfSelectActivity;
+import com.jxxx.zf.view.activity.WebViewActivity;
 import com.jxxx.zf.view.activity.ZuFangListActivity;
 import com.jxxx.zf.view.activity.search.SearchGoodsActivity;
 import com.jxxx.zf.view.adapter.HomeFyAdapter;
@@ -200,11 +205,12 @@ public class HomeOneFragment extends BaseFragment {
                     }
                 });
     }
-
     @OnClick({R.id.address, R.id.tv_search, R.id.ll_home_top1, R.id.ll_home_top2, R.id.ll_home_top3, R.id.ll_home_top4})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.address:
+//                baseStartActivity(WebViewActivity.class);
+//                openBrowser(getActivity(),"https://elastech.nbqichen.com/zhongkeyan/html/download/");
                 break;
             case R.id.tv_search:
                 baseStartActivity(SearchGoodsActivity.class,null);

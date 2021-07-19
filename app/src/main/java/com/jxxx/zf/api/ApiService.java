@@ -120,6 +120,9 @@ public interface ApiService {
                                             ,@Query("houseType") String houseType,@Query("lables") String lables
                                             ,@Query("keyword") String keyword);
 
+    @GET("api/v1/user/house/list")
+    Observable<Result<HouseListBase>> userHouseList(@Query("status") String status, @Query("page") int page, @Query("pageSize") int pageSize);
+
     @GET("api/v1/user/collection/houseList")
     Observable<Result<HouseListBase>> collectionHouseList(@Query("page") int page, @Query("pageSize") int pageSize);
 

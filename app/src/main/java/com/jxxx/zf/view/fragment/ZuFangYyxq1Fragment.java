@@ -136,8 +136,9 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
         ZuFangDetailsBase dataHouse = data.getHouse();
         if (dataHouse != null) {
             GlideImageLoader.loadImageAndDefault(getActivity(), dataHouse.getImgUrl(), mHeadIcon);
-            mNameType.setText(dataHouse.getRentingType().equals("1") ? "合租·" : "整租·" + dataHouse.getName());
-            mYear.setText(dataHouse.getRentingType().equals("1") ? "合租·" : "整租·" + dataHouse.getArea() + "m²·" + StringUtil.getHouseOrientation(dataHouse.getOrientation()) + "|" + dataHouse.getHousingEstateName());
+            String rentingType = StringUtil.getRentingType(dataHouse.getRentingType());
+            mNameType.setText(rentingType + dataHouse.getName());
+            mYear.setText(rentingType + dataHouse.getArea() + "m²·" + StringUtil.getHouseOrientation(dataHouse.getOrientation()) + "|" + dataHouse.getHousingEstateName());
             if (dataHouse.getLables() != null) {
                 for (int i = 0; i < dataHouse.getLables().size(); i++) {
                     if (i == 0) {

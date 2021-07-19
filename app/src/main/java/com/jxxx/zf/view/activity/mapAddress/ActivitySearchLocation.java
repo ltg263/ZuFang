@@ -150,7 +150,7 @@ public class ActivitySearchLocation extends BaseActivity implements AMap.OnCamer
                 intent.putExtra("address",addressEdit.getText().toString());
                 intent.putExtra("lat",marker.getPosition());
                 intent.putExtra("addressXq",addressXq);
-                setResult(1,intent);
+                setResult(RESULT_OK,intent);
                 finish();
                 break;
             case R.id.cancel:
@@ -233,7 +233,7 @@ public class ActivitySearchLocation extends BaseActivity implements AMap.OnCamer
            intent.putExtra("address",data.getStringExtra("address"));
            intent.putExtra("lat", (LatLng) data.getParcelableExtra("lat"));
            intent.putExtra("addressXq",data.getStringExtra("addressXq"));
-           setResult(1,intent);
+           setResult(RESULT_OK,intent);
            finish();
         }
 

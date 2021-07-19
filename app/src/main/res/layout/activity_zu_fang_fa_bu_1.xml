@@ -243,8 +243,8 @@
                     android:textColor="@color/color_000000"
                     android:textSize="@dimen/sp_14" />
 
-                <TextView
-                    android:id="@+id/tv_kfsj"
+                <EditText
+                    android:id="@+id/et_kfsj"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -330,7 +330,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <ImageView
-                    android:id="@+id/iv_dt"
+                    android:id="@+id/iv_select"
                     android:layout_width="35dp"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
@@ -367,7 +367,6 @@
                     android:textSize="@dimen/sp_14" />
 
                 <ImageView
-                    android:id="@+id/iv_cw"
                     android:layout_width="35dp"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
@@ -411,8 +410,8 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:gravity="end"
-                    android:drawableEnd="@mipmap/ic_jiantou_you"
                     android:hint="请选择位置"
+                    android:drawableEnd="@mipmap/ic_jiantou_you"
                     android:textColor="@color/color_333333"
                     android:textColorHint="@color/color_999999"
                     android:textCursorDrawable="@drawable/common_edit_input_line"
@@ -426,40 +425,6 @@
                 android:background="@color/line_gray" />
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="租赁方式"
-                android:textColor="@color/color_000000"
-                android:textSize="@dimen/sp_16" />
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_list_zlfs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingVertical="@dimen/dp_10"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="4" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="居室"
-                android:textColor="@color/color_000000"
-                android:textSize="@dimen/sp_16" />
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_list_js"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingVertical="@dimen/dp_10"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="4" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

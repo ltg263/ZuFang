@@ -75,8 +75,9 @@ public class MineListJdAdapter extends BaseQuickAdapter<AppointmentDetailsBase, 
         ZuFangDetailsBase house = item.getHouse();
         if (house != null) {
             GlideImageLoader.loadImageViewRadius(mContext, house.getImgUrl(), helper.getView(R.id.head_icon));
-            helper.setText(R.id.name_type, house.getRentingType().equals("1") ? "合租·" : "整租·" + house.getName())
-                    .setText(R.id.year, house.getRentingType().equals("1") ? "合租·" : "整租·" + house.getArea() + "m²·" + StringUtil.getHouseOrientation(house.getOrientation()) + "|" + house.getHousingEstateName())
+            String rentingType = StringUtil.getRentingType(house.getRentingType());
+            helper.setText(R.id.name_type, rentingType + house.getName())
+                    .setText(R.id.year, rentingType + house.getArea() + "m²·" + StringUtil.getHouseOrientation(house.getOrientation()) + "|" + house.getHousingEstateName())
                     .setText(R.id.tv_llcs, "约看" + house.getViewNum() + "人").setText(R.id.tv_je, house.getRent());
             helper.setVisible(R.id.tv_lables_1, false).setVisible(R.id.tv_lables_2, false);
             if (house.getLables() != null) {

@@ -1,12 +1,10 @@
 package com.jxxx.zf.view.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,16 +13,14 @@ import com.jxxx.zf.R;
 import com.jxxx.zf.api.RetrofitUtil;
 import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseActivity;
-import com.jxxx.zf.bean.HomeZuFangListBase;
-import com.jxxx.zf.bean.HouseLableBase;
 import com.jxxx.zf.bean.MineZfBean;
 import com.jxxx.zf.bean.Result;
+import com.jxxx.zf.bean.ZuFangDetailsBase;
 import com.jxxx.zf.utils.StringUtil;
 import com.jxxx.zf.utils.view.RangeSeekBar;
 import com.jxxx.zf.view.adapter.HomeMineZfAdapter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -124,14 +120,14 @@ public class MineZfSelectActivity extends BaseActivity {
                 .getHouseLable()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Result<List<HouseLableBase>>>() {
+                .subscribe(new Observer<Result<List<ZuFangDetailsBase.LablesBean>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Result<List<HouseLableBase>> result) {
+                    public void onNext(Result<List<ZuFangDetailsBase.LablesBean>> result) {
                         hideLoading();
                         if(isResultOk(result) && result.getData()!=null) {
                             ArrayList<MineZfBean> lists_qt = new ArrayList<>();

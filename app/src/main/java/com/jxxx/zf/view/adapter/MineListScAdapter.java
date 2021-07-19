@@ -23,8 +23,9 @@ public class MineListScAdapter extends BaseQuickAdapter<ZuFangDetailsBase, BaseV
     protected void convert(BaseViewHolder helper, ZuFangDetailsBase item) {
         helper.addOnClickListener(R.id.bnt_qxsc).addOnClickListener(R.id.bnt_yykf);
         GlideImageLoader.loadImageViewRadius(mContext, item.getImgUrl(), helper.getView(R.id.head_icon));
-        helper.setText(R.id.name_type, item.getRentingType().equals("1") ? "合租·" : "整租·" + item.getName())
-                .setText(R.id.year, item.getRentingType().equals("1") ? "合租·" : "整租·" + item.getArea() + "m²·" + StringUtil.getHouseOrientation(item.getOrientation()) + "|" + item.getHousingEstateName())
+        String rentingType = StringUtil.getRentingType(item.getRentingType());
+        helper.setText(R.id.name_type, rentingType + item.getName())
+                .setText(R.id.year, rentingType + item.getArea() + "m²·" + StringUtil.getHouseOrientation(item.getOrientation()) + "|" + item.getHousingEstateName())
                 .setText(R.id.tv_llcs, "约看" + item.getViewNum() + "人").setText(R.id.tv_je, item.getRent());
         helper.setVisible(R.id.tv_lables_1, false).setVisible(R.id.tv_lables_2, false);
         if (item.getLables() != null) {

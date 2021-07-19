@@ -323,8 +323,9 @@ public class ZuFangYyActivity extends BaseActivity {
         mIntent.putExtra("imgUrl",data.getImgUrl());
         mIntent.putExtra("hasVideo",data.getHasVideo());
         mIntent.putExtra("openHomeTime",data.getOpenHomeTime());
-        mIntent.putExtra("rentingName",data.getRentingType().equals("1") ? "合租·" : "整租·" + data.getName());
-        mIntent.putExtra("rentingName_2",data.getRentingType().equals("1") ? "合租·" : "整租·" +data.getArea()+"m²·"+StringUtil.getHouseOrientation(data.getOrientation())+"|"+data.getHousingEstateName());
+        String rentingType = StringUtil.getRentingType(data.getRentingType());
+        mIntent.putExtra("rentingName",rentingType + data.getName());
+        mIntent.putExtra("rentingName_2",rentingType +data.getArea()+"m²·"+StringUtil.getHouseOrientation(data.getOrientation())+"|"+data.getHousingEstateName());
         if (data.getLables() != null) {
             for (int i = 0; i < data.getLables().size(); i++) {
                 if (i == 0) {
@@ -357,8 +358,10 @@ public class ZuFangYyActivity extends BaseActivity {
         mIntent.putExtra("appointmentTime", listBean.getAppointmentTime());
         mIntent.putExtra("advserName", listBean.getAdvserName());
         mIntent.putExtra("adviserId", listBean.getAdviserId());
-        mIntent.putExtra("rentingName", data.getRentingType().equals("1") ? "合租·" : "整租·" + data.getName());
-        mIntent.putExtra("rentingName_2", data.getRentingType().equals("1") ? "合租·" : "整租·" + data.getArea() + "m²·" + StringUtil.getHouseOrientation(data.getOrientation()) + "|" + data.getHousingEstateName());
+
+        String rentingType = StringUtil.getRentingType(data.getRentingType());
+        mIntent.putExtra("rentingName", rentingType + data.getName());
+        mIntent.putExtra("rentingName_2", rentingType + data.getArea() + "m²·" + StringUtil.getHouseOrientation(data.getOrientation()) + "|" + data.getHousingEstateName());
         if (data.getLables() != null) {
             for (int i = 0; i < data.getLables().size(); i++) {
                 if (i == 0) {

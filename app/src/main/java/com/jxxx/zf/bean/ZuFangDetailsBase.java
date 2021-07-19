@@ -10,6 +10,49 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ZuFangDetailsBase implements Parcelable {
+    @Override
+    public String toString() {
+        return "ZuFangDetailsBase{" +
+                "address='" + address + '\'' +
+                ", appointmentNum='" + appointmentNum + '\'' +
+                ", area='" + area + '\'' +
+                ", businessAreaId='" + businessAreaId + '\'' +
+                ", cityId='" + cityId + '\'' +
+                ", isCollection='" + isCollection + '\'' +
+                ", commission='" + commission + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", delTf='" + delTf + '\'' +
+                ", details='" + details + '\'' +
+                ", districtId='" + districtId + '\'' +
+                ", floor='" + floor + '\'' +
+                ", hasElevator='" + hasElevator + '\'' +
+                ", hasParking='" + hasParking + '\'' +
+                ", houseEstateId='" + houseEstateId + '\'' +
+                ", houseLables='" + houseLables + '\'' +
+                ", houseParams='" + houseParams + '\'' +
+                ", houseType='" + houseType + '\'' +
+                ", housingEstateName='" + housingEstateName + '\'' +
+                ", id='" + id + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
+                ", imgUrls='" + imgUrls + '\'' +
+                ", lat='" + lat + '\'' +
+                ", lon='" + lon + '\'' +
+                ", name='" + name + '\'' +
+                ", orientation='" + orientation + '\'' +
+                ", provinceId='" + provinceId + '\'' +
+                ", renovationType='" + renovationType + '\'' +
+                ", rent='" + rent + '\'' +
+                ", rentType='" + rentType + '\'' +
+                ", rentingType='" + rentingType + '\'' +
+                ", status='" + status + '\'' +
+                ", viewNum='" + viewNum + '\'' +
+                ", hasVideo='" + hasVideo + '\'' +
+                ", openHomeTime='" + openHomeTime + '\'' +
+                ", lables=" + lables +
+                ", nearHouses=" + nearHouses +
+                ", params=" + params +
+                '}';
+    }
 
     /**
      * address : BBBBBB

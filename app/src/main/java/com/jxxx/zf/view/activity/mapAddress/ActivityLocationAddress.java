@@ -55,7 +55,7 @@ public class ActivityLocationAddress extends BaseActivity {
                     intent.putExtra("address",data.get(position).getAddress());
                     intent.putExtra("lat",data.get(position).getLatLng());
                     intent.putExtra("addressXq",data.get(position).getAddressXq());
-                    setResult(1,intent);
+                    setResult(RESULT_OK,intent);
                     finish();
                 }
             });

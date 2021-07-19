@@ -8,11 +8,10 @@ import com.jxxx.zf.bean.AppointmentList;
 import com.jxxx.zf.bean.ApponintmentApply;
 import com.jxxx.zf.bean.HomeZuFangListBase;
 import com.jxxx.zf.bean.HouseCompareBean;
-import com.jxxx.zf.bean.HouseLableBase;
 import com.jxxx.zf.bean.HouseListBase;
-import com.jxxx.zf.bean.HouseParamListBean;
 import com.jxxx.zf.bean.LoginData;
 import com.jxxx.zf.bean.ApplyInfoBean;
+import com.jxxx.zf.bean.MyCustomersBean;
 import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.bean.UserContractBean;
 import com.jxxx.zf.bean.UserInfoBean;
@@ -112,7 +111,7 @@ public interface ApiService {
 
 
     @GET("api/v1/houseLable/listAll")
-    Observable<Result<List<HouseLableBase>>> getHouseLable();
+    Observable<Result<List<ZuFangDetailsBase.LablesBean>>> getHouseLable();
 
     @GET("api/v1/house/list")
     Observable<Result<HouseListBase>> HouseList(@Query("page") int page, @Query("pageSize") int pageSize,
@@ -143,7 +142,10 @@ public interface ApiService {
     Observable<Result<UserContractBean>> getUserContractList(@Query("page") int page, @Query("pageSize") int pageSize);
 
     @GET("api/v1/houseParam/listAll")
-    Observable<Result<List<HouseParamListBean>>> getHouseParamAll();
+    Observable<Result<List<ZuFangDetailsBase.ParamsBean>>> getHouseParamAll();
+
+    @GET("api/v1/user/adviser/myCustomers")
+    Observable<Result<MyCustomersBean>> getMyCustomers(@Query("page") int page, @Query("pageSize") int pageSize);
 
     @POST("api/v1/user/house/add")
     Observable<Result> addUserHouse(@Body ZuFangDetailsBase mZuFangDetailsBase);

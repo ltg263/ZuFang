@@ -490,5 +490,9 @@ public class StringUtil {
        return rentStr;
     }
 
+    public static String getRentingType(String rentingType){
+        return  rentingType.equals("1") ? "合租·" : "整租·";
+    }
+
 
 }

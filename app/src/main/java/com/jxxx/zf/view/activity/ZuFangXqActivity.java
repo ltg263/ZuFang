@@ -163,7 +163,7 @@ public class ZuFangXqActivity extends BaseActivity {
                             if (data.getImgUrls() != null) {
                                 bannerConfig(data.getImgUrls());
                             }
-                            mTvName.setText(data.getRentingType().equals("1") ? "合租·" : "整租·" + data.getName());
+                            mTvName.setText(data.getRentingType().equals("1") ? "合租·" + data.getName() : "整租·" + data.getName());
                             String str = "<font color=\"#FF4040\"><big><big>" + data.getRent() + "</big></big></font>" + "元/月(" + StringUtil.getHouseRenting(data.getRentingType()) + ")";
                             mTvJinE.setText(Html.fromHtml(str));
                             mTvLiulan.setText("约看" + data.getViewNum() + "人");
@@ -174,7 +174,7 @@ public class ZuFangXqActivity extends BaseActivity {
                                 tv_hasVideo.setVisibility(View.VISIBLE);
                             }
                             mTvArea.setText(data.getArea() + "m²");
-                            mTvArea.setText(StringUtil.getHouseOrientation(data.getOrientation()));
+                            mTvOrientation.setText(StringUtil.getHouseOrientation(data.getOrientation()));
                             if (data.getLables() != null) {
                                 for (int i = 0; i < data.getLables().size(); i++) {
                                     if (i == 0) {
@@ -215,7 +215,7 @@ public class ZuFangXqActivity extends BaseActivity {
                             }
                             mTvFyxx5.setText(data.getHasElevator().equals("1") ? "是" : "否");
                             mTvFyxx6.setText(data.getHasParking().equals("1") ? "是" : "否");
-                            mTvFyxx7.setText("无");
+                            mTvFyxx7.setText(data.getOpenHomeTime());
                             mMRecyclerView1.setAdapter(new ZfxqFwssAdapter(data.getParams()));
                             mTvDetails.setText(data.getDetails());
                             mMRecyclerView2.setAdapter(new HomeFyAdapter(data.getNearHouses()));

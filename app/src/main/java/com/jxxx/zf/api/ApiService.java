@@ -6,6 +6,7 @@ import com.jxxx.zf.bean.AdviserListBean;
 import com.jxxx.zf.bean.AppointmentDetailsBase;
 import com.jxxx.zf.bean.AppointmentList;
 import com.jxxx.zf.bean.ApponintmentApply;
+import com.jxxx.zf.bean.ContractBillBean;
 import com.jxxx.zf.bean.HomeZuFangListBase;
 import com.jxxx.zf.bean.HouseCompareBean;
 import com.jxxx.zf.bean.HouseEstateList;
@@ -165,4 +166,7 @@ public interface ApiService {
 
     @POST("api/v1/user/house/add")
     Observable<Result> addUserHouse(@Body ZuFangDetailsBase mZuFangDetailsBase);
+
+    @GET("api/v1/user/contractBill/list")
+    Observable<Result<ContractBillBean>> contractBillList();
 }

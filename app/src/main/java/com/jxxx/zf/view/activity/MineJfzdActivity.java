@@ -1,25 +1,42 @@
 package com.jxxx.zf.view.activity;
 
+import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jxxx.zf.R;
+import com.jxxx.zf.api.RetrofitUtil;
 import com.jxxx.zf.base.BaseActivity;
+import com.jxxx.zf.bean.ContractBillBean;
+import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.utils.StatusBarUtil;
 import com.jxxx.zf.view.adapter.MineJfzdListAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MineJfzdActivity extends BaseActivity {
     @BindView(R.id.my_toolbar)
     Toolbar mMyToolbar;
     @BindView(R.id.rv_list)
     RecyclerView mRvList;
+    @BindView(R.id.tv_hjc)
+    TextView mTvHjc;
+    @BindView(R.id.tv_totalAmount)
+    TextView mTvTotalAmount;
+    @BindView(R.id.tv_syq)
+    TextView mTvSyq;
+    @BindView(R.id.tv_letfAmount)
+    TextView mTvLetfAmount;
+    @BindView(R.id.tv_withAmount)
+    TextView mTvWithAmount;
     private MineJfzdListAdapter mMineJfzdListAdapter;
 
     @Override
@@ -37,20 +54,52 @@ public class MineJfzdActivity extends BaseActivity {
                 finish();
             }
         });
-
-
-        List<String> list = new ArrayList<>();
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        mMineJfzdListAdapter = new MineJfzdListAdapter(list);
+        mMineJfzdListAdapter = new MineJfzdListAdapter(null);
         mRvList.setAdapter(mMineJfzdListAdapter);
     }
 
     @Override
     public void initData() {
+        showLoading();
+        RetrofitUtil.getInstance().apiService()
+                .contractBillList()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result<ContractBillBean>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
+                    }
+
+                    @Override
+                    public void onNext(Result<ContractBillBean> result) {
+                        hideLoading();
+                        if (isResultOk(result) && result.getData() != null) {
+                            mTvHjc.setText("合计"+result.getData().getBills().size()+"期应付(元)");
+                            mTvTotalAmount.setText(result.getData().getTotalAmount());
+                            mTvSyq.setText("剩余0期应付(元)");
+                            mTvLetfAmount.setText(result.getData().getLetfAmount());
+                            mTvWithAmount.setText(result.getData().getWithAmount());
+                            mMineJfzdListAdapter.setNewData(result.getData().getBills());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideLoading();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        hideLoading();
+                    }
+                });
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

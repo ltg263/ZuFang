@@ -45,6 +45,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_hjc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="合计12期应付(元)"
@@ -52,6 +53,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tv_totalAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_10"
@@ -70,6 +72,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_syq"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="剩余0期应付(元)"
@@ -77,6 +80,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tv_letfAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_10"
@@ -156,6 +160,7 @@
                     android:textSize="@dimen/sp_12" />
 
                 <TextView
+                    android:id="@+id/tv_withAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"

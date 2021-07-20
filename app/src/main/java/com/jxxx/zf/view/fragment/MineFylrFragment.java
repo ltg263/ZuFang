@@ -14,6 +14,7 @@ import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseFragment;
 import com.jxxx.zf.bean.HouseListBase;
 import com.jxxx.zf.bean.Result;
+import com.jxxx.zf.utils.DialogUtils;
 import com.jxxx.zf.view.activity.MineFytjActivity;
 import com.jxxx.zf.view.activity.ZuFangFaBuActivity;
 import com.jxxx.zf.view.activity.ZuFangXqActivity;
@@ -73,7 +74,22 @@ public class MineFylrFragment extends BaseFragment {
                         baseStartActivity(ZuFangFaBuActivity.class, null);
                         break;
                     case R.id.bnt_3:
-
+                        String statu = mMineListFylrAdapter.getData().get(position).getStatus();
+                        if(statu.equals("1")){
+                            DialogUtils.showDialogHint(mContext, "确定下架此房源吗？", false, new DialogUtils.ErrorDialogInterface() {
+                                @Override
+                                public void btnConfirm() {
+                                    updateShelves(mMineListFylrAdapter.getData().get(position).getId(),"2");
+                                }
+                            });
+                        }else{
+                            DialogUtils.showDialogHint(mContext, "确定上架此房源吗？", false, new DialogUtils.ErrorDialogInterface() {
+                                @Override
+                                public void btnConfirm() {
+                                    updateShelves(mMineListFylrAdapter.getData().get(position).getId(),"1");
+                                }
+                            });
+                        }
                         break;
 
                 }
@@ -98,6 +114,41 @@ public class MineFylrFragment extends BaseFragment {
     public void setNotifyDataSetChanged(boolean isBianJi) {
         mMineListFylrAdapter.setBianji(isBianJi);
         mMineListFylrAdapter.notifyDataSetChanged();
+    }
+
+    private void updateShelves(String id,String status) {
+        RetrofitUtil.getInstance().apiService()
+                .updateShelves(id,status)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result result) {
+                        hideLoading();
+                        if (isResultOk(result) && result.getData() != null) {
+                            initData();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mRefreshLayout.finishRefresh();
+                        mRefreshLayout.finishLoadMore();
+                        hideLoading();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mRefreshLayout.finishRefresh();
+                        mRefreshLayout.finishLoadMore();
+                        hideLoading();
+                    }
+                });
     }
 
     @Override

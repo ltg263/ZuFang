@@ -133,6 +133,9 @@ public interface ApiService {
     @GET("api/v1/user/house/list")
     Observable<Result<HouseListBase>> userHouseList(@Query("status") String status, @Query("page") int page, @Query("pageSize") int pageSize);
 
+    @POST("api/v1/user/house/updateShelves")
+    Observable<Result> updateShelves(@Query("houseId") String houseId, @Query("status") String status);
+
     @GET("api/v1/user/collection/houseList")
     Observable<Result<HouseListBase>> collectionHouseList(@Query("page") int page, @Query("pageSize") int pageSize);
 

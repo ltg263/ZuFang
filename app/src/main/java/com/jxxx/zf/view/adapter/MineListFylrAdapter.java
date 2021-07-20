@@ -24,7 +24,7 @@ public class MineListFylrAdapter extends BaseQuickAdapter<ZuFangDetailsBase, Bas
     protected void convert(BaseViewHolder helper, ZuFangDetailsBase item) {
         helper.addOnClickListener(R.id.bnt_1).addOnClickListener(R.id.bnt_2).addOnClickListener(R.id.bnt_3)
                 .setGone(R.id.bnt_1,true).setGone(R.id.bnt_2,true).setGone(R.id.bnt_3,true);
-        helper.setGone(R.id.iv_select,false);
+        helper.setGone(R.id.iv_select,false).setText(R.id.tv_htbh,"发布时间:"+item.getCreateTime());
         if(isBianji){
             helper.setGone(R.id.iv_select,true);
         }

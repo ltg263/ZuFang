@@ -124,6 +124,7 @@ public class ZuFangFaBuActivity extends BaseActivity {
     @Override
     public void initView() {
         setToolbar(mMyToolbar, "录入房源");
+        ZuFangDetailsBase mZuFangDetailsBase = getIntent().getParcelableExtra("ZuFangDetailsBase");
         //租赁方式
         mAdapter_zlfs = new ZuFangFaBuXxTextAdapter(Arrays.asList(ConstValues.HOUSE_RENTING_TYPE));
         mAdapter_zlfs.setCurPos(0);
@@ -208,6 +209,10 @@ public class ZuFangFaBuActivity extends BaseActivity {
                 }
             }
         });
+        if(mZuFangDetailsBase!=null){
+            this.mZuFangDetailsBase = mZuFangDetailsBase;
+            mEtName.setText(mZuFangDetailsBase.getName());
+        }
     }
 
     @Override

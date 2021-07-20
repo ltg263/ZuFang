@@ -1,5 +1,6 @@
 package com.jxxx.zf.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -60,7 +61,9 @@ public class MineFylrFragment extends BaseFragment {
         mMineListFylrAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                baseStartActivity(ZuFangXqActivity.class, null);
+                Intent mIntent = new Intent(mContext, ZuFangXqActivity.class);
+                mIntent.putExtra("id",mMineListFylrAdapter.getData().get(position).getId());
+                mContext.startActivity(mIntent);
             }
         });
         mMineListFylrAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -71,7 +74,9 @@ public class MineFylrFragment extends BaseFragment {
                         baseStartActivity(MineFytjActivity.class, null);
                         break;
                     case R.id.bnt_2:
-                        baseStartActivity(ZuFangFaBuActivity.class, null);
+                        Intent mIntent = new Intent(mContext,ZuFangFaBuActivity.class);
+                        mIntent.putExtra("ZuFangDetailsBase",mMineListFylrAdapter.getData().get(position));
+                        startActivity(mIntent);
                         break;
                     case R.id.bnt_3:
                         String statu = mMineListFylrAdapter.getData().get(position).getStatus();
@@ -130,7 +135,7 @@ public class MineFylrFragment extends BaseFragment {
                     @Override
                     public void onNext(Result result) {
                         hideLoading();
-                        if (isResultOk(result) && result.getData() != null) {
+                        if (isResultOk(result)) {
                             initData();
                         }
                     }

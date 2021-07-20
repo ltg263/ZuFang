@@ -59,20 +59,19 @@ public class UserInfoListActivity extends BaseActivity {
         showLoading();
         RetrofitUtil.getInstance().apiService()//
                 .getAdviserList(getIntent().getStringExtra("appointTime"),getIntent().getStringExtra("houseId"))
-//                .getAdviserList(null,getIntent().getStringExtra("houseId"))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Result<AdviserListBean>>() {
+                .subscribe(new Observer<Result<List<AdviserListBean.ListBean>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Result<AdviserListBean> result) {
+                    public void onNext(Result<List<AdviserListBean.ListBean>> result) {
                         hideLoading();
                         if(isResultOk(result) && result.getData()!=null) {
-                            mUserInfoListAdapter.setNewData(result.getData().getList());
+                            mUserInfoListAdapter.setNewData(result.getData());
                         }
                     }
 

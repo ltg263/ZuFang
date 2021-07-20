@@ -106,7 +106,7 @@ public interface ApiService {
 
 
     @GET("api/v1/adviser/optionalAdvisers")
-    Observable<Result<AdviserListBean>> getAdviserList(@Query("appointTime") String appointTime ,@Query("houseId") String houseId);
+    Observable<Result<List<AdviserListBean.ListBean>>> getAdviserList(@Query("appointTime") String appointTime ,@Query("houseId") String houseId);
 
     @GET("api/v1/home/getHome")
     Observable<Result<HomeZuFangListBase>> homeGetHome();

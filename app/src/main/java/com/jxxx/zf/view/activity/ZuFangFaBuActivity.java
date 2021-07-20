@@ -1,6 +1,7 @@
 package com.jxxx.zf.view.activity;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -10,17 +11,23 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jxxx.zf.R;
 import com.jxxx.zf.api.RetrofitUtil;
 import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseActivity;
+import com.jxxx.zf.bean.HouseEstateList;
 import com.jxxx.zf.bean.ImageUrlBean;
+import com.jxxx.zf.bean.RegionsStreetBean;
 import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.bean.ZuFangDetailsBase;
+import com.jxxx.zf.utils.AddressPickTask;
 import com.jxxx.zf.utils.GlideImageLoader;
 import com.jxxx.zf.utils.PickerViewUtils;
 import com.jxxx.zf.utils.PictureSelectorUtils;
+import com.jxxx.zf.utils.StringUtil;
+import com.jxxx.zf.utils.ToastUtil;
 import com.jxxx.zf.view.activity.mapAddress.ActivitySearchLocation;
 import com.jxxx.zf.view.adapter.AddImageAdapter;
 import com.jxxx.zf.view.adapter.ZuFangFaBuXxTextAdapter;
@@ -41,6 +48,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.addapp.pickers.entity.City;
+import cn.addapp.pickers.entity.County;
+import cn.addapp.pickers.entity.Province;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -78,6 +88,8 @@ public class ZuFangFaBuActivity extends BaseActivity {
     EditText et_zj;
     @BindView(R.id.et_lc)
     EditText et_lc;
+    @BindView(R.id.et_jd)
+    TextView et_jd;
     @BindView(R.id.et_wz)
     TextView mEtWz;
     @BindView(R.id.bnt_zx)
@@ -88,6 +100,8 @@ public class ZuFangFaBuActivity extends BaseActivity {
     ImageView iv_cw;
     @BindView(R.id.tv_kfsj)
     TextView mBntKfsj;
+    @BindView(R.id.et_qy)
+    TextView et_qy;
     @BindView(R.id.et_contact)
     EditText mEtContact;
 //5200
@@ -367,7 +381,7 @@ public class ZuFangFaBuActivity extends BaseActivity {
     }
 
     List<String> pickerStrs = new ArrayList<>();
-    @OnClick({R.id.home_banner_tv, R.id.bnt_zx, R.id.iv_dt,R.id.iv_cw,R.id.tv_kfsj,R.id.et_wz,R.id.bnt})
+    @OnClick({R.id.home_banner_tv, R.id.bnt_zx, R.id.iv_dt,R.id.iv_cw,R.id.tv_kfsj,R.id.et_wz,R.id.et_jd,R.id.et_qy,R.id.bnt})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.home_banner_tv:
@@ -404,16 +418,159 @@ public class ZuFangFaBuActivity extends BaseActivity {
                 });
                 break;
             case R.id.et_wz:
-                ActivityUtils.startActivityForResult(this, ActivitySearchLocation.class, 3);
+                if(StringUtil.isBlank(streetId)){
+                    ToastUtils.showLong("请选择街道");
+                    return;
+                }
+                getHousingEstateList();
+//                ActivityUtils.startActivityForResult(this, ActivitySearchLocation.class, 3);
+                break;
+            case R.id.et_jd:
+                if(StringUtil.isBlank(districtId)){
+                    ToastUtils.showLong("请选择区域");
+                    return;
+                }
+                getStreet();
+                break;
+            case R.id.et_qy:
+                onAddressPicker();
                 break;
             case R.id.bnt:
                 addUserHouse();
                 break;
         }
     }
+    String districtId,streetId;
+    public void onAddressPicker() {
+        AddressPickTask task = new AddressPickTask(this);
+        task.setHideProvince(false);
+        task.setHideCounty(false);
+        task.setCallback(new AddressPickTask.Callback() {
+            @Override
+            public void onAddressInitFailed() {
+                ToastUtils.showLong("数据初始化失败");
+            }
 
+            @Override
+            public void onAddressPicked(Province province, City city, County county) {
+                streetId = null;
+                et_jd.setText("");
+                mEtWz.setText("");
+                mZuFangDetailsBase.setProvinceId(province.getAreaId());
+                mZuFangDetailsBase.setCityId(city.getAreaId());
+                if (county == null) {
+                    et_qy.setText(province.getAreaName() + "," + city.getAreaName());
+                    districtId = city.getAreaId();
+                } else {
+                    et_qy.setText(province.getAreaName() + "," + city.getAreaName() + "," + county.getAreaName());
+                    districtId = county.getAreaId();
+                    mZuFangDetailsBase.setDistrictId(county.getAreaId());
+                }
+            }
+        });
+        task.execute("北京", "北京", "北京");
+    }
+
+    private void getStreet() {
+        showLoading();
+        RetrofitUtil.getInstance().apiService()
+                .getStreet(districtId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result<List<RegionsStreetBean>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result<List<RegionsStreetBean>> result) {
+                        hideLoading();
+                        if(isResultOk(result) && result.getData()!=null) {
+                            pickerStrs.clear();
+                            for(int i = 0;i<result.getData().size();i++){
+                                pickerStrs.add(result.getData().get(i).getStreetName());
+                            }
+                            if(pickerStrs.size()==0){
+                                ToastUtils.showLong("暂无街道");
+                                return;
+                            }
+                            PickerViewUtils.selectorCustom(ZuFangFaBuActivity.this, pickerStrs,
+                                    "", new PickerViewUtils.ConditionInterfacd() {
+                                @Override
+                                public void setIndex(int pos) {
+                                    streetId = result.getData().get(pos).getStreetId();
+                                    et_jd.setText(pickerStrs.get(pos));
+                                    mZuFangDetailsBase.setStreetId(result.getData().get(pos).getStreetId());
+                                    mZuFangDetailsBase.setLat(result.getData().get(pos).getLat());
+                                    mZuFangDetailsBase.setLon(result.getData().get(pos).getLng());
+
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideLoading();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        hideLoading();
+                    }
+                });
+    }
+
+    private void getHousingEstateList() {
+        showLoading();
+        RetrofitUtil.getInstance().apiService()
+                .getHousingEstateList(streetId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result<HouseEstateList>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result<HouseEstateList> result) {
+                        hideLoading();
+                        if(isResultOk(result) && result.getData()!=null) {
+                            pickerStrs.clear();
+                            for(int i = 0;i<result.getData().getList().size();i++){
+                                pickerStrs.add(result.getData().getList().get(i).getEstateName());
+                            }
+                            if(pickerStrs.size()==0){
+                                ToastUtils.showLong("暂无小区");
+                                return;
+                            }
+                            PickerViewUtils.selectorCustom(ZuFangFaBuActivity.this, pickerStrs,
+                                    "", new PickerViewUtils.ConditionInterfacd() {
+                                @Override
+                                public void setIndex(int pos) {
+                                    mEtWz.setText(pickerStrs.get(pos));
+                                    mZuFangDetailsBase.setHouseEstateId(result.getData().getList().get(pos).getId());
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideLoading();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        hideLoading();
+                    }
+                });
+    }
+
+    ZuFangDetailsBase mZuFangDetailsBase = new ZuFangDetailsBase();
     private void addUserHouse() {
-        ZuFangDetailsBase mZuFangDetailsBase = new ZuFangDetailsBase();
         mZuFangDetailsBase.setName(mEtName.getText().toString());
         mZuFangDetailsBase.setArea(mEtMj.getText().toString());
         mZuFangDetailsBase.setRent(et_zj.getText().toString());
@@ -434,30 +591,32 @@ public class ZuFangFaBuActivity extends BaseActivity {
         mZuFangDetailsBase.setRentingType(mAdapter_zlfs.getCurPos()==0?"2":"1");
         mZuFangDetailsBase.setHouseType(String.valueOf(mAdapter_js.getCurPos()+1));
         mZuFangDetailsBase.setOrientation(String.valueOf(mAdapter_fwcx.getCurPos()+1));
-//        mZuFangDetailsBase.setParams(houseParams);
+
         String houseParamsStr = "";
         for(int i= 0;i<houseParams.size();i++){
             if(i==houseParams.size()-1){
-                houseParamsStr = houseParams.get(i).getId();
+                houseParamsStr = houseParamsStr+houseParams.get(i).getId();
             }else{
-                houseParamsStr = houseParams.get(i).getId()+",";
+                houseParamsStr = houseParamsStr+houseParams.get(i).getId()+",";
             }
         }
+//      mZuFangDetailsBase.setParams(houseParams);
         mZuFangDetailsBase.setHouseParams(houseParamsStr);
 
-//        mZuFangDetailsBase.setLables(houseLables);
         String houseLablesStr = "";
         for(int i= 0;i<houseLables.size();i++){
             if(i==houseParams.size()-1){
-                houseLablesStr = houseLables.get(i).getId();
+                houseLablesStr = houseLablesStr+houseLables.get(i).getId();
             }else{
-                houseLablesStr = houseLables.get(i).getId()+",";
+                houseLablesStr = houseLablesStr+houseLables.get(i).getId()+",";
             }
         }
+//      mZuFangDetailsBase.setLables(houseLables);
         mZuFangDetailsBase.setHouseLables(houseLablesStr);
 
         mZuFangDetailsBase.setRentType(String.valueOf(mAdapter_fkfs.getCurPos()+1));
         mZuFangDetailsBase.setDetails(mEtContact.getText().toString());
+        Log.w("--->>>>","mZuFangDetailsBase:"+mZuFangDetailsBase.toString());
         RetrofitUtil.getInstance().apiService()
                 .addUserHouse(mZuFangDetailsBase)
                 .observeOn(AndroidSchedulers.mainThread())

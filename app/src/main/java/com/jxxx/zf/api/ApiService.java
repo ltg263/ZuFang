@@ -8,10 +8,12 @@ import com.jxxx.zf.bean.AppointmentList;
 import com.jxxx.zf.bean.ApponintmentApply;
 import com.jxxx.zf.bean.HomeZuFangListBase;
 import com.jxxx.zf.bean.HouseCompareBean;
+import com.jxxx.zf.bean.HouseEstateList;
 import com.jxxx.zf.bean.HouseListBase;
 import com.jxxx.zf.bean.LoginData;
 import com.jxxx.zf.bean.ApplyInfoBean;
 import com.jxxx.zf.bean.MyCustomersBean;
+import com.jxxx.zf.bean.RegionsStreetBean;
 import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.bean.UserContractBean;
 import com.jxxx.zf.bean.UserInfoBean;
@@ -112,6 +114,14 @@ public interface ApiService {
 
     @GET("api/v1/houseLable/listAll")
     Observable<Result<List<ZuFangDetailsBase.LablesBean>>> getHouseLable();
+
+
+    @GET("api/v1/regions/getStreet")
+    Observable<Result<List<RegionsStreetBean>>> getStreet(@Query("districtId") String districtId);
+
+
+    @GET("api/v1/housingEstate/list")
+    Observable<Result<HouseEstateList>> getHousingEstateList(@Query("streetId") String streetId);
 
     @GET("api/v1/house/list")
     Observable<Result<HouseListBase>> HouseList(@Query("page") int page, @Query("pageSize") int pageSize,

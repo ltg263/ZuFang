@@ -18,6 +18,7 @@ public class ZuFangDetailsBase implements Parcelable {
                 ", area='" + area + '\'' +
                 ", businessAreaId='" + businessAreaId + '\'' +
                 ", cityId='" + cityId + '\'' +
+                ", streetId='" + streetId + '\'' +
                 ", isCollection='" + isCollection + '\'' +
                 ", commission='" + commission + '\'' +
                 ", createTime='" + createTime + '\'' +
@@ -98,6 +99,7 @@ public class ZuFangDetailsBase implements Parcelable {
     private String area="";
     private String businessAreaId="";
     private String cityId="";
+    private String streetId="";
     private String isCollection="";
     private String commission="";
     private String createTime="";
@@ -178,6 +180,14 @@ public class ZuFangDetailsBase implements Parcelable {
 
     public void setBusinessAreaId(String businessAreaId) {
         this.businessAreaId = businessAreaId;
+    }
+
+    public String getStreetId() {
+        return streetId;
+    }
+
+    public void setStreetId(String streetId) {
+        this.streetId = streetId;
     }
 
     public String getCityId() {
@@ -587,6 +597,7 @@ public class ZuFangDetailsBase implements Parcelable {
         dest.writeString(this.area);
         dest.writeString(this.businessAreaId);
         dest.writeString(this.cityId);
+        dest.writeString(this.streetId);
         dest.writeString(this.isCollection);
         dest.writeString(this.commission);
         dest.writeString(this.createTime);
@@ -627,6 +638,7 @@ public class ZuFangDetailsBase implements Parcelable {
         this.area = source.readString();
         this.businessAreaId = source.readString();
         this.cityId = source.readString();
+        this.streetId = source.readString();
         this.isCollection = source.readString();
         this.commission = source.readString();
         this.createTime = source.readString();
@@ -673,6 +685,7 @@ public class ZuFangDetailsBase implements Parcelable {
         this.area = in.readString();
         this.businessAreaId = in.readString();
         this.cityId = in.readString();
+        this.streetId = in.readString();
         this.isCollection = in.readString();
         this.commission = in.readString();
         this.createTime = in.readString();

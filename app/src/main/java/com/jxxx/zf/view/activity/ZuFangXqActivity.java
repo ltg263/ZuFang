@@ -115,14 +115,13 @@ public class ZuFangXqActivity extends BaseActivity {
     @Override
     public void initView() {
 
-        initMap();
     }
 
-    private void initMap() {
+    private void initMap(String lat, String lon) {
         //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图
         mMapView.onCreate(savedInstanceState);
         AMap aMap = mMapView.getMap();
-        final LatLng latLng = new LatLng(29.8877248806424, 121.523712565104);
+        final LatLng latLng = new LatLng(Double.valueOf(lat), Double.valueOf(lon));
 
         GeoCoderUtil.getInstance(this).geoAddress(new LatLngEntity(latLng.latitude, latLng.longitude), new GeoCoderUtil.GeoCoderAddressListener() {
             @Override
@@ -163,6 +162,8 @@ public class ZuFangXqActivity extends BaseActivity {
                             if (data.getImgUrls() != null) {
                                 bannerConfig(data.getImgUrls());
                             }
+
+                            initMap(data.getLat(),data.getLon());
                             mTvName.setText(data.getRentingType().equals("1") ? "合租·" + data.getName() : "整租·" + data.getName());
                             String str = "<font color=\"#FF4040\"><big><big>" + data.getRent() + "</big></big></font>" + "元/月(" + StringUtil.getHouseRenting(data.getRentingType()) + ")";
                             mTvJinE.setText(Html.fromHtml(str));

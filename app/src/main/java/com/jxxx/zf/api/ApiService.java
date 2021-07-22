@@ -2,7 +2,9 @@ package com.jxxx.zf.api;
 
 
 import com.jxxx.zf.app.ConstValues;
+import com.jxxx.zf.bean.AccountBillBean;
 import com.jxxx.zf.bean.AdviserListBean;
+import com.jxxx.zf.bean.ApplyInfoBean;
 import com.jxxx.zf.bean.AppointmentDetailsBase;
 import com.jxxx.zf.bean.AppointmentList;
 import com.jxxx.zf.bean.ApponintmentApply;
@@ -12,11 +14,11 @@ import com.jxxx.zf.bean.HouseCompareBean;
 import com.jxxx.zf.bean.HouseEstateList;
 import com.jxxx.zf.bean.HouseListBase;
 import com.jxxx.zf.bean.LoginData;
-import com.jxxx.zf.bean.ApplyInfoBean;
 import com.jxxx.zf.bean.MyCustomersBean;
 import com.jxxx.zf.bean.RegionsStreetBean;
 import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.bean.UserContractBean;
+import com.jxxx.zf.bean.UserContractDetailsBean;
 import com.jxxx.zf.bean.UserInfoBean;
 import com.jxxx.zf.bean.ZuFangDetailsBase;
 
@@ -158,6 +160,9 @@ public interface ApiService {
     @GET("api/v1/user/contract/list")
     Observable<Result<UserContractBean>> getUserContractList(@Query("page") int page, @Query("pageSize") int pageSize);
 
+    @GET("api/v1/user/contract/details")
+    Observable<Result<UserContractDetailsBean>> getUserContractDetails(@Query("id") String id);
+
     @GET("api/v1/houseParam/listAll")
     Observable<Result<List<ZuFangDetailsBase.ParamsBean>>> getHouseParamAll();
 
@@ -167,6 +172,15 @@ public interface ApiService {
     @POST("api/v1/user/house/add")
     Observable<Result> addUserHouse(@Body ZuFangDetailsBase mZuFangDetailsBase);
 
+    @POST("api/v1/user/adviser/create")
+    Observable<Result> postAdviserCreate(@Body UserContractBean.ListBean mZuFangDetailsBase);
+
     @GET("api/v1/user/contractBill/list")
     Observable<Result<ContractBillBean>> contractBillList();
+
+    @GET("api/v1/user/adviser/showContractItems")
+    Observable<Result<List<UserContractBean.ListBean.ItemsBean>>> showContractItems(@Query("appointmentId") String appointmentId);
+
+    @GET("api/v1/user/listLog")
+    Observable<Result<AccountBillBean>> getAccount(@Query("accountType") String accountType);
 }

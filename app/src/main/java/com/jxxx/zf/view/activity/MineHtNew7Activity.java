@@ -8,17 +8,25 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.jxxx.zf.MainActivity;
 import com.jxxx.zf.R;
+import com.jxxx.zf.api.RetrofitUtil;
 import com.jxxx.zf.base.BaseActivity;
+import com.jxxx.zf.bean.Result;
+import com.jxxx.zf.bean.UserContractBean;
 import com.jxxx.zf.utils.view.DrawView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MineHtNew7Activity extends BaseActivity {
     @BindView(R.id.my_toolbar)
     Toolbar mMyToolbar;
     @BindView(R.id.draw_view)
     DrawView mDrawView;
+    UserContractBean.ListBean mUserContractBean;
     @Override
     public int intiLayout() {
         return R.layout.activity_mine_ht_new_7;
@@ -33,6 +41,8 @@ public class MineHtNew7Activity extends BaseActivity {
 //        }else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE );
 //        }
+
+        mUserContractBean = getIntent().getParcelableExtra("mUserContractBean");
     }
 
     @Override
@@ -46,11 +56,43 @@ public class MineHtNew7Activity extends BaseActivity {
         switch (view.getId()) {
             case R.id.bnt_1:
                 mDrawView.savek();
-                baseStartActivity(MainActivity.class,null);
+                postAdviserCreate();
                 break;
             case R.id.bnt_2:
                 mDrawView.clearAll();
                 break;
         }
+    }
+
+    private void postAdviserCreate() {
+        showLoading();
+        RetrofitUtil.getInstance().apiService()
+                .postAdviserCreate(mUserContractBean)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result result) {
+                        hideLoading();
+                        if (isResultOk(result)) {
+                            baseStartActivity(MainActivity.class,null);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideLoading();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        hideLoading();
+                    }
+                });
     }
 }

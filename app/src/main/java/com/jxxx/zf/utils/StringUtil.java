@@ -405,7 +405,29 @@ public class StringUtil {
         }
         return age;
     }
-
+    /**
+     * 获取结束时间与开始时间相差多少个月份
+     * @param start
+     * @param end
+     * @return
+     */
+    public static int getDifference(String start, String end) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        String str1 = start.substring(0, 7);
+        String str2 = end.substring(0, 7);
+        Calendar bef = Calendar.getInstance();
+        Calendar aft = Calendar.getInstance();
+        try {
+            bef.setTime(sdf.parse(str1));
+            aft.setTime(sdf.parse(str2));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        int result = aft.get(Calendar.MONTH) - bef.get(Calendar.MONTH);
+        int month = (aft.get(Calendar.YEAR) - bef.get(Calendar.YEAR)) * 12;
+        System.out.println(Math.abs(month + result));
+        return Math.abs(month + result);
+    }
 
     public static boolean checkNum(String text) {
         Pattern patternSfzhm1 = Pattern

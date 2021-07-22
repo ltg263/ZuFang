@@ -1,5 +1,6 @@
 package com.jxxx.zf.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.jxxx.zf.R;
 import com.jxxx.zf.api.RetrofitUtil;
+import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseFragment;
 import com.jxxx.zf.bean.AppointmentDetailsBase;
 import com.jxxx.zf.bean.Result;
@@ -19,6 +21,7 @@ import com.jxxx.zf.utils.GlideImageLoader;
 import com.jxxx.zf.utils.IntentUtils;
 import com.jxxx.zf.utils.StringUtil;
 import com.jxxx.zf.view.activity.MineHtNew1Activity;
+import com.jxxx.zf.view.activity.MineHtNew3Activity;
 import com.jxxx.zf.view.activity.MineQianYueActivity;
 import com.jxxx.zf.view.activity.MineYypjActivity;
 import com.jxxx.zf.view.activity.ZuFangYyActivity;
@@ -381,7 +384,13 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
                 });
                 break;
             case "已完成":
-                baseStartActivity(MineQianYueActivity.class,id);
+                Intent mIntent = new Intent(getActivity(),MineHtNew3Activity.class);
+                mIntent.putExtra("name",data.getHouse().getName());
+                mIntent.putExtra("adviserId",data.getAdviserId());
+                mIntent.putExtra("appointmentId",id);
+                mIntent.putExtra("rentAmount",data.getHouse().getRent());
+                mIntent.putExtra("houseId",data.getHouse().getId());
+                startActivity(mIntent);
                 break;
         }
     }

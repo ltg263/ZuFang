@@ -164,7 +164,8 @@ public class ZuFangXqActivity extends BaseActivity {
                             }
 
                             initMap(data.getLat(),data.getLon());
-                            mTvName.setText(data.getRentingType().equals("1") ? "合租·" + data.getName() : "整租·" + data.getName());
+                            String rentingType = StringUtil.getRentingType(data.getRentingType());
+                            mTvName.setText(rentingType + data.getName());
                             String str = "<font color=\"#FF4040\"><big><big>" + data.getRent() + "</big></big></font>" + "元/月(" + StringUtil.getHouseRenting(data.getRentingType()) + ")";
                             mTvJinE.setText(Html.fromHtml(str));
                             mTvLiulan.setText("约看" + data.getViewNum() + "人");

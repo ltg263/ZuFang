@@ -1,6 +1,6 @@
 package com.jxxx.zf.view.activity;
 
-import android.os.Bundle;
+import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -8,10 +8,15 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.jxxx.zf.R;
+import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseActivity;
+import com.jxxx.zf.bean.UserContractBean;
 import com.jxxx.zf.utils.PickerViewUtils;
+import com.jxxx.zf.utils.StringUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -39,17 +44,26 @@ public class MineHtNew3Activity extends BaseActivity {
     TextView mTvZjlx;
     @BindView(R.id.et_zjhm)
     EditText mEtZjhm;
+    @BindView(R.id.et_zj)
+    EditText et_zj;
+    @BindView(R.id.et_yj)
+    EditText et_yj;
     @BindView(R.id.et_lxr)
     EditText mEtLxr;
     @BindView(R.id.et_lxtdh)
     EditText mEtLxtdh;
     @BindView(R.id.tv_qzsj)
     TextView mTvQzsj;
+    @BindView(R.id.tv_dqsj)
+    TextView mTvDqsj;
+    @BindView(R.id.tv_zqfs)
+    TextView tv_zqfs;
     @BindView(R.id.tv_zqsc)
     TextView mTvZqsc;
     @BindView(R.id.bnt)
     TextView mBnt;
-
+    Intent mIntent;
+    String rentType;
     private List<String> listStr = new ArrayList<>();
     @Override
     public int intiLayout() {
@@ -59,7 +73,10 @@ public class MineHtNew3Activity extends BaseActivity {
     @Override
     public void initView() {
         setToolbar(mMyToolbar, "新建合同");
-        mTvFyName.setText("名字");
+        mIntent = getIntent();
+        mTvFyName.setText(mIntent.getStringExtra("name"));
+        et_zj.setText(mIntent.getStringExtra("rentAmount"));
+
     }
 
     @Override
@@ -67,19 +84,15 @@ public class MineHtNew3Activity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.tv_zklx, R.id.tv_zjzp,R.id.tv_xb, R.id.tv_zjlx, R.id.tv_qzsj, R.id.tv_zqsc, R.id.bnt})
+    @OnClick({R.id.tv_zqfs, R.id.tv_zjzp,R.id.tv_xb, R.id.tv_zjlx, R.id.tv_qzsj, R.id.tv_zqsc,R.id.tv_dqsj, R.id.bnt})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.tv_zklx:
-                listStr.clear();
-                listStr.add("租客类型1");
-                listStr.add("租客类型2");
-                listStr.add("租客类型3");
-                listStr.add("租客类型4");
-                PickerViewUtils.selectorCustom(this, listStr, "", new PickerViewUtils.ConditionInterfacd() {
+            case R.id.tv_zqfs:
+                PickerViewUtils.selectorCustom(this, Arrays.asList(ConstValues.HOUSE_RENT_TYPE), "", new PickerViewUtils.ConditionInterfacd() {
                     @Override
                     public void setIndex(int pos) {
-                        mTvZklx.setText(listStr.get(pos));
+                        rentType = (pos+1)+"";
+                        tv_zqfs.setText(ConstValues.HOUSE_RENT_TYPE[pos]);
                     }
                 });
                 break;
@@ -98,8 +111,7 @@ public class MineHtNew3Activity extends BaseActivity {
                 break;
             case R.id.tv_zjlx:
                 listStr.clear();
-                listStr.add("证件类型1");
-                listStr.add("证件类型2");
+                listStr.add("身份证");
                 PickerViewUtils.selectorCustom(this, listStr, "", new PickerViewUtils.ConditionInterfacd() {
                     @Override
                     public void setIndex(int pos) {
@@ -111,23 +123,57 @@ public class MineHtNew3Activity extends BaseActivity {
                 PickerViewUtils.selectorDate(this, new boolean[]{true, true, true, false, false, false}, new PickerViewUtils.GetTimeInterface() {
                     @Override
                     public void getTime(Date time) {
-                        mTvQzsj.setText(time.toString());
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        mTvQzsj.setText(simpleDateFormat.format(time));
+                    }
+                });
+                break;
+            case R.id.tv_dqsj:
+                PickerViewUtils.selectorDate(this, new boolean[]{true, true, true, false, false, false}, new PickerViewUtils.GetTimeInterface() {
+                    @Override
+                    public void getTime(Date time) {
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        mTvDqsj.setText(simpleDateFormat.format(time));
                     }
                 });
                 break;
             case R.id.tv_zqsc:
                 listStr.clear();
-                listStr.add("租期时长1");
-                listStr.add("租期时长2");
+                listStr.add("3个月");
+                listStr.add("6个月");
+                listStr.add("9个月");
+                listStr.add("12个月");
+                listStr.add("24个月");
                 PickerViewUtils.selectorCustom(this, listStr, "", new PickerViewUtils.ConditionInterfacd() {
                     @Override
                     public void setIndex(int pos) {
-                        mTvXb.setText(listStr.get(pos));
+                        mTvZqsc.setText(listStr.get(pos));
                     }
                 });
                 break;
             case R.id.bnt:
-                baseStartActivity(MineHtNew4Activity.class,null);
+                UserContractBean.ListBean mUserContractBean = new UserContractBean.ListBean();
+                mUserContractBean.setAdviserId(mIntent.getStringExtra("adviserId"));
+                mUserContractBean.setAppointmentId(mIntent.getStringExtra("appointmentId"));
+                mUserContractBean.setCertificateNumber(mEtZjhm.getText().toString());
+                mUserContractBean.setCertificatePhoto("jztp.jpn");
+                mUserContractBean.setCertificateType("1");
+                mUserContractBean.setDeposit(et_yj.getText().toString());
+                mUserContractBean.setRentAmount(et_zj.getText().toString());
+                mUserContractBean.setHouseId(mIntent.getStringExtra("houseId"));
+                mUserContractBean.setRentType(rentType);
+                String rentalDuration = mTvZqsc.getText().toString();
+                if(StringUtil.isNotBlank(rentalDuration) && rentalDuration .contains("个月")){
+                    rentalDuration = rentalDuration.replace("个月","");
+                    mUserContractBean.setRentalDuration(rentalDuration);
+                }
+                mUserContractBean.setEmergencyRelationship(mEtLxr.getText().toString());
+                mUserContractBean.setEmergencyPhone(mEtLxtdh.getText().toString());
+                mUserContractBean.setStartTime(mTvQzsj.getText().toString()+" 00:00:00");
+                mUserContractBean.setEndTime(mTvDqsj.getText().toString()+" 00:00:00");
+                Intent mIntent = new Intent(this,MineHtNew2Activity.class);
+                mIntent.putExtra("mUserContractBean",mUserContractBean);
+                startActivity(mIntent);
                 break;
         }
     }

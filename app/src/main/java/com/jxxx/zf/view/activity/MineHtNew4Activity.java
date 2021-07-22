@@ -43,7 +43,7 @@ public class MineHtNew4Activity extends BaseActivity {
         list.add("");
         list.add("");
         list.add("");
-        mAdapterPayLogList = new AdapterPayLogList(list);
+        mAdapterPayLogList = new AdapterPayLogList(null);
         mRvList.setAdapter(mAdapterPayLogList);
     }
 

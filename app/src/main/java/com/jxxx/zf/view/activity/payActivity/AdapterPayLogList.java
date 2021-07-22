@@ -5,20 +5,20 @@ import androidx.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jxxx.zf.R;
+import com.jxxx.zf.bean.AccountBillBean;
 
 import java.util.List;
 
-public class AdapterPayLogList extends BaseQuickAdapter<String, BaseViewHolder> {
-    public AdapterPayLogList(@Nullable List<String> data) {
+public class AdapterPayLogList extends BaseQuickAdapter<AccountBillBean.LogsBean, BaseViewHolder> {
+    public AdapterPayLogList(@Nullable List<AccountBillBean.LogsBean> data) {
         super(R.layout.item_cash_history, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
-//        helper.setGone(R.id.iv_icon_type, false)
-//                .setGone(R.id.tv_status, false)
-//                .setText(R.id.tv_name, item.getType().equals("2")?"余额钱包":"现金钱包")
-//                .setText(R.id.tv_date, item.getCreateTime())
-//                .setText(R.id.tv_money, item.getInOrOut().equals("1") ? "+" + item.getAmount() : "-" + item.getAmount());
+    protected void convert(BaseViewHolder helper, AccountBillBean.LogsBean item) {
+        helper.setText(R.id.tv_name, item.getAccountTypeStr())
+                .setText(R.id.tv_remark, item.getRemark())
+                .setText(R.id.tv_inOrOutStr, item.getInOrOutStr()+item.getAmount())
+                .setText(R.id.tv_createTime,item.getCreateTime());
     }
 }

@@ -54,7 +54,7 @@ public class MineHtListActivity extends BaseActivity {
         mMineListHtAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                baseStartActivity(MineHtDetailsActivity.class, null);
+                baseStartActivity(MineHtDetailsActivity.class, mMineListHtAdapter.getData().get(position).getId());
             }
         });
         mMineListHtAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {

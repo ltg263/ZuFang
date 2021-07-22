@@ -119,8 +119,9 @@ public class MineQianYueActivity extends BaseActivity {
 
     private void initUi(ZuFangDetailsBase house_info) {
         GlideImageLoader.loadImageAndDefault(this, house_info.getImgUrl(), mHeadIcon);
-        mNameType.setText(house_info.getRentingType().equals("1") ? "合租·" + house_info.getName() : "整租·" + house_info.getName());
         String rentingType = StringUtil.getRentingType(house_info.getRentingType());
+        mNameType.setText(rentingType+house_info.getName());
+
         mYear.setText(rentingType + house_info.getArea() + "m²·" +
                 StringUtil.getHouseOrientation(house_info.getOrientation()) + "|" + house_info.getHousingEstateName());
         if (house_info.getLables() != null) {

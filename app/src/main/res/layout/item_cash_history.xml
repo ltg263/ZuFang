@@ -26,6 +26,7 @@
                 android:textSize="13sp" />
 
             <TextView
+                android:id="@+id/tv_remark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -42,6 +43,7 @@
             android:paddingVertical="@dimen/dp_10">
 
             <TextView
+                android:id="@+id/tv_inOrOutStr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="+0"
@@ -49,6 +51,7 @@
                 android:textSize="@dimen/sp_16" />
 
             <TextView
+                android:id="@+id/tv_createTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2021.01.20"

@@ -1,5 +1,6 @@
 package com.jxxx.zf.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -8,6 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.jxxx.zf.R;
 import com.jxxx.zf.base.BaseActivity;
+import com.jxxx.zf.bean.UserContractBean;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -17,7 +19,7 @@ public class MineHtNew1Activity extends BaseActivity {
     Toolbar mMyToolbar;
     @BindView(R.id.bnt_2)
     TextView mBnt2;
-
+    UserContractBean.ListBean mUserContractBean;
     @Override
     public int intiLayout() {
         return R.layout.activity_mine_ht_new_1;
@@ -30,7 +32,7 @@ public class MineHtNew1Activity extends BaseActivity {
 
     @Override
     public void initData() {
-
+        mUserContractBean = getIntent().getParcelableExtra("mUserContractBean");
     }
 
     @OnClick({R.id.bnt_1, R.id.bnt_2})
@@ -39,7 +41,9 @@ public class MineHtNew1Activity extends BaseActivity {
             case R.id.bnt_1:
                 break;
             case R.id.bnt_2:
-                baseStartActivity(MineHtNew2Activity.class,null);
+                Intent mIntent = new Intent(this,MineHtNew7Activity.class);
+                mIntent.putExtra("mUserContractBean",mUserContractBean);
+                startActivity(mIntent);
                 break;
         }
     }

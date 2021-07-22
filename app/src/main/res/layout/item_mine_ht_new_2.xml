@@ -25,11 +25,25 @@
         android:textColor="@color/color_333333"
         android:textSize="@dimen/sp_14" />
 
+    <TextView
+        android:id="@+id/tv_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/tv_title"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:gravity="end"
+        android:layout_alignParentEnd="true"
+        android:layout_marginVertical="@dimen/dp_10"
+        android:text="×1"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/sp_14" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_title"
+        android:visibility="gone"
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/dp_10"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />

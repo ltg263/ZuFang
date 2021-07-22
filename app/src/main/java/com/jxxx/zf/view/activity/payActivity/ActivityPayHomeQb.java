@@ -9,13 +9,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jxxx.zf.R;
+import com.jxxx.zf.api.RetrofitUtil;
 import com.jxxx.zf.base.BaseActivity;
+import com.jxxx.zf.bean.AccountBillBean;
+import com.jxxx.zf.bean.Result;
+import com.jxxx.zf.utils.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 我的钱包
@@ -27,6 +35,12 @@ public class ActivityPayHomeQb extends BaseActivity {
     RecyclerView mRvYzList;
     @BindView(R.id.tv_ye)
     TextView mTvYe;
+    @BindView(R.id.tv_freezeAmount)
+    TextView tv_freezeAmount;
+    @BindView(R.id.tv_totalAmount)
+    TextView tv_totalAmount;
+    @BindView(R.id.tv_yz_rq)
+    TextView tv_yz_rq;
     private AdapterPayLogList mAdapterPayLogList;
 
     @Override
@@ -37,8 +51,6 @@ public class ActivityPayHomeQb extends BaseActivity {
     @Override
     public void initView() {
         setToolbar(myToolbar, "我的钱包");
-        getAccount();
-        initOrder();
     }
 
     @Override
@@ -47,34 +59,39 @@ public class ActivityPayHomeQb extends BaseActivity {
     }
 
     private void getAccount() {
-//        show();
-//        RetrofitUtil.getInstance().apiService()
-//                .getAccount(1, StringUtil.getNyrDate())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeOn(Schedulers.io())
-//                .subscribe(new Observer<Result<AccountBean>>() {
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(Result<AccountBean> result) {
-//                        if (isDataInfoSucceed(result)) {
-//                            AccountBean data = result.getData();
-//                            mTvYe.setText(data.getBalance()+"");
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//                        dismiss();
-//                    }
-//                });
+        showLoading();
+        RetrofitUtil.getInstance().apiService()
+                .getAccount("1")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result<AccountBillBean>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result<AccountBillBean> result) {
+                        hideLoading();
+                        if (isResultOk(result)) {
+                            mTvYe.setText(result.getData().getBalance());
+                            tv_freezeAmount.setText(result.getData().getFreezeAmount());
+                            tv_totalAmount.setText(result.getData().getTotalAmount());
+                            tv_yz_rq.setText("本月账单共"+result.getData().getLogs().size()+"笔");
+                            initOrder(result.getData().getLogs());
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideLoading();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        hideLoading();
+                    }
+                });
     }
 
     @OnClick({R.id.tv_yz_tx, R.id.tv_yz_zz, R.id.tv_yz_rq})
@@ -90,31 +107,10 @@ public class ActivityPayHomeQb extends BaseActivity {
         }
     }
 
-    private void initOrder() {
-        List<String> list = new ArrayList<>();
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
+    private void initOrder(List<AccountBillBean.LogsBean> logs) {
         mRvYzList.setFocusable(false);
         mRvYzList.setLayoutManager(new LinearLayoutManager(this));
-        mAdapterPayLogList = new AdapterPayLogList(list);
+        mAdapterPayLogList = new AdapterPayLogList(logs);
         mRvYzList.setAdapter(mAdapterPayLogList);
         mAdapterPayLogList.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override

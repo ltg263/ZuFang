@@ -105,6 +105,7 @@ public class ContractBillBean {
         private String amount;
         private String contractId;
         private String expireTime;
+        private String beginDate="";
         private String id;
         private String leftDays;
         private boolean overdue;
@@ -112,6 +113,14 @@ public class ContractBillBean {
         private String payTime;
         private String remark;
         private String status;
+
+        public void setBeginDate(String beginDate) {
+            this.beginDate = beginDate;
+        }
+
+        public String getBeginDate() {
+            return beginDate;
+        }
 
         public String getAmount() {
             return amount;

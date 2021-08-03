@@ -1,5 +1,6 @@
 package com.jxxx.zf.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -60,6 +61,7 @@ public class MineHtListActivity extends BaseActivity {
         mMineListHtAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                baseStartActivity(MineHtDetailsActivity.class, mMineListHtAdapter.getData().get(position).getId());
                 switch (view.getId()) {
 //                    case R.id.bnt_jy:
 //                        baseStartActivity(MineHtJyActivity.class, null);

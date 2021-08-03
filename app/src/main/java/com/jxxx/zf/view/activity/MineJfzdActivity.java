@@ -8,15 +8,18 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jxxx.zf.R;
+import com.jxxx.zf.api.ApiService;
 import com.jxxx.zf.api.RetrofitUtil;
 import com.jxxx.zf.base.BaseActivity;
 import com.jxxx.zf.bean.ContractBillBean;
 import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.utils.StatusBarUtil;
+import com.jxxx.zf.utils.StringUtil;
 import com.jxxx.zf.view.adapter.MineJfzdListAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -38,6 +41,7 @@ public class MineJfzdActivity extends BaseActivity {
     @BindView(R.id.tv_withAmount)
     TextView mTvWithAmount;
     private MineJfzdListAdapter mMineJfzdListAdapter;
+    String contractId,rentAmount,rentalDuration,startTime;
 
     @Override
     public int intiLayout() {
@@ -56,14 +60,23 @@ public class MineJfzdActivity extends BaseActivity {
         });
         mMineJfzdListAdapter = new MineJfzdListAdapter(null);
         mRvList.setAdapter(mMineJfzdListAdapter);
+        contractId = getIntent().getStringExtra("contractId");
+        rentAmount = getIntent().getStringExtra("rentAmount");
+        rentalDuration = getIntent().getStringExtra("rentalDuration");
+        startTime = getIntent().getStringExtra("startTime");
     }
 
     @Override
     public void initData() {
         showLoading();
-        RetrofitUtil.getInstance().apiService()
-                .contractBillList()
-                .observeOn(AndroidSchedulers.mainThread())
+        ApiService mApiService = RetrofitUtil.getInstance().apiService();
+        Observable<Result<ContractBillBean>> mObservable;
+        if(StringUtil.isNotBlank(contractId)){
+            mObservable = mApiService.contractBill(contractId);
+        }else{
+            mObservable = mApiService.contractBillList();
+        }
+        mObservable.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<Result<ContractBillBean>>() {
                     @Override
@@ -94,12 +107,5 @@ public class MineJfzdActivity extends BaseActivity {
                         hideLoading();
                     }
                 });
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

@@ -1,7 +1,7 @@
 package com.jxxx.zf.view.activity;
 
 
-import android.os.Bundle;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,7 +18,6 @@ import com.jxxx.zf.utils.GlideImageLoader;
 import com.jxxx.zf.utils.StringUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -60,7 +59,7 @@ public class MineHtDetailsActivity extends BaseActivity {
     TextView tv_lxr;
     @BindView(R.id.tv_lxdh)
     TextView tv_lxdh;
-
+    UserContractDetailsBean data;
     @Override
     public int intiLayout() {
         return R.layout.activity_mine_ht_details;
@@ -88,7 +87,8 @@ public class MineHtDetailsActivity extends BaseActivity {
                     public void onNext(Result<UserContractDetailsBean> result) {
                         hideLoading();
                         if (isResultOk(result) && result.getData() != null) {
-                            initUi(result.getData());
+                            data = result.getData();
+                            initUi();
                         }
                     }
 
@@ -104,7 +104,7 @@ public class MineHtDetailsActivity extends BaseActivity {
                 });
     }
 
-    private void initUi(UserContractDetailsBean data) {
+    private void initUi() {
         mTvHtbh.setText("合同编号：" + data.getCertificateNumber());
         mTvQyzt.setText(data.getStatusStr());
         GlideImageLoader.loadImageViewRadius(this, data.getHouseImgUrl(), mHeadIcon);
@@ -147,17 +147,21 @@ public class MineHtDetailsActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bnt_jy:
-                baseStartActivity(MineHtJyActivity.class, null);
+                baseStartActivity(MineHtJyActivity.class, data.getId());
                 break;
             case R.id.bnt_xy:
                 if(mBntXy.getText().equals("签约")){
-//                    baseStartActivity(MineHtNew1Activity.class, getIntent().getStringExtra(ConstValues.APPNAME_ENGLISH));
+                    Intent mIntent = new Intent(MineHtDetailsActivity.this,MineHtNew3Activity.class);
+                    mIntent.putExtra("appointmentId",data.getAppointmentId());
+                    startActivity(mIntent);
                     return;
                 }
                 baseStartActivity(MineHtNew1Activity.class, null);
                 break;
             case R.id.bnt_zd:
-                baseStartActivity(MineJfzdActivity.class, null);
+                Intent mIntent = new Intent(MineHtDetailsActivity.this,MineJfzdActivity.class);
+                mIntent.putExtra("contractId",data.getId());
+                startActivity(mIntent);
                 break;
         }
     }

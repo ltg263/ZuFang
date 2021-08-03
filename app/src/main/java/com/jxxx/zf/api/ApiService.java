@@ -16,6 +16,7 @@ import com.jxxx.zf.bean.HouseListBase;
 import com.jxxx.zf.bean.LoginData;
 import com.jxxx.zf.bean.MyCustomersBean;
 import com.jxxx.zf.bean.RegionsStreetBean;
+import com.jxxx.zf.bean.RescindContractBean;
 import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.bean.UserContractBean;
 import com.jxxx.zf.bean.UserContractDetailsBean;
@@ -160,6 +161,12 @@ public interface ApiService {
     @GET("api/v1/user/contract/list")
     Observable<Result<UserContractBean>> getUserContractList(@Query("page") int page, @Query("pageSize") int pageSize);
 
+    @GET("api/v1/user/contract/showRescindContract")
+    Observable<Result<RescindContractBean>> getShowRescindContract(@Query("contractId") String contractId,@Query("applyTime") String applyTime);
+
+    @POST("api/v1/user/contract/rescindContract")
+    Observable<Result> postRescindContract(@Query("contractId") String contractId,@Query("applyTime") String applyTime);
+
     @GET("api/v1/user/contract/details")
     Observable<Result<UserContractDetailsBean>> getUserContractDetails(@Query("id") String id);
 
@@ -178,8 +185,11 @@ public interface ApiService {
     @POST("api/v1/user/adviser/signContract")
     Observable<Result> postSignContract(@Query("contractId") String contractId,@Query("signUrl") String signUrl);
 
-    @GET("api/v1/user/contractBill/showBill")
+    @GET("api/v1/user/contractBill/list")
     Observable<Result<ContractBillBean>> contractBillList();
+
+    @GET("api/v1/user/contractBill/contractBill")
+    Observable<Result<ContractBillBean>> contractBill(@Query("contractId") String contractId);
 
     @GET("api/v1/user/contractBill/showBill")
     Observable<Result<ContractBillBean>> contractBillList(@Query("houseId") String houseId,@Query("rentAmount") String rentAmount,@Query("rentalDuration") String rentalDuration,@Query("startTime") String startTime);

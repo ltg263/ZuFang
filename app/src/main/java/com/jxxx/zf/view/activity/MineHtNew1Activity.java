@@ -1,27 +1,17 @@
 package com.jxxx.zf.view.activity;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
-import com.jxxx.zf.MainActivity;
 import com.jxxx.zf.R;
-import com.jxxx.zf.api.RetrofitUtil;
-import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseActivity;
-import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.bean.UserContractBean;
-import com.jxxx.zf.utils.StringUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class MineHtNew1Activity extends BaseActivity {
     @BindView(R.id.my_toolbar)

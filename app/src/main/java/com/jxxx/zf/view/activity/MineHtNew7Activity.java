@@ -2,6 +2,7 @@ package com.jxxx.zf.view.activity;
 
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
@@ -65,6 +66,7 @@ public class MineHtNew7Activity extends BaseActivity {
     }
 
     private void postAdviserCreate() {
+        Log.w("mUserContractBean","mUserContractBean:"+mUserContractBean.toString());
         showLoading();
         RetrofitUtil.getInstance().apiService()
                 .postAdviserCreate(mUserContractBean)

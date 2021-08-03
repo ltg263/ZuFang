@@ -33,6 +33,46 @@ public class UserContractBean {
     }
 
     public static class ListBean implements Parcelable {
+        @Override
+        public String toString() {
+            return "ListBean{" +
+                    "adviserId='" + adviserId + '\'' +
+                    ", houseImgUrl='" + houseImgUrl + '\'' +
+                    ", appointmentId='" + appointmentId + '\'' +
+                    ", certificateNumber='" + certificateNumber + '\'' +
+                    ", certificatePhoto='" + certificatePhoto + '\'' +
+                    ", certificateType='" + certificateType + '\'' +
+                    ", contractNature='" + contractNature + '\'' +
+                    ", contractNo='" + contractNo + '\'' +
+                    ", contractType='" + contractType + '\'' +
+                    ", createTime='" + createTime + '\'' +
+                    ", delTf='" + delTf + '\'' +
+                    ", deposit='" + deposit + '\'' +
+                    ", emergencyPhone='" + emergencyPhone + '\'' +
+                    ", emergencyRelationship='" + emergencyRelationship + '\'' +
+                    ", endTime='" + endTime + '\'' +
+                    ", frontMoney='" + frontMoney + '\'' +
+                    ", gender='" + gender + '\'' +
+                    ", houseId='" + houseId + '\'' +
+                    ", houseName='" + houseName + '\'' +
+                    ", rentType='" + rentType + '\'' +
+                    ", rentalDuration='" + rentalDuration + '\'' +
+                    ", id='" + id + '\'' +
+                    ", landlordId='" + landlordId + '\'' +
+                    ", mobile='" + mobile + '\'' +
+                    ", paymentCycle='" + paymentCycle + '\'' +
+                    ", realName='" + realName + '\'' +
+                    ", rentAmount='" + rentAmount + '\'' +
+                    ", startTime='" + startTime + '\'' +
+                    ", status='" + status + '\'' +
+                    ", statusStr='" + statusStr + '\'' +
+                    ", userId='" + userId + '\'' +
+                    ", houseAttribute='" + houseAttribute + '\'' +
+                    ", bills=" + bills +
+                    ", items=" + items +
+                    '}';
+        }
+
         /**
          * adviserId : 0
          * appointmentId : 0

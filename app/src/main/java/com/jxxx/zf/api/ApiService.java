@@ -175,8 +175,11 @@ public interface ApiService {
     @POST("api/v1/user/adviser/create")
     Observable<Result> postAdviserCreate(@Body UserContractBean.ListBean mZuFangDetailsBase);
 
-    @GET("api/v1/user/contractBill/list")
+    @GET("api/v1/user/contractBill/showBill")
     Observable<Result<ContractBillBean>> contractBillList();
+
+    @GET("api/v1/user/contractBill/showBill")
+    Observable<Result<ContractBillBean>> contractBillList(@Query("houseId") String houseId,@Query("rentAmount") String rentAmount,@Query("rentalDuration") String rentalDuration,@Query("startTime") String startTime);
 
     @GET("api/v1/user/adviser/showContractItems")
     Observable<Result<List<UserContractBean.ListBean.ItemsBean>>> showContractItems(@Query("appointmentId") String appointmentId);

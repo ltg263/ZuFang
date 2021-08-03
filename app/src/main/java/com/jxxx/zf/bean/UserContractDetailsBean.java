@@ -5,58 +5,82 @@ import java.util.List;
 public class UserContractDetailsBean {
 
     /**
-     * adviserId : 5
-     * bills : [{"amount":1800,"contractId":11,"expireTime":"2021-07-22 17:14:33","id":63,"overdue":false,"overdueDays":0,"status":0},{"amount":1800,"contractId":11,"expireTime":"2021-08-22 17:14:33","id":64,"leftDays":30,"overdue":false,"overdueDays":-30,"status":0},{"amount":1800,"contractId":11,"expireTime":"2021-09-22 17:14:33","id":65,"leftDays":61,"overdue":false,"overdueDays":-61,"status":0},{"amount":1800,"contractId":11,"expireTime":"2021-10-22 17:14:33","id":66,"leftDays":91,"overdue":false,"overdueDays":-91,"status":0},{"amount":1800,"contractId":11,"expireTime":"2021-11-22 17:14:33","id":67,"leftDays":122,"overdue":false,"overdueDays":-122,"status":0},{"amount":1800,"contractId":11,"expireTime":"2021-12-22 17:14:33","id":68,"leftDays":152,"overdue":false,"overdueDays":-152,"status":0},{"amount":1800,"contractId":11,"expireTime":"2022-01-22 17:14:33","id":69,"leftDays":183,"overdue":false,"overdueDays":-183,"status":0},{"amount":1800,"contractId":11,"expireTime":"2022-02-22 17:14:33","id":70,"leftDays":214,"overdue":false,"overdueDays":-214,"status":0},{"amount":1800,"contractId":11,"expireTime":"2022-03-22 17:14:33","id":71,"leftDays":242,"overdue":false,"overdueDays":-242,"status":0}]
-     * certificateNumber : 130525199909092929
-     * certificatePhoto : jztp.jpn
-     * certificateType : 1
-     * contractNo : 210722171433001051
-     * createTime : 2021-07-22 17:14:33
+     * adviserId : 0
+     * appointmentId : 0
+     * bills : [{"amount":0,"contractId":0,"expireTime":"","id":0,"leftDays":0,"overdue":true,"overdueDays":0,"payTime":"","remark":"","status":0}]
+     * certificateNumber : 
+     * certificatePhoto : 
+     * certificateType : 0
+     * contractNature : 0
+     * contractNo : 
+     * contractType : 0
+     * createTime : 
      * delTf : 0
-     * deposit : 1800
-     * emergencyPhone : 13013331222
-     * emergencyRelationship : 李小龙
-     * endTime : 2022-04-22 00:00:00
-     * houseAddress : BBBBBB
-     * houseAttribute : 合租・50.50m²・朝东|A小区
-     * houseId : 4
-     * houseImgUrl : tu.jpg
-     * houseName : 房间2
-     * id : 11
-     * paymentCycle : 9
-     * rentAmount : 1800
-     * rentType : 1
-     * startTime : 2021-07-22 00:00:00
+     * deposit : 0
+     * electronicContract : 
+     * emergencyPhone : 
+     * emergencyRelationship : 
+     * endTime : 
+     * frontMoney : 0
+     * gender : 0
+     * houseAddress : 
+     * houseAttribute : 
+     * houseId : 0
+     * houseImgUrl : 
+     * houseName : 
+     * id : 0
+     * items : [{"contractId":0,"houseParamId":0,"id":0,"num":0,"paramName":""}]
+     * landlordId : 0
+     * mobile : 
+     * paymentCycle : 0
+     * realName : 
+     * rentAmount : 0
+     * rentType : 0
+     * rentalDuration : 0
+     * startTime : 
      * status : 0
-     * statusStr : 未签约
-     * userId : 16
+     * statusStr : 
+     * tenantType : 0
+     * userId : 0
      */
 
     private String adviserId;
+    private String appointmentId;
     private String certificateNumber;
     private String certificatePhoto;
     private String certificateType;
+    private String contractNature;
     private String contractNo;
+    private String contractType;
     private String createTime;
     private String delTf;
     private String deposit;
+    private String electronicContract;
     private String emergencyPhone;
     private String emergencyRelationship;
     private String endTime;
+    private String frontMoney;
+    private String gender;
     private String houseAddress;
     private String houseAttribute;
     private String houseId;
     private String houseImgUrl;
     private String houseName;
     private String id;
+    private String landlordId;
+    private String mobile;
     private String paymentCycle;
+    private String realName;
     private String rentAmount;
     private String rentType;
+    private String rentalDuration;
     private String startTime;
     private String status;
     private String statusStr;
+    private String tenantType;
     private String userId;
     private List<BillsBean> bills;
+    private List<ItemsBean> items;
 
     public String getAdviserId() {
         return adviserId;
@@ -64,6 +88,14 @@ public class UserContractDetailsBean {
 
     public void setAdviserId(String adviserId) {
         this.adviserId = adviserId;
+    }
+
+    public String getAppointmentId() {
+        return appointmentId;
+    }
+
+    public void setAppointmentId(String appointmentId) {
+        this.appointmentId = appointmentId;
     }
 
     public String getCertificateNumber() {
@@ -90,12 +122,28 @@ public class UserContractDetailsBean {
         this.certificateType = certificateType;
     }
 
+    public String getContractNature() {
+        return contractNature;
+    }
+
+    public void setContractNature(String contractNature) {
+        this.contractNature = contractNature;
+    }
+
     public String getContractNo() {
         return contractNo;
     }
 
     public void setContractNo(String contractNo) {
         this.contractNo = contractNo;
+    }
+
+    public String getContractType() {
+        return contractType;
+    }
+
+    public void setContractType(String contractType) {
+        this.contractType = contractType;
     }
 
     public String getCreateTime() {
@@ -122,6 +170,14 @@ public class UserContractDetailsBean {
         this.deposit = deposit;
     }
 
+    public String getElectronicContract() {
+        return electronicContract;
+    }
+
+    public void setElectronicContract(String electronicContract) {
+        this.electronicContract = electronicContract;
+    }
+
     public String getEmergencyPhone() {
         return emergencyPhone;
     }
@@ -144,6 +200,22 @@ public class UserContractDetailsBean {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public String getFrontMoney() {
+        return frontMoney;
+    }
+
+    public void setFrontMoney(String frontMoney) {
+        this.frontMoney = frontMoney;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getHouseAddress() {
@@ -194,12 +266,36 @@ public class UserContractDetailsBean {
         this.id = id;
     }
 
+    public String getLandlordId() {
+        return landlordId;
+    }
+
+    public void setLandlordId(String landlordId) {
+        this.landlordId = landlordId;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
     public String getPaymentCycle() {
         return paymentCycle;
     }
 
     public void setPaymentCycle(String paymentCycle) {
         this.paymentCycle = paymentCycle;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
     public String getRentAmount() {
@@ -216,6 +312,14 @@ public class UserContractDetailsBean {
 
     public void setRentType(String rentType) {
         this.rentType = rentType;
+    }
+
+    public String getRentalDuration() {
+        return rentalDuration;
+    }
+
+    public void setRentalDuration(String rentalDuration) {
+        this.rentalDuration = rentalDuration;
     }
 
     public String getStartTime() {
@@ -242,6 +346,14 @@ public class UserContractDetailsBean {
         this.statusStr = statusStr;
     }
 
+    public String getTenantType() {
+        return tenantType;
+    }
+
+    public void setTenantType(String tenantType) {
+        this.tenantType = tenantType;
+    }
+
     public String getUserId() {
         return userId;
     }
@@ -258,26 +370,38 @@ public class UserContractDetailsBean {
         this.bills = bills;
     }
 
+    public List<ItemsBean> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ItemsBean> items) {
+        this.items = items;
+    }
+
     public static class BillsBean {
         /**
-         * amount : 1800
-         * contractId : 11
-         * expireTime : 2021-07-22 17:14:33
-         * id : 63
-         * overdue : false
+         * amount : 0
+         * contractId : 0
+         * expireTime : 
+         * id : 0
+         * leftDays : 0
+         * overdue : true
          * overdueDays : 0
+         * payTime : 
+         * remark : 
          * status : 0
-         * leftDays : 30
          */
 
         private String amount;
         private String contractId;
         private String expireTime;
         private String id;
+        private String leftDays;
         private boolean overdue;
         private String overdueDays;
+        private String payTime;
+        private String remark;
         private String status;
-        private String leftDays;
 
         public String getAmount() {
             return amount;
@@ -311,6 +435,14 @@ public class UserContractDetailsBean {
             this.id = id;
         }
 
+        public String getLeftDays() {
+            return leftDays;
+        }
+
+        public void setLeftDays(String leftDays) {
+            this.leftDays = leftDays;
+        }
+
         public boolean isOverdue() {
             return overdue;
         }
@@ -327,6 +459,22 @@ public class UserContractDetailsBean {
             this.overdueDays = overdueDays;
         }
 
+        public String getPayTime() {
+            return payTime;
+        }
+
+        public void setPayTime(String payTime) {
+            this.payTime = payTime;
+        }
+
+        public String getRemark() {
+            return remark;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark;
+        }
+
         public String getStatus() {
             return status;
         }
@@ -334,13 +482,61 @@ public class UserContractDetailsBean {
         public void setStatus(String status) {
             this.status = status;
         }
+    }
 
-        public String getLeftDays() {
-            return leftDays;
+    public static class ItemsBean {
+        /**
+         * contractId : 0
+         * houseParamId : 0
+         * id : 0
+         * num : 0
+         * paramName : 
+         */
+
+        private String contractId;
+        private String houseParamId;
+        private String id;
+        private String num;
+        private String paramName;
+
+        public String getContractId() {
+            return contractId;
         }
 
-        public void setLeftDays(String leftDays) {
-            this.leftDays = leftDays;
+        public void setContractId(String contractId) {
+            this.contractId = contractId;
+        }
+
+        public String getHouseParamId() {
+            return houseParamId;
+        }
+
+        public void setHouseParamId(String houseParamId) {
+            this.houseParamId = houseParamId;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getNum() {
+            return num;
+        }
+
+        public void setNum(String num) {
+            this.num = num;
+        }
+
+        public String getParamName() {
+            return paramName;
+        }
+
+        public void setParamName(String paramName) {
+            this.paramName = paramName;
         }
     }
 }

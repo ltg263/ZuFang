@@ -1,9 +1,13 @@
 package com.jxxx.zf.view.activity;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
 import com.jxxx.zf.R;
 import com.jxxx.zf.base.BaseActivity;
@@ -30,9 +34,24 @@ public class WebViewActivity extends BaseActivity {
         String type = getIntent().getStringExtra("type");
         setToolbar(myToolbar, "快递协议");
         setWebViewClient();
-        mWeb.loadUrl("https://elastech.nbqichen.com/zhongkeyan/html/download/");
+//        mWeb.loadUrl("https://elastech.nbqichen.com/zhongkeyan/html/download/");
+        verifyAudioPermissions(this);
+        mWeb.loadUrl("http://csms.nbyjdz.com/employee/#/index?appId=1&userId=463217267497238528&nickname=tom");
     }
-
+    private static final int GET_RECODE_AUDIO = 1;
+    private static String[] PERMISSION_AUDIO = {
+            Manifest.permission.RECORD_AUDIO
+    };
+    /*
+     * 申请录音权限*/
+    public static void verifyAudioPermissions(Activity activity) {
+        int permission = ActivityCompat.checkSelfPermission(activity,
+                Manifest.permission.RECORD_AUDIO);
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, PERMISSION_AUDIO,
+                    GET_RECODE_AUDIO);
+        }
+    }
     @Override
     public void initData() {
 

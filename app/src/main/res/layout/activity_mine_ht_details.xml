@@ -102,6 +102,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_fwdz"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
@@ -126,6 +127,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_htrq"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
@@ -151,6 +153,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_fkfs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
@@ -175,6 +178,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_zj"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="15dp"

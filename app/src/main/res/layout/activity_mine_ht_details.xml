@@ -79,7 +79,7 @@
 
 
                 <TextView
-                    android:id="@+id/tv_llcs"
+                    android:id="@+id/tv_fwdz"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@id/head_icon"
@@ -87,7 +87,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_toEndOf="@id/head_icon"
                     android:gravity="center"
-                    android:text="2020-20-20 11:20:00"
+                    android:text="AA"
                     android:textColor="@color/color_999999"
                     android:textSize="12sp" />
             </RelativeLayout>
@@ -97,12 +97,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginTop="30dp"
-                android:text="房屋地址"
+                android:text="合同有效日期"
                 android:textColor="@color/color_666666"
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tv_fwdz"
+                android:id="@+id/tv_llcs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
@@ -122,17 +122,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginTop="20dp"
-                android:text="合同日期"
+                android:text="合同类型"
                 android:textColor="@color/color_666666"
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tv_htrq"
+                android:id="@+id/tv_htlx"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginTop="10dp"
-                android:text="2020.20.20 11.11.00"
+                android:text=""
                 android:textColor="@color/color_333333"
                 android:textSize="14sp" />
 
@@ -148,7 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginTop="20dp"
-                android:text="付款方式"
+                android:text="付款周期"
                 android:textColor="@color/color_666666"
                 android:textSize="12sp" />
 
@@ -173,21 +173,68 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginTop="20dp"
-                android:text="首月租金"
+                android:text="租金&amp;押金"
                 android:textColor="@color/color_666666"
                 android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_zj"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:text="2000"
+                android:text="0"
                 android:textColor="@color/color_333333"
                 android:textSize="14sp" />
 
+            <TextView
+                android:id="@+id/tv_yj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="10dp"
+                android:text="0"
+                android:textColor="@color/color_333333"
+                android:textSize="14sp" />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.8dp"
+                android:layout_margin="15dp"
+                android:background="@color/color_eeeeee" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="10dp"
+                android:text="紧急联系方式"
+                android:textColor="@color/color_666666"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_lxr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="10dp"
+                android:text="季付"
+                android:textColor="@color/color_333333"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tv_lxdh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="10dp"
+                android:text="季付"
+                android:textColor="@color/color_333333"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.8dp"
+                android:layout_margin="15dp"
+                android:background="@color/color_eeeeee" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -199,6 +246,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/bnt_details_height"
                     android:layout_marginLeft="20dp"
+                    android:visibility="invisible"
                     android:layout_weight="1"
                     android:background="@drawable/circle_line_666_20"
                     android:gravity="center"
@@ -215,6 +263,7 @@
                     android:background="@drawable/circle_line_666_20"
                     android:gravity="center"
                     android:text="续约"
+                    android:visibility="invisible"
                     android:textColor="@color/color_666666"
                     android:textSize="@dimen/bnt_details_text_size" />
 

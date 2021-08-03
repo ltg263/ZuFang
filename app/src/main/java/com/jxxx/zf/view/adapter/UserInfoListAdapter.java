@@ -29,7 +29,7 @@ public class UserInfoListAdapter extends BaseQuickAdapter<AdviserListBean.ListBe
             iv_select.setSelected(true);
         }
         RatingBar mRatingbar = helper.getView(R.id.select_num);
-        mRatingbar.setStar(Float.parseFloat(item.getScore()));
+        mRatingbar.setStar(item.getScore());
         mRatingbar.setClickable(false);
     }
 

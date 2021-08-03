@@ -61,15 +61,15 @@ public class MineHtListActivity extends BaseActivity {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()) {
-                    case R.id.bnt_jy:
-                        baseStartActivity(MineHtJyActivity.class, null);
-                        break;
-                    case R.id.bnt_xy:
-                        baseStartActivity(MineHtNew1Activity.class, null);
-                        break;
-                    case R.id.bnt_zd:
-                        baseStartActivity(MineJfzdActivity.class, null);
-                        break;
+//                    case R.id.bnt_jy:
+//                        baseStartActivity(MineHtJyActivity.class, null);
+//                        break;
+//                    case R.id.bnt_xy:
+//                        baseStartActivity(MineHtNew1Activity.class, null);
+//                        break;
+//                    case R.id.bnt_zd:
+//                        baseStartActivity(MineJfzdActivity.class, null);
+//                        break;
 
                 }
             }

@@ -173,7 +173,10 @@ public interface ApiService {
     Observable<Result> addUserHouse(@Body ZuFangDetailsBase mZuFangDetailsBase);
 
     @POST("api/v1/user/adviser/create")
-    Observable<Result> postAdviserCreate(@Body UserContractBean.ListBean mZuFangDetailsBase);
+    Observable<Result<String>> postAdviserCreate(@Body UserContractBean.ListBean mZuFangDetailsBase);
+
+    @POST("api/v1/user/adviser/signContract")
+    Observable<Result> postSignContract(@Query("contractId") String contractId,@Query("signUrl") String signUrl);
 
     @GET("api/v1/user/contractBill/showBill")
     Observable<Result<ContractBillBean>> contractBillList();

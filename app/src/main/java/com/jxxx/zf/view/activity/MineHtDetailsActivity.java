@@ -42,12 +42,24 @@ public class MineHtDetailsActivity extends BaseActivity {
     TextView mTvLlcs;
     @BindView(R.id.tv_fwdz)
     TextView mTvFwdz;
-    @BindView(R.id.tv_htrq)
-    TextView mTvHtrq;
+    @BindView(R.id.tv_htlx)
+    TextView mTvHtlx;
     @BindView(R.id.tv_fkfs)
     TextView mTvFkfs;
     @BindView(R.id.tv_zj)
     TextView mTvZj;
+    @BindView(R.id.bnt_jy)
+    TextView mBntJy;
+    @BindView(R.id.bnt_xy)
+    TextView mBntXy;
+    @BindView(R.id.bnt_zd)
+    TextView mBntZd;
+    @BindView(R.id.tv_yj)
+    TextView tv_yj;
+    @BindView(R.id.tv_lxr)
+    TextView tv_lxr;
+    @BindView(R.id.tv_lxdh)
+    TextView tv_lxdh;
 
     @Override
     public int intiLayout() {
@@ -98,11 +110,37 @@ public class MineHtDetailsActivity extends BaseActivity {
         GlideImageLoader.loadImageViewRadius(this, data.getHouseImgUrl(), mHeadIcon);
         mTvTitle.setText(data.getHouseName());
         mYear.setText(data.getHouseAttribute());
-        mTvLlcs.setText(data.getStartTime().replace(" 00:00:00", "") + "-" + data.getEndTime().replace(" 00:00:00", ""));
+        mTvLlcs.setText(data.getStartTime().replace(" 00:00:00", "") + "~" + data.getEndTime().replace(" 00:00:00", ""));
         mTvFwdz.setText(data.getHouseAddress());
-        mTvHtrq.setText(data.getCreateTime());
+        if(StringUtil.isNotBlank(data.getContractNature())){
+            if (data.getContractNature().equals("1")){
+                mTvHtlx.setText(data.getContractType().equals("1")?"新签电子合同":"续签电子合同");
+            }else{
+                mTvHtlx.setText(data.getContractType().equals("1")?"新签纸质合同":"续签纸质合同");
+            }
+        }
+
         mTvFkfs.setText(StringUtil.getHouseRenting(data.getRentType()));
         mTvZj.setText(data.getRentAmount());
+        tv_yj.setText(data.getDeposit());
+        tv_lxr.setText("紧急联系人关系："+data.getEmergencyRelationship());
+        tv_lxdh.setText("紧急联系人电话："+data.getEmergencyPhone());
+        switch (data.getStatus()) {
+            case "0":
+                mBntXy.setVisibility(View.VISIBLE);
+                mBntXy.setText("签约");
+                break;
+            case "1":
+                mBntJy.setVisibility(View.VISIBLE);
+                mBntJy.setText("解约");
+                mBntXy.setVisibility(View.VISIBLE);
+                mBntXy.setText("续约");
+                break;
+            case "2":
+                break;
+            case "3":
+                break;
+        }
     }
 
     @OnClick({R.id.bnt_jy, R.id.bnt_xy, R.id.bnt_zd})
@@ -112,6 +150,10 @@ public class MineHtDetailsActivity extends BaseActivity {
                 baseStartActivity(MineHtJyActivity.class, null);
                 break;
             case R.id.bnt_xy:
+                if(mBntXy.getText().equals("签约")){
+//                    baseStartActivity(MineHtNew1Activity.class, getIntent().getStringExtra(ConstValues.APPNAME_ENGLISH));
+                    return;
+                }
                 baseStartActivity(MineHtNew1Activity.class, null);
                 break;
             case R.id.bnt_zd:

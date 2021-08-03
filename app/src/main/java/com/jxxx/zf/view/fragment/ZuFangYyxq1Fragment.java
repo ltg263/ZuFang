@@ -20,6 +20,7 @@ import com.jxxx.zf.utils.DialogUtils;
 import com.jxxx.zf.utils.GlideImageLoader;
 import com.jxxx.zf.utils.IntentUtils;
 import com.jxxx.zf.utils.StringUtil;
+import com.jxxx.zf.utils.ToastUtil;
 import com.jxxx.zf.view.activity.MineHtNew1Activity;
 import com.jxxx.zf.view.activity.MineHtNew3Activity;
 import com.jxxx.zf.view.activity.MineQianYueActivity;
@@ -93,16 +94,16 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
 
     @Override
     protected void initView() {
-    }
-
-    @Override
-    protected void initData() {
         Bundle bundle = getArguments();
 
         if (bundle != null) {
             id = bundle.getString("id");
             type = bundle.getInt("type");
         }
+    }
+
+    @Override
+    protected void initData() {
         RetrofitUtil.getInstance().apiService()
                 .getAppointmentDetails(id)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -186,7 +187,7 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
             showJdxqUi();//接单详情
         }
     }
-    //1 已预约 2 已接单 3已认证 4看房中 5未签约 6已签约 7待评价 8完成 9取消
+    //1 已预约 2 已接单 3已认证 4看房中 5未签约 6已签约 7待签约 8完成 9取消
     private void showJdxqUi(){
         switch (data.getStatus()) {
             case "1":
@@ -197,9 +198,11 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
                 mIvStatus1.setImageResource(R.drawable.group_927);
                 break;
             case "2":
+                mBnt1.setVisibility(View.VISIBLE);
                 mBnt2.setVisibility(View.VISIBLE);
                 mBnt3.setVisibility(View.VISIBLE);
-                mBnt2.setText("联系对方");
+                mBnt1.setText("联系对方");
+                mBnt2.setText("转单");
                 mBnt3.setText("去认证");
                 break;
             case "3":
@@ -229,10 +232,19 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
                 mBnt2.setVisibility(View.VISIBLE);
                 mBnt3.setVisibility(View.VISIBLE);
                 mBnt2.setText("联系对方");
-                mBnt3.setText("已完成");
+                mBnt3.setText("待评价");
                 tv_state.setText("未签约");
                 break;
             case "6":
+                mIvStatus1.setImageResource(R.drawable.group_927);
+                mIvStatus2.setImageResource(R.drawable.group_927);
+                mIvStatus3.setImageResource(R.drawable.group_927);
+                mBnt2.setVisibility(View.VISIBLE);
+                mBnt3.setVisibility(View.VISIBLE);
+                mBnt2.setText("联系对方");
+                mBnt3.setText("待评价");
+                tv_state.setText("已签约");
+                break;
             case "7":
                 mIvStatus1.setImageResource(R.drawable.group_927);
                 mIvStatus2.setImageResource(R.drawable.group_927);
@@ -241,16 +253,23 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
                 mBnt2.setVisibility(View.VISIBLE);
                 mBnt3.setVisibility(View.VISIBLE);
                 mBnt2.setText("联系对方");
-                mBnt3.setText("已完成");
-                tv_state.setText("已签约");
+                mBnt3.setText("待签约");
                 break;
-//            case "7":
-//                helper.setVisible(R.id.bnt_3, true).setText(R.id.bnt_3, "电话联系");
-//                break;
+            case "8":
+                mIvStatus1.setImageResource(R.drawable.group_927);
+                mIvStatus2.setImageResource(R.drawable.group_927);
+                mIvStatus3.setImageResource(R.drawable.group_927);
+                mIvStatus4.setImageResource(R.drawable.group_927);
+                mBnt2.setVisibility(View.VISIBLE);
+                mBnt3.setVisibility(View.VISIBLE);
+                mBnt2.setText("联系对方");
+                mBnt3.setText("已完成");
+                tv_state.setText("已完成");
+                break;
         }
     }
 
-    //1 已预约 2 已接单 3已认证 4看房中 5未签约 6已签约 7待评价 8完成 9取消
+    //1 已预约 2 已接单 3已认证 4看房中 5未签约 6已签约 7待签约 8完成 9取消
     private void showYyxqUi() {
         switch (data.getStatus()) {
             case "1":
@@ -297,7 +316,6 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
                 mIvStatus4.setImageResource(R.drawable.group_927);
                 break;
             case "6":
-            case "7":
                 mBnt2.setVisibility(View.VISIBLE);
                 mBnt3.setVisibility(View.VISIBLE);
                 mBnt2.setText("联系对方");
@@ -307,6 +325,26 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
                 mIvStatus2.setImageResource(R.drawable.group_927);
                 mIvStatus3.setImageResource(R.drawable.group_927);
                 mIvStatus4.setImageResource(R.drawable.group_927);
+                break;
+            case "7":
+                mBnt2.setVisibility(View.VISIBLE);
+                mBnt3.setVisibility(View.VISIBLE);
+                mBnt2.setText("联系对方");
+                mBnt3.setText("签约");
+                mIvStatus1.setImageResource(R.drawable.group_927);
+                mIvStatus2.setImageResource(R.drawable.group_927);
+                mIvStatus3.setImageResource(R.drawable.group_927);
+                break;
+            case "8":
+                mIvStatus1.setImageResource(R.drawable.group_927);
+                mIvStatus2.setImageResource(R.drawable.group_927);
+                mIvStatus3.setImageResource(R.drawable.group_927);
+                mIvStatus4.setImageResource(R.drawable.group_927);
+                mBnt2.setVisibility(View.VISIBLE);
+                mBnt3.setVisibility(View.VISIBLE);
+                mBnt2.setText("联系对方");
+                mBnt3.setText("已完成");
+                tv_state.setText("已完成");
                 break;
         }
     }
@@ -319,7 +357,6 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
             case R.id.bnt_1:
             case R.id.bnt_2:
             case R.id.bnt_3:
-
                 if(type==0){//预约详情
                     setOnClickListenerYyxq(((TextView) view).getText().toString());
                 }else{//接单详情
@@ -370,8 +407,7 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
                 DialogUtils.showDialogHint(mContext, "确定线上进行签约吗？", false, new DialogUtils.ErrorDialogInterface() {
                     @Override
                     public void btnConfirm() {
-                        adviserUpdate(data.getId(),"6");
-                        baseStartActivity(MineHtNew1Activity.class,null);
+                        adviserUpdate(data.getId(),"7");
                     }
                 });
                 break;
@@ -383,14 +419,10 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
                     }
                 });
                 break;
+            case "转单":
+                ToastUtils.showShort("进行转单");
+                break;
             case "已完成":
-                Intent mIntent = new Intent(getActivity(),MineHtNew3Activity.class);
-                mIntent.putExtra("name",data.getHouse().getName());
-                mIntent.putExtra("adviserId",data.getAdviserId());
-                mIntent.putExtra("appointmentId",id);
-                mIntent.putExtra("rentAmount",data.getHouse().getRent());
-                mIntent.putExtra("houseId",data.getHouse().getId());
-                startActivity(mIntent);
                 break;
         }
     }
@@ -437,7 +469,7 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
                     @Override
                     public void onNext(Result result) {
                         if(isResultOk(result)) {
-
+                            initData();
                         }
                     }
 
@@ -454,6 +486,11 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
     }
     private void setOnClickListenerYyxq(String str) {
         switch (str) {
+            case "签约":
+                Intent mIntent = new Intent(getActivity(),MineHtNew3Activity.class);
+                mIntent.putExtra("appointmentId",id);
+                startActivity(mIntent);
+                break;
             case "评价":
                 MineYypjActivity.startActivity_pj(mContext,data.getAdviserId(),data.getId());
                 break;

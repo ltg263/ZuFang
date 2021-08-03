@@ -72,7 +72,9 @@ public class MineYyzxListActivity extends BaseActivity {
                     case R.id.bnt_1:
                     case R.id.bnt_2:
                     case R.id.bnt_3:
-                        setOnClickListener(tv.getText().toString(),mMineListYyzxAdapter.getData(),position);
+                        ZuFangYyxqActivity.startActivity_zf(MineYyzxListActivity.this,
+                                mMineListYyzxAdapter.getData().get(position).getId(),0);
+//                        setOnClickListener(tv.getText().toString(),mMineListYyzxAdapter.getData(),position);
                         break;
 
                 }

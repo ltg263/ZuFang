@@ -7,12 +7,17 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.jxxx.zf.R;
+import com.jxxx.zf.api.RetrofitUtil;
 import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseActivity;
+import com.jxxx.zf.bean.AppointmentDetailsBase;
+import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.bean.UserContractBean;
 import com.jxxx.zf.utils.PickerViewUtils;
 import com.jxxx.zf.utils.StringUtil;
+import com.jxxx.zf.utils.ToastUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,6 +27,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MineHtNew3Activity extends BaseActivity {
     @BindView(R.id.my_toolbar)
@@ -60,10 +69,10 @@ public class MineHtNew3Activity extends BaseActivity {
     TextView tv_zqfs;
     @BindView(R.id.tv_zqsc)
     TextView mTvZqsc;
-    @BindView(R.id.bnt)
-    TextView mBnt;
     Intent mIntent;
     String rentType;
+    String appointmentId;
+    AppointmentDetailsBase data;
     private List<String> listStr = new ArrayList<>();
     @Override
     public int intiLayout() {
@@ -74,14 +83,55 @@ public class MineHtNew3Activity extends BaseActivity {
     public void initView() {
         setToolbar(mMyToolbar, "新建合同");
         mIntent = getIntent();
-        mTvFyName.setText(mIntent.getStringExtra("name"));
-        et_zj.setText(mIntent.getStringExtra("rentAmount"));
+        appointmentId = mIntent.getStringExtra("appointmentId");
 
     }
 
     @Override
     public void initData() {
+        showLoading();
+        RetrofitUtil.getInstance().apiService()
+                .getAppointmentDetails(appointmentId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result<AppointmentDetailsBase>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
+                    }
+
+                    @Override
+                    public void onNext(Result<AppointmentDetailsBase> result) {
+                        hideLoading();
+                        if (isResultOk(result) && result.getData() != null) {
+                            data = result.getData();
+                            initUi();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideLoading();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        hideLoading();
+                    }
+                });
+
+    }
+
+    private void initUi() {
+
+        mTvFyName.setText(data.getHouse().getName());
+        et_zj.setText(data.getHouse().getRent());
+        mEtXm.setText(data.getRealName());
+        mTvXb.setText(data.getGender().equals("1") ? "男" : "女");
+        mEtSjh.setText(data.getMobile());
+        et_yj.setText(data.getHouse().getCommission());
+        tv_zqfs.setText(StringUtil.getHouseRenting(data.getHouse().getRentType()));
+        mTvZjlx.setText("身份证");
     }
 
     @OnClick({R.id.tv_zqfs, R.id.tv_zjzp,R.id.tv_xb, R.id.tv_zjlx, R.id.tv_qzsj, R.id.tv_zqsc,R.id.tv_dqsj, R.id.bnt})
@@ -152,15 +202,19 @@ public class MineHtNew3Activity extends BaseActivity {
                 });
                 break;
             case R.id.bnt:
+                if(data==null){
+                    ToastUtils.showShort("为获取到房源信息");
+                    return;
+                }
                 UserContractBean.ListBean mUserContractBean = new UserContractBean.ListBean();
-                mUserContractBean.setAdviserId(mIntent.getStringExtra("adviserId"));
-                mUserContractBean.setAppointmentId(mIntent.getStringExtra("appointmentId"));
+                mUserContractBean.setAdviserId(data.getAdviserId());
+                mUserContractBean.setAppointmentId(appointmentId);
                 mUserContractBean.setCertificateNumber(mEtZjhm.getText().toString());
                 mUserContractBean.setCertificatePhoto("jztp.jpn");
                 mUserContractBean.setCertificateType("1");
                 mUserContractBean.setDeposit(et_yj.getText().toString());
                 mUserContractBean.setRentAmount(et_zj.getText().toString());
-                mUserContractBean.setHouseId(mIntent.getStringExtra("houseId"));
+                mUserContractBean.setHouseId(data.getHouseId());
                 mUserContractBean.setRentType(rentType);
                 String rentalDuration = mTvZqsc.getText().toString();
                 if(StringUtil.isNotBlank(rentalDuration) && rentalDuration .contains("个月")){

@@ -18,10 +18,24 @@ public class MineListHtAdapter extends BaseQuickAdapter<UserContractBean.ListBea
     @Override
     protected void convert(BaseViewHolder helper, UserContractBean.ListBean item) {
         GlideImageLoader.loadImageViewRadius(mContext,item.getHouseImgUrl(),helper.getView(R.id.head_icon));
-        helper.addOnClickListener(R.id.bnt_jy).addOnClickListener(R.id.bnt_xy).addOnClickListener(R.id.bnt_zd)
+        helper.setVisible(R.id.bnt_jy,false).setVisible(R.id.bnt_xy,false)
+                .addOnClickListener(R.id.bnt_jy).addOnClickListener(R.id.bnt_xy).addOnClickListener(R.id.bnt_zd)
         .setText(R.id.tv_htbh,"合同编号："+item.getContractNo()).setText(R.id.tv_qyzt,item.getStatusStr())
                 .setText(R.id.tv_title,item.getHouseName()).setText(R.id.year,item.getHouseAttribute())
                 .setText(R.id.tv_llcs,item.getStartTime().replace(" 00:00:00","")+"-"+item.getEndTime().replace(" 00:00:00",""));
+
+        switch (item.getStatus()){
+            case "0":
+                helper.setVisible(R.id.bnt_xy,true).setText(R.id.bnt_xy,"签约");
+                break;
+            case "1":
+                helper.setVisible(R.id.bnt_jy,true).setVisible(R.id.bnt_xy,true).setText(R.id.bnt_jy,"解约").setText(R.id.bnt_xy,"续约");
+                break;
+            case "2":
+                break;
+            case "3":
+                break;
+        }
     }
 
 }

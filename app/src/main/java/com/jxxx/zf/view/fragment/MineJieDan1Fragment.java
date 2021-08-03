@@ -60,7 +60,9 @@ public class MineJieDan1Fragment extends BaseFragment {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 String str = ((TextView)view).getText().toString();
-                setOnClickListener(str,mMineListJdAdapter.getData(),position);
+//                setOnClickListener(str,mMineListJdAdapter.getData(),position);
+                ZuFangYyxqActivity.startActivity_zf(mContext,
+                        mMineListJdAdapter.getData().get(position).getId(),1);
             }
         });
 

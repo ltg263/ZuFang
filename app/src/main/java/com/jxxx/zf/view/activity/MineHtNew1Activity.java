@@ -1,18 +1,27 @@
 package com.jxxx.zf.view.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.jxxx.zf.MainActivity;
 import com.jxxx.zf.R;
+import com.jxxx.zf.api.RetrofitUtil;
+import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseActivity;
+import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.bean.UserContractBean;
+import com.jxxx.zf.utils.StringUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MineHtNew1Activity extends BaseActivity {
     @BindView(R.id.my_toolbar)
@@ -41,9 +50,10 @@ public class MineHtNew1Activity extends BaseActivity {
             case R.id.bnt_1:
                 break;
             case R.id.bnt_2:
-                Intent mIntent = new Intent(this,MineHtNew7Activity.class);
+                Intent mIntent = new Intent(this,MineHtNew6Activity.class);
                 mIntent.putExtra("mUserContractBean",mUserContractBean);
                 startActivity(mIntent);
+//              postAdviserCreate();
                 break;
         }
     }

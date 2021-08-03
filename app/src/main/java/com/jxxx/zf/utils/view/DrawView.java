@@ -81,11 +81,12 @@ public class DrawView extends View {
 
     /*
      * 调用saveBitmap（）方法将当前绘图保存为PNG图片*/
-    public void savek() {
+    public String savek() {
         try {
-            saveBitmap("myPicture");
+            return saveBitmap("myPicture");
         } catch (IOException e) {
             e.printStackTrace();
+            return "";
         }
     }
 
@@ -94,7 +95,7 @@ public class DrawView extends View {
      * 首先在SD卡上创建一个文件，然后创建一个文件输出流对象，调用Bitmap类的compress（）方法将绘图内容压缩为PNG歌是输出到创建的文件间输出流对象中
      * 最后将缓冲区的数据全部写出到输出流中，关闭文件输出流对象
      *  */
-    private void saveBitmap(String fileName) throws IOException {
+    private String saveBitmap(String fileName) throws IOException {
         String storage = Environment.getExternalStorageDirectory().getPath();
         Toast.makeText(getContext(), storage, Toast.LENGTH_SHORT).show();     //显示得到的储存路径
         File dirFile = new File(storage + "/"+ ConstValues.APPNAME_ENGLISH);         //在storage/emulated/0目录下创建abcd文件夹
@@ -104,6 +105,7 @@ public class DrawView extends View {
         cacheBitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOS);             //将绘图内容压缩为PNG格式输出到输出流对象中，PNG为透明图片
         fileOS.flush();                 //将缓冲区中的数据全部写出道输出流中
         fileOS.close();                 //关闭文件输出流对象
+        return storage;
     }
 
     /*

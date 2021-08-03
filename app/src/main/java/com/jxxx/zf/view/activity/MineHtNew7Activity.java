@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.jxxx.zf.MainActivity;
 import com.jxxx.zf.R;
 import com.jxxx.zf.api.RetrofitUtil;
+import com.jxxx.zf.app.ConstValues;
 import com.jxxx.zf.base.BaseActivity;
 import com.jxxx.zf.bean.Result;
 import com.jxxx.zf.bean.UserContractBean;
@@ -51,12 +52,12 @@ public class MineHtNew7Activity extends BaseActivity {
 
     }
 
-
+    String signUrl;
     @OnClick({R.id.bnt_1,R.id.bnt_2})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bnt_1:
-                mDrawView.savek();
+                signUrl = mDrawView.savek();
                 postAdviserCreate();
                 break;
             case R.id.bnt_2:
@@ -70,6 +71,38 @@ public class MineHtNew7Activity extends BaseActivity {
         showLoading();
         RetrofitUtil.getInstance().apiService()
                 .postAdviserCreate(mUserContractBean)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result<String>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result<String> result) {
+                        if (isResultOk(result)) {
+                            postSignContract(result.getData());
+                        }else{
+                            hideLoading();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideLoading();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        hideLoading();
+                    }
+                });
+    }
+    private void postSignContract(String contractId) {
+        signUrl = "http://s.bdstatic.com/xbox/wuxian/img/logo426.png";
+        RetrofitUtil.getInstance().apiService()
+                .postSignContract(contractId,signUrl)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<Result>() {

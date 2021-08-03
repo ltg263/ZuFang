@@ -51,14 +51,20 @@ public class MineListYyzxAdapter extends BaseQuickAdapter<AppointmentDetailsBase
                 break;
             case "5":
             case "6":
-            case "7":
                 helper.setGone(R.id.ll_not,true)
                         .setVisible(R.id.bnt_2, true).setText(R.id.bnt_2, "联系对方")
                         .setVisible(R.id.bnt_3, true).setText(R.id.bnt_3, "评价");
                 break;
-//            case "7":
-//                helper.setVisible(R.id.bnt_3, true).setText(R.id.bnt_3, "电话联系");
-//                break;
+            case "7":
+                helper.setGone(R.id.ll_not,true)
+                        .setVisible(R.id.bnt_2, true).setText(R.id.bnt_2, "联系对方")
+                        .setVisible(R.id.bnt_3, true).setText(R.id.bnt_3, "签约");
+                break;
+            case "8":
+                helper.setGone(R.id.ll_not,true)
+                        .setVisible(R.id.bnt_2, true).setText(R.id.bnt_2, "联系对方")
+                        .setVisible(R.id.bnt_3, true).setText(R.id.bnt_3, "已完成");
+                break;
         }
         ZuFangDetailsBase house = item.getHouse();
         if (house != null) {

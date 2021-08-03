@@ -53,7 +53,7 @@ public class AdviserListBean {
         private String mobile;
         private String note;
         private String realName;
-        private String score;
+        private float score;
         private String serverNum;
         private String status;
         private String userId;
@@ -130,11 +130,11 @@ public class AdviserListBean {
             this.realName = realName;
         }
 
-        public String getScore() {
+        public float getScore() {
             return score;
         }
 
-        public void setScore(String score) {
+        public void setScore(float score) {
             this.score = score;
         }
 

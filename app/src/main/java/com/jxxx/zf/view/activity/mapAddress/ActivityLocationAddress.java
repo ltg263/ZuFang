@@ -2,6 +2,7 @@ package com.jxxx.zf.view.activity.mapAddress;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +11,7 @@ import com.blankj.utilcode.util.StringUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jxxx.zf.R;
 import com.jxxx.zf.base.BaseActivity;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,10 @@ public class ActivityLocationAddress extends BaseActivity {
     Toolbar myToolbar;
     @BindView(R.id.rv_list)
     RecyclerView mMRecyclerView;
+    @BindView(R.id.tv_not_data)
+    TextView tv_not_data;
+    @BindView(R.id.refreshLayout)
+    SmartRefreshLayout mRefreshLayout;
     private AdapterLocationAddress mAdapterLocationAddress;
 
     @Override
@@ -33,6 +39,8 @@ public class ActivityLocationAddress extends BaseActivity {
     public void initView() {
         setToolbar(myToolbar, "选择历史地址");
 
+        tv_not_data.setVisibility(View.GONE);
+        mRefreshLayout.setVisibility(View.VISIBLE);
 
         List<HistoryAddressData> had = SharedHistoryAddress.singleton().getHistoryAddressData();
 

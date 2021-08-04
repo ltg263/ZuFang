@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -60,6 +61,8 @@ public class ZuFangListActivity extends BaseActivity {
     RecyclerView mRvHomeList;
     @BindView(R.id.iv_icon)
     ImageView iv_icon;
+    @BindView(R.id.tv_not_data)
+    TextView tv_not_data;
 
     int page = 1;
 
@@ -134,6 +137,7 @@ public class ZuFangListActivity extends BaseActivity {
                 initData();
             }
         });
+        showLoading();
     }
 
     String rentingType = null;
@@ -210,6 +214,14 @@ public class ZuFangListActivity extends BaseActivity {
 
                                 if(result.getData().getCount()<=mHomeFyAdapter.getData().size()){
                                     mRefreshLayout.setNoMoreData(true);
+                                }
+
+                                if(mHomeFyAdapter.getData().size()>0){
+                                    tv_not_data.setVisibility(View.GONE);
+                                    mRefreshLayout.setVisibility(View.VISIBLE);
+                                }else{
+                                    tv_not_data.setVisibility(View.VISIBLE);
+                                    mRefreshLayout.setVisibility(View.GONE);
                                 }
                             }
                         }

@@ -40,6 +40,8 @@ public class MineYyzxListActivity extends BaseActivity {
     Toolbar mMyToolbar;
     @BindView(R.id.rv_list)
     RecyclerView mRvList;
+    @BindView(R.id.tv_not_data)
+    TextView tv_not_data;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
     int page = 1;
@@ -94,6 +96,7 @@ public class MineYyzxListActivity extends BaseActivity {
                 initData();
             }
         });
+        showLoading();
     }
 
     private void setOnClickListener(String str, List<AppointmentDetailsBase> data, int position) {
@@ -156,7 +159,6 @@ public class MineYyzxListActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        showLoading();
         RetrofitUtil.getInstance().apiService()
                 .getUserAppointmentList(page, ConstValues.PAGE_SIZE)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -182,6 +184,13 @@ public class MineYyzxListActivity extends BaseActivity {
 
                                 if(result.getData().getCount()<=mMineListYyzxAdapter.getData().size()){
                                     mRefreshLayout.setNoMoreData(true);
+                                }
+                                if(mMineListYyzxAdapter.getData().size()>0){
+                                    tv_not_data.setVisibility(View.GONE);
+                                    mRefreshLayout.setVisibility(View.VISIBLE);
+                                }else{
+                                    tv_not_data.setVisibility(View.VISIBLE);
+                                    mRefreshLayout.setVisibility(View.GONE);
                                 }
                             }
                         }

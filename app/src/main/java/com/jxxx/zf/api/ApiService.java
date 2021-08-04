@@ -116,6 +116,9 @@ public interface ApiService {
     @POST("api/v1/user/appointment/comment")
     Observable<Result> getAdviserList(@Body ApplyInfoBean.AppointmentComment mAppointmentComment);
 
+    @POST("api/v1/user/contract/renewal")
+    Observable<Result> contractRenewal(@Query("contractId")String contractId,@Query("mobile")String mobile,@Query("rentAmount")String rentAmount,@Query("rentalDuration")String rentalDuration);
+
 
     @GET("api/v1/adviser/optionalAdvisers")
     Observable<Result<List<AdviserListBean.ListBean>>> getAdviserList(@Query("appointTime") String appointTime ,@Query("houseId") String houseId);

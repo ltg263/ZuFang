@@ -108,6 +108,7 @@
         <activity android:name=".view.activity.payActivity.ActivityPayTiXianList" />
         <activity android:name=".view.activity.payActivity.ActivityPayTiXianDetails" />
         <activity android:name=".view.activity.ZuFangFaBuActivity" />
+        <activity android:name=".view.activity.MineHtXqActivity" />
         <activity android:name=".view.activity.mapAddress.ActivityLocationAddress" />
         <activity android:name=".view.activity.mapAddress.ActivitySearchLocation" />
 

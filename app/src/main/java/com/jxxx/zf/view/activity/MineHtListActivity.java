@@ -3,6 +3,7 @@ package com.jxxx.zf.view.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -33,6 +34,8 @@ public class MineHtListActivity extends BaseActivity {
 
     @BindView(R.id.my_toolbar)
     Toolbar mMyToolbar;
+    @BindView(R.id.tv_not_data)
+    TextView tv_not_data;
     @BindView(R.id.rv_list)
     RecyclerView mRvList;
     @BindView(R.id.refreshLayout)
@@ -90,6 +93,7 @@ public class MineHtListActivity extends BaseActivity {
                 initData();
             }
         });
+        showLoading();
     }
 
     @Override
@@ -119,6 +123,13 @@ public class MineHtListActivity extends BaseActivity {
 
                                 if (result.getData().getCount() <= mMineListHtAdapter.getData().size()) {
                                     mRefreshLayout.setNoMoreData(true);
+                                }
+                                if(mMineListHtAdapter.getData().size()>0){
+                                    tv_not_data.setVisibility(View.GONE);
+                                    mRefreshLayout.setVisibility(View.VISIBLE);
+                                }else{
+                                    tv_not_data.setVisibility(View.VISIBLE);
+                                    mRefreshLayout.setVisibility(View.GONE);
                                 }
                             }
                         }

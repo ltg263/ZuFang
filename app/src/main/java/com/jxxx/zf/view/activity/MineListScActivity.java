@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -40,6 +41,8 @@ public class MineListScActivity extends BaseActivity {
     RecyclerView mRvList;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
+    @BindView(R.id.tv_not_data)
+    TextView tv_not_data;
     int page = 1;
     private MineListScAdapter mMineListScAdapter;
 
@@ -100,10 +103,10 @@ public class MineListScActivity extends BaseActivity {
                 initData();
             }
         });
+        showLoading();
     }
 
     private void houseDoCollection(List<ZuFangDetailsBase> data, int position){
-
         RetrofitUtil.getInstance().apiService()
                 .houseDoCollection(data.get(position).getId())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -160,6 +163,13 @@ public class MineListScActivity extends BaseActivity {
 
                                 if(result.getData().getCount()<=mMineListScAdapter.getData().size()){
                                     mRefreshLayout.setNoMoreData(true);
+                                }
+                                if(mMineListScAdapter.getData().size()>0){
+                                    tv_not_data.setVisibility(View.GONE);
+                                    mRefreshLayout.setVisibility(View.VISIBLE);
+                                }else{
+                                    tv_not_data.setVisibility(View.VISIBLE);
+                                    mRefreshLayout.setVisibility(View.GONE);
                                 }
                             }
                         }

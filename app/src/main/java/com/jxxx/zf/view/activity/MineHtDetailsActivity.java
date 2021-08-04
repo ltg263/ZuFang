@@ -73,6 +73,7 @@ public class MineHtDetailsActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        showLoading();
         RetrofitUtil.getInstance().apiService()
                 .getUserContractDetails(getIntent().getStringExtra(ConstValues.APPNAME_ENGLISH))
                 .observeOn(AndroidSchedulers.mainThread())
@@ -155,8 +156,17 @@ public class MineHtDetailsActivity extends BaseActivity {
                     mIntent.putExtra("appointmentId",data.getAppointmentId());
                     startActivity(mIntent);
                     return;
+                }else{
+                    Intent mIntent = new Intent(MineHtDetailsActivity.this,MineHtXqActivity.class);
+                    mIntent.putExtra("realName",data.getRealName());
+                    mIntent.putExtra("mobile",data.getMobile());
+                    mIntent.putExtra("rentAmount",data.getRentAmount());
+                    mIntent.putExtra("realName",data.getRealName());
+                    mIntent.putExtra("startTime",data.getStartTime());
+                    mIntent.putExtra("endTime",data.getEndTime());
+                    mIntent.putExtra("contractId",data.getId());
+                    startActivity(mIntent);
                 }
-                baseStartActivity(MineHtNew1Activity.class, null);
                 break;
             case R.id.bnt_zd:
                 Intent mIntent = new Intent(MineHtDetailsActivity.this,MineJfzdActivity.class);

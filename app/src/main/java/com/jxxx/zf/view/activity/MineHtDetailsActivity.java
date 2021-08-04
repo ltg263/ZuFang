@@ -51,6 +51,8 @@ public class MineHtDetailsActivity extends BaseActivity {
     TextView mBntJy;
     @BindView(R.id.bnt_xy)
     TextView mBntXy;
+    @BindView(R.id.bnt_dzht)
+    TextView mBntDzht;
     @BindView(R.id.bnt_zd)
     TextView mBntZd;
     @BindView(R.id.tv_yj)
@@ -136,10 +138,11 @@ public class MineHtDetailsActivity extends BaseActivity {
                 mBntJy.setText("解约");
                 mBntXy.setVisibility(View.VISIBLE);
                 mBntXy.setText("续约");
+                mBntDzht.setVisibility(View.VISIBLE);
                 break;
             case "2":
-                break;
             case "3":
+                mBntDzht.setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -167,6 +170,9 @@ public class MineHtDetailsActivity extends BaseActivity {
                     mIntent.putExtra("contractId",data.getId());
                     startActivity(mIntent);
                 }
+                break;
+            case R.id.bnt_dzht:
+
                 break;
             case R.id.bnt_zd:
                 Intent mIntent = new Intent(MineHtDetailsActivity.this,MineJfzdActivity.class);

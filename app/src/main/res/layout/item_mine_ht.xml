@@ -91,14 +91,14 @@
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="2" />
+            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/bnt_jy"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
+            android:paddingHorizontal="15dp"
             android:layout_height="@dimen/bnt_list_height"
             android:layout_marginLeft="20dp"
-            android:layout_weight="1"
             android:background="@drawable/circle_line_666_20"
             android:gravity="center"
             android:text="解约"
@@ -107,10 +107,10 @@
 
         <TextView
             android:id="@+id/bnt_xy"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/bnt_list_height"
+            android:paddingHorizontal="15dp"
             android:layout_marginLeft="10dp"
-            android:layout_weight="1"
             android:background="@drawable/circle_line_666_20"
             android:gravity="center"
             android:text="续约"
@@ -119,13 +119,25 @@
 
         <TextView
             android:id="@+id/bnt_zd"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/bnt_list_height"
+            android:paddingHorizontal="15dp"
             android:layout_marginLeft="10dp"
-            android:layout_weight="1"
             android:background="@drawable/circle_solid_theme_25"
             android:gravity="center"
             android:text="账单"
+            android:textColor="@color/white"
+            android:textSize="@dimen/bnt_list_text_size" />
+
+        <TextView
+            android:id="@+id/bnt_dzht"
+            android:layout_width="wrap_content"
+            android:paddingHorizontal="15dp"
+            android:layout_height="@dimen/bnt_list_height"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/circle_solid_theme_25"
+            android:gravity="center"
+            android:text="电子合同"
             android:textColor="@color/white"
             android:textSize="@dimen/bnt_list_text_size" />
 

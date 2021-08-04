@@ -75,6 +75,9 @@ public class MineHtListActivity extends BaseActivity {
 //                    case R.id.bnt_zd:
 //                        baseStartActivity(MineJfzdActivity.class, null);
 //                        break;
+//                    case R.id.bnt_dzht:
+//                        baseStartActivity(MineJfzdActivity.class, null);
+//                        break;
 
                 }
             }

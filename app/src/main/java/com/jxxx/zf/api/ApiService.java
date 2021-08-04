@@ -74,6 +74,10 @@ public interface ApiService {
     Observable<Result<UserInfoBean>> getDetails();
 
 
+    @POST("api/v1/user/update")
+    Observable<Result> updateUserInfo(@Query("avatar") String avatar,@Query("nickName") String nickName,@Query("gender") String gender,@Query("mobile") String mobile);
+
+
     @GET("api/v1/user/appointment/appointmentList")
     Observable<Result<AppointmentList>> getAppointmentList();
 

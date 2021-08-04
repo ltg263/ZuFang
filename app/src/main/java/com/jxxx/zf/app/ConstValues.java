@@ -12,9 +12,11 @@ public class ConstValues {
     /**sharedpreference 判断是否已登录字段*/
     public static final String ISLOGIN = "islogin";
     public static final String USERID = "user_id";
+    public static final String USER_AVATAR = "avatar";
     public static final String TOKENID = "token";
     public static final String NICK_NAME = "nickname";
     public static final String USER_NO = "user_no";
+    public static final String USER_GENDER = "user_gender";
     public static final String IDENTITY_FLAG = "identity_flag";
     public static final String PORTRAIT_URI = "portrait_uri";
     public static final String BASE_URL = "http://192.168.2.142:8088/renting/";

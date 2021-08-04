@@ -25,6 +25,7 @@ import com.jxxx.zf.view.activity.MineApplyGwActivity;
 import com.jxxx.zf.view.activity.LoginActivity;
 import com.jxxx.zf.view.activity.MineFylrActivity;
 import com.jxxx.zf.view.activity.MineHtListActivity;
+import com.jxxx.zf.view.activity.MineInfoActivity;
 import com.jxxx.zf.view.activity.MineJfzdActivity;
 import com.jxxx.zf.view.activity.MineJieDanActivity;
 import com.jxxx.zf.view.activity.MineKhListActivity;
@@ -172,7 +173,6 @@ public class HomeFourFragment extends BaseFragment {
     protected void initData() {
         if (StringUtil.isNotBlank(SharedUtils.getToken()) && SharedUtils.singleton().get(ConstValues.ISLOGIN, false)) {
             getUserDetails();
-
         } else {
             mTvUserName.setText("请先登录");
             Glide.with(mContext).load(R.mipmap.icon_logo).thumbnail(0.1f)
@@ -252,9 +252,11 @@ public class HomeFourFragment extends BaseFragment {
                 }else{//用户
                     SharedUtils.singleton().put(ConstValues.USER_TYPE,0);
                 }
+                SharedUtils.singleton().put(ConstValues.USER_AVATAR,result.getPortraitUri());
                 SharedUtils.singleton().put(ConstValues.USERID,result.getId());
                 SharedUtils.singleton().put(ConstValues.NICK_NAME,result.getNickname());
                 SharedUtils.singleton().put(ConstValues.USER_NO,result.getUserNo());
+                SharedUtils.singleton().put(ConstValues.USER_GENDER,result.getGender());
                 SharedUtils.singleton().put(ConstValues.IDENTITY_FLAG,result.getIdentityFlag());
                 SharedUtils.singleton().put(ConstValues.PORTRAIT_URI,result.getPortraitUri());
                 if(SharedUtils.getIdentityFlag().equals("3")){
@@ -276,9 +278,14 @@ public class HomeFourFragment extends BaseFragment {
     @OnClick({R.id.rl_user_info, R.id.ll_top_1, R.id.ll_top_2, R.id.ll_top_3, R.id.ll_top_4,
             R.id.ll_below_1, R.id.ll_below_2, R.id.ll_below_3, R.id.ll_below_4})
     public void onClick(View view) {
+        String type = mTvUserName.getText().toString().trim();
+        if(type.equals("请先登录")){
+            baseStartActivity(LoginActivity.class, null);
+            return;
+        }
         switch (view.getId()) {
             case R.id.rl_user_info:
-                baseStartActivity(LoginActivity.class, null);
+                baseStartActivity(MineInfoActivity.class, null);
                 break;
             case R.id.ll_top_1:
                 baseStartActivity(MineHtListActivity.class, null);

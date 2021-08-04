@@ -25,6 +25,7 @@ import com.jxxx.zf.view.activity.MineHtNew1Activity;
 import com.jxxx.zf.view.activity.MineHtNew3Activity;
 import com.jxxx.zf.view.activity.MineQianYueActivity;
 import com.jxxx.zf.view.activity.MineYypjActivity;
+import com.jxxx.zf.view.activity.UserInfoListActivity;
 import com.jxxx.zf.view.activity.ZuFangYyActivity;
 
 import butterknife.BindView;
@@ -419,8 +420,13 @@ public class ZuFangYyxq1Fragment extends BaseFragment {
                     }
                 });
                 break;
-            case "转单":
-                ToastUtils.showShort("进行转单");
+            case "转单"://
+                Intent mIntent = new Intent(mContext, UserInfoListActivity.class);
+                mIntent.putExtra("appointTime",data.getAppointmentTime());
+                mIntent.putExtra("houseId",data.getHouseId());
+                mIntent.putExtra("appointmentId",data.getId());
+                mIntent.putExtra("isZhuanDan","0");
+                startActivity(mIntent);
                 break;
             case "已完成":
                 break;

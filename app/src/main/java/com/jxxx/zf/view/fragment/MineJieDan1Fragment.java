@@ -38,6 +38,8 @@ public class MineJieDan1Fragment extends BaseFragment {
     RecyclerView mRvList;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
+    @BindView(R.id.tv_not_data)
+    TextView mTvNotData;
     int page = 1;
     @Override
     protected int setLayoutResourceID() {
@@ -81,6 +83,7 @@ public class MineJieDan1Fragment extends BaseFragment {
                 initData();
             }
         });
+        showLoading();
     }
 
     private void setOnClickListener(String str, List<AppointmentDetailsBase> data, int position) {
@@ -180,7 +183,6 @@ public class MineJieDan1Fragment extends BaseFragment {
     }
     @Override
     protected void initData() {
-        showLoading();
         RetrofitUtil.getInstance().apiService()
                 .getUserAppointmentJdList(page, ConstValues.PAGE_SIZE, getArguments().getString("status"))
                 .observeOn(AndroidSchedulers.mainThread())
@@ -202,6 +204,13 @@ public class MineJieDan1Fragment extends BaseFragment {
                                     mMineListJdAdapter.setNewData(result.getData().getList());
                                 } else{
                                     mMineListJdAdapter.addData(result.getData().getList());
+                                }
+                                if(mMineListJdAdapter.getData().size()>0){
+                                    mTvNotData.setVisibility(View.GONE);
+                                    mRefreshLayout.setVisibility(View.VISIBLE);
+                                }else{
+                                    mTvNotData.setVisibility(View.VISIBLE);
+                                    mRefreshLayout.setVisibility(View.GONE);
                                 }
 
                                 if(result.getData().getCount()<=mMineListJdAdapter.getData().size()){

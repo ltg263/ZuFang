@@ -109,6 +109,10 @@ public interface ApiService {
     @GET("api/v1/user/appointment/details")
     Observable<Result<AppointmentDetailsBase>> getAppointmentDetails(@Query("id") String  id);
 
+
+    @GET("api/v1/user/adviser/transferOrder")
+    Observable<Result> getTransferOrder(@Query("adviserId") String adviserId,@Query("appointmentId") String appointmentId,@Query("remark") String remark);
+
     @POST("api/v1/user/appointment/comment")
     Observable<Result> getAdviserList(@Body ApplyInfoBean.AppointmentComment mAppointmentComment);
 

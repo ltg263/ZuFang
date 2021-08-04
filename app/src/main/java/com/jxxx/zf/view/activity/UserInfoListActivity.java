@@ -1,11 +1,14 @@
 package com.jxxx.zf.view.activity;
 
+import android.content.Intent;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.jxxx.zf.MainActivity;
 import com.jxxx.zf.R;
 import com.jxxx.zf.api.RetrofitUtil;
 import com.jxxx.zf.app.ConstValues;
@@ -14,6 +17,7 @@ import com.jxxx.zf.bean.AdviserListBean;
 import com.jxxx.zf.bean.AppointmentList;
 import com.jxxx.zf.bean.HomeZuFangListBase;
 import com.jxxx.zf.bean.Result;
+import com.jxxx.zf.utils.DialogUtils;
 import com.jxxx.zf.view.adapter.UserInfoListAdapter;
 
 import java.util.ArrayList;
@@ -48,10 +52,54 @@ public class UserInfoListActivity extends BaseActivity {
 
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if(getIntent().getStringExtra("isZhuanDan").equals("0")){
+                    DialogUtils.showDialogHint(UserInfoListActivity.this, "确定进行转单吗？", false, new DialogUtils.ErrorDialogInterface() {
+                        @Override
+                        public void btnConfirm() {
+                            getTransferOrder(mUserInfoListAdapter.getData().get(position));
+                        }
+                    });
+                    return;
+                }
                 ZuFangYyActivity.mAdviserListBean = mUserInfoListAdapter.getData().get(position);
                 finish();
             }
         });
+    }
+
+    private void getTransferOrder(AdviserListBean.ListBean listBean) {
+
+        showLoading();
+        RetrofitUtil.getInstance().apiService()//
+                .getTransferOrder(listBean.getId(),getIntent().getStringExtra("appointmentId"),"无")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<Result>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result result) {
+                        hideLoading();
+                        if(isResultOk(result)) {
+                            ToastUtils.showShort("转单成功");
+                            startActivity(new Intent(UserInfoListActivity.this, MainActivity.class));
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideLoading();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        hideLoading();
+                    }
+                });
     }
 
     @Override

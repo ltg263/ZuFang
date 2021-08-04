@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,6 +38,8 @@ import io.reactivex.schedulers.Schedulers;
 public class MineFylrFragment extends BaseFragment {
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
+    @BindView(R.id.tv_not_data)
+    TextView tv_not_data;
     private MineListFylrAdapter mMineListFylrAdapter;
 
     @BindView(R.id.rv_list)
@@ -114,6 +117,7 @@ public class MineFylrFragment extends BaseFragment {
                 initData();
             }
         });
+        showLoading();
     }
 
     public void setNotifyDataSetChanged(boolean isBianJi) {
@@ -142,15 +146,11 @@ public class MineFylrFragment extends BaseFragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        mRefreshLayout.finishRefresh();
-                        mRefreshLayout.finishLoadMore();
                         hideLoading();
                     }
 
                     @Override
                     public void onComplete() {
-                        mRefreshLayout.finishRefresh();
-                        mRefreshLayout.finishLoadMore();
                         hideLoading();
                     }
                 });
@@ -183,6 +183,14 @@ public class MineFylrFragment extends BaseFragment {
 
                                 if (result.getData().getCount() <= mMineListFylrAdapter.getData().size()) {
                                     mRefreshLayout.setNoMoreData(true);
+                                }
+
+                                if(mMineListFylrAdapter.getData().size()>0){
+                                    tv_not_data.setVisibility(View.GONE);
+                                    mRefreshLayout.setVisibility(View.VISIBLE);
+                                }else{
+                                    tv_not_data.setVisibility(View.VISIBLE);
+                                    mRefreshLayout.setVisibility(View.GONE);
                                 }
                             }
                         }

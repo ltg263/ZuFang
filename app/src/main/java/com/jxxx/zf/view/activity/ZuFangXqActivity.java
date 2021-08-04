@@ -140,6 +140,7 @@ public class ZuFangXqActivity extends BaseActivity {
     ZuFangDetailsBase data;
     @Override
     public void initData() {
+        showLoading();
         houseDetails();
     }
 

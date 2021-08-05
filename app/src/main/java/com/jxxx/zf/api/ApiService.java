@@ -8,6 +8,9 @@ import com.jxxx.zf.bean.ApplyInfoBean;
 import com.jxxx.zf.bean.AppointmentDetailsBase;
 import com.jxxx.zf.bean.AppointmentList;
 import com.jxxx.zf.bean.ApponintmentApply;
+import com.jxxx.zf.bean.BankListBean;
+import com.jxxx.zf.bean.BankListUserBean;
+import com.jxxx.zf.bean.BankListUserBeans;
 import com.jxxx.zf.bean.ContractBillBean;
 import com.jxxx.zf.bean.HomeZuFangListBase;
 import com.jxxx.zf.bean.HouseCompareBean;
@@ -210,4 +213,22 @@ public interface ApiService {
 
     @GET("api/v1/user/listLog")
     Observable<Result<AccountBillBean>> getAccount(@Query("accountType") String accountType);
+
+    @GET("api/v1/bank/listAll")
+    Observable<Result<List<BankListBean>>> getBankListAll();
+
+    @GET("api/v1/user/bank/list")
+    Observable<Result<BankListUserBeans>> getBankListUserAll();
+
+    @POST("api/v1/user/bank/delete")
+    Observable<Result> getBankDelete(@Query("id") String id);
+
+    @GET("api/v1/user/bank/details")
+    Observable<Result<BankListUserBean>> getBankDetails(@Query("id") String id);
+
+    @POST("api/v1/user/bank/update")
+    Observable<Result> postBankUpdate(@Body BankListUserBean mBankListUserBean);
+
+    @POST("api/v1/user/bank/add")
+    Observable<Result> postBankAdd (@Body BankListUserBean mBankListUserBean);
 }

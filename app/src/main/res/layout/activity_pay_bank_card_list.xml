@@ -10,11 +10,24 @@
         android:id="@+id/include"
         layout="@layout/include_toolbar" />
 
+    <TextView
+        android:id="@+id/tv_not_data"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:drawableTop="@mipmap/ic_cart_not"
+        android:drawablePadding="15dp"
+        android:gravity="center_horizontal"
+        android:paddingVertical="50dp"
+        android:text="暂无数据"
+        android:textColor="@color/color_999999" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cardRv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:visibility="gone"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 

@@ -19,7 +19,7 @@ public class ConstValues {
     public static final String USER_GENDER = "user_gender";
     public static final String IDENTITY_FLAG = "identity_flag";
     public static final String PORTRAIT_URI = "portrait_uri";
-    public static final String BASE_URL = "http://192.168.2.142:8088/renting/";
+    public static final String BASE_URL = "https://api.nbqichen.cn/renting/";
 //-朝东,2-朝南,3-朝西,4-朝北,5-朝东南,6-朝西南,7-朝东北,8-朝西北
     public static final String[] HOUSE_ORIENTATION = new String[]{"朝东" ,"朝南","朝西","朝北","朝东南","朝西南","朝东北","朝西北"};
 
